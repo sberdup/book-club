@@ -19,10 +19,6 @@ class UsersController < ApplicationController
 
     private 
 
-    def grab_user 
-        User.find_by(username: param[:username])
-    end
-
     def user_params 
         params.permit(:first_name, :last_name, :username, :email, :profile_picture, :password_digest)
     end

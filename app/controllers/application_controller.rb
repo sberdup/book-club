@@ -9,6 +9,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   end
 
   private 
+  
+  def grab_user 
+    User.find_by(username: param[:username])
+  end
 
   def render_unprocessable_entity_response(exception)
     render json:{errors: exception.record.errors.full_messages}, status: :unprocessable_entity

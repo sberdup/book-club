@@ -15,4 +15,8 @@ class Book < ApplicationRecord
     has_many :quotes 
     has_many :storylines 
     has_many :themes
+
+    validates :title, :author, :description, presence:true 
+    validates :title, uniqueness:{scope: :author}
+    validates :pages, numericality:{greater_than: 0}
 end

@@ -1,8 +1,7 @@
 class SessionsController < ApplicationController
     def create 
-        user = User.find_by(username: params[:username])
-        session[:user_id] = user.id 
-        render json: user
+        session[:user_id] = grab_user.id 
+        render json: grab_user
     end
 
     def destroy 
