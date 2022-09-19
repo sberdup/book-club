@@ -1,0 +1,2 @@
+class StorylinesController < ApplicationController
+end
