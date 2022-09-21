@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    
     def create 
         render json:User.create!(user_params), status: :created
     end
