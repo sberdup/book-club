@@ -3,21 +3,21 @@ class ApplicationController < ActionController::API
 rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-  @@current_user =|| User.find(session[:user_id])
 
-  def hello_world
-      session[:count] = (session[:count] || 0) + 1
-      render json: { count: session[:count] }
-  end
+def hello_world
+  session[:count] = (session[:count] || 0) + 1
+  render json: { count: session[:count] }
+end
 
-  private 
-  
+private 
+
   def authenticate_user 
+    @@current_user ||= User.find(session[:user_id])
     user&.authenticate(params[:password])
   end
 
   def grab_user 
-    User.find_by(username: param[:username])
+    User.find_by(username: params[:username])
   end
 
   def render_unprocessable_entity_response(exception)

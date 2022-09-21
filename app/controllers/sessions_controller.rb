@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
     def create 
-        session[:user_id] = grab_user.id 
-        render json: grab_user
+        if grab_user&.authenticate(params[:password])
+            session[:user_id] = grab_user.id 
+            render json: grab_user
+        else 
+            render json:{error:'Check your username/password.'}, status: :unauthorized
+        end
     end
 
     def destroy 
