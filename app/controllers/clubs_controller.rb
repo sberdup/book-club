@@ -1,10 +1,15 @@
 class ClubsController < ApplicationController
+    def index 
+        render json:Club.all
+    end
+
     def create 
         render json:Club.create!(club_params), status: :created
     end
 
     def show 
         render json:find_club
+    end
 
     def update 
         find_club.update!(club_params)
@@ -23,6 +28,6 @@ class ClubsController < ApplicationController
     end
 
     def find_club 
-        Club.find(params[:club_id])
+        Club.find(params[:id])
     end
 end
