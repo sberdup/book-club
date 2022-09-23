@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :characters
   resources :locations
   resources :club_books
-  resources :collections
+  resources :collections, except: [:show]
   resources :books
   resources :club_users
   resources :clubs
