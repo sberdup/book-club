@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 puts 'Seeding data...'
+User.destroy_all
+Book.destroy_all 
+Club.destroy_all
 test_user = User.create({
     first_name:'Test', 
     last_name:'Testington', 
@@ -28,9 +31,22 @@ test_club = Club.create({
     message:'Welcome to the test.'
 })
 
-test_user.books << death_of_a_salesman
-test_club.users << test_user
-test_club.books << death_of_a_salesman
+Collection.create({
+    user_id:test_user.id,
+    book_id:death_of_a_salesman.id,
+    status:'In Progress'
+})
+ClubUser.create({
+    user_id:test_user.id, 
+    club_id:test_club.id,
+    is_owner:true, 
+    is_admin:true
+})
+ClubBook.create({
+    club_id:test_club.id,
+    book_id:death_of_a_salesman.id,
+    status:'Not Started'
+})
 
 willy = Character.create({
     book_id:death_of_a_salesman.id,
