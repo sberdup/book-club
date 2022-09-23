@@ -5,6 +5,7 @@ class ClubsController < ApplicationController
 
     def show 
         render json:find_club
+    end
 
     def update 
         find_club.update!(club_params)
