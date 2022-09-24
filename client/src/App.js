@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from './routes/LandingPage'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,8 +15,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/testing" element={<h1>Test Route</h1>}/>
-          <Route path="/" element={<h1>Page Count: {count}</h1>}/>
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/testing" element={<h1>Test/Page Count: {count}</h1>}/>
         </Routes>
       </div>
     </BrowserRouter>
