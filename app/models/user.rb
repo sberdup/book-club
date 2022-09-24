@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-    has_many :club_users
+    has_many :club_users, dependent: :destroy
     has_many :clubs, through: :club_users
 
-    has_many :collections
+    has_many :collections, dependent: :destroy
     has_many :books, through: :collections
 
     has_secure_password

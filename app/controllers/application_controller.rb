@@ -17,7 +17,8 @@ private
   end
 
   def grab_user 
-    User.find_by(username: params[:username])
+    User.find(params[:id]) 
+    # || User.find_by(username:params[:username])
   end
 
   def render_unprocessable_entity_response(exception)

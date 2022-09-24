@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
     def create 
-        if grab_user&.authenticate(params[:password])
-            session[:user_id] = grab_user.id 
-            render json: grab_user
+        user = User.find_by(username:params[:username])
+        if user&.authenticate(params[:password])
+            session[:user_id] = user.id 
+            render json: user
         else 
             render json:{error:'Check your username/password.'}, status: :unauthorized
         end
