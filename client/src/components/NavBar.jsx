@@ -1,12 +1,12 @@
 import React from 'react'
-import { Outlet } from 'react-router'
+import { NavLink, Outlet } from 'react-router-dom'
 import LogInOut from './LogInOut'
 
 function NavBar() {
   return (
     <>
       <div className='NavBar'>
-        <div>A</div>
+        <NavLink to="homepage/clubs">My Clubs</NavLink>
         <div>B</div>
         <div>
           <LogInOut/>

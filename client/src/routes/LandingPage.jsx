@@ -9,11 +9,12 @@ function LandingPage() {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const [errors, setErrors] = useState([])
-  console.log(errors)
+  // console.log(errors)
+  
   useEffect(() => {
     console.log(user)
     if (user.id) {
-      navigate(`/user/${user.id}`)
+      navigate('homepage')
     }
   }, [user, navigate])
 

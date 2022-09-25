@@ -7,9 +7,10 @@ import ClubPage from "./routes/ClubPage";
 import BookPage from "./routes/BookPage";
 import NavBar from "./components/NavBar";
 import './App.css'
+import ClubGrid from "./components/ClubGrid";
 
 function App() {
-  const [user, setUser] = useState({id:false});
+  const [user, setUser] = useState({ id: false });
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -37,7 +38,9 @@ function App() {
           <Route element={<ContextLayout values={{ user, setUser }} />}>
             <Route path="/" element={<LandingPage />} />
             <Route element={<NavBar />}>
-              <Route path="/users/:userId" element={<UserPage />} />
+              <Route path="homepage" element={<UserPage />}>
+                <Route path="clubs" element={<ClubGrid />} />
+              </Route>
               <Route path="/clubs/:clubId" element={<ClubPage />} />
               <Route path="/books/:bookId" element={<BookPage />} />
             </Route>
