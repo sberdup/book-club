@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
 import {UserContext} from '../context/UserContext'
+import {useNavigate} from 'react-router-dom'
 
-function LogInOut() {
-  const [user, setUser] = useContext(UserContext)
+function LogInOut({setErrors}) {
+  const {user, setUser} = useContext(UserContext)
   const [formData, setFormData] = useState({ username: '', password: '' })
+  const navigate = useNavigate()
 
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -17,15 +19,28 @@ function LogInOut() {
       body: JSON.stringify({ username: formData.username, password: formData.password })
     })
     const data = await resp.json()
-    console.log(data)
-    setUser(data)
-    // setFormData({username:'',password:''})
+    if (resp.ok){
+      setUser(data)
+    } else {
+      setErrors(data)
+    }
+    //passing user into context, which goes up to App state
+  }
+  async function logoutHandler(){
+    const resp = await fetch('/logout', {
+      method:'DELETE'
+    })
+    if (resp.ok) {
+      setUser({id:false})
+      console.log('logged out')
+      navigate('/')
+    }
   }
   return (
     <div>
-      {!!user ?
+      {user.id ?
 
-        <button>Log Out</button> :
+        <button onClick={logoutHandler}>Log Out</button> :
 
         <form onSubmit={submitHandler}>
           <label htmlFor='username'>Username: </label>

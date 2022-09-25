@@ -7,10 +7,11 @@ class UsersController < ApplicationController
     end
 
     def show 
-        render json:grab_user
+        render json:User.find(session[:user_id])
     end
 
     def update 
+        user = User.find()
         grab_user.update!(user_params)
         render json:grab_user, status: :accepted
     end
