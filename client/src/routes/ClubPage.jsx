@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
-
 function ClubPage() {
   const [club, setClub] = useState({id: false })
   const { clubId } = useParams()
-  console.log(club)
+
+  // getting appropriate club based on params
   useEffect(() => {
+    // console.log(club)
     getClub()
   }, [])
   async function getClub() {

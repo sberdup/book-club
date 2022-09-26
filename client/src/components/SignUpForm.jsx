@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 
-function SignUpForm() {
+function SignUpForm({setErrors}) {
   const {setUser} = useContext(UserContext)
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', username: '', password: '', passwordConfirmation: '', profilePicture: '' })
 
@@ -26,7 +26,11 @@ function SignUpForm() {
     })
     const data = await resp.json()
     console.log(data)
-    setUser(data)
+    if (resp.ok){
+      setUser(data)
+    } else {
+      setErrors(data)
+    }
     //passing user into context, which goes up to App state
   }
 
@@ -48,11 +52,11 @@ function SignUpForm() {
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="text" id="password" value={formData.password} onChange={inputHandler}></input>
+          <input type="password" id="password" value={formData.password} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="passwordConfirmation">Confirm Password: </label>
-          <input type="text" id="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></input>
+          <input type="password" id="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="email">Email: </label>

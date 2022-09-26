@@ -7,6 +7,7 @@ function LogInOut({setErrors}) {
   const [formData, setFormData] = useState({ username: '', password: '' })
   const navigate = useNavigate()
 
+  // fills out the state for the form
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
@@ -21,10 +22,10 @@ function LogInOut({setErrors}) {
     const data = await resp.json()
     if (resp.ok){
       setUser(data)
+      //passing user into context, which goes up to App state
     } else {
       setErrors(data)
     }
-    //passing user into context, which goes up to App state
   }
   async function logoutHandler(){
     const resp = await fetch('/logout', {
@@ -32,8 +33,8 @@ function LogInOut({setErrors}) {
     })
     if (resp.ok) {
       setUser({id:false})
-      console.log('logged out')
       navigate('/')
+      // go back to landing page after successful logout
     }
   }
   return (
@@ -46,7 +47,7 @@ function LogInOut({setErrors}) {
           <label htmlFor='username'>Username: </label>
           <input type="text" id="username" value={formData.username} onChange={inputHandler}></input>
           <label htmlFor="password">Password: </label>
-          <input type="text" id="password" value={formData.password} onChange={inputHandler}></input>
+          <input type="password" id="password" value={formData.password} onChange={inputHandler}></input>
           <input type='submit'/>
         </form>
       }

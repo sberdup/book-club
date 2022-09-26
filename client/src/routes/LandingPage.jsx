@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 
 function LandingPage() {
-  // will need to have a way to navigate to another route if user is already logged in
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const [errors, setErrors] = useState([])
   // console.log(errors)
-  
+
+  // vvv handles sending the user to the homepage if they're logged in successfully
   useEffect(() => {
     console.log(user)
     if (user.id) {
@@ -23,8 +23,9 @@ function LandingPage() {
       <h1>Welcome to the Book Club App!</h1>
       <LogInOut setErrors={setErrors}/>
       <hr />
-      {errors.length === 0 ? null: errors.messages.map(e => <p key={e} style={{color:'red'}}>{`${e}`}</p>)}
-      <SignUpForm />
+      {/* vvv handles errors received from either user creation or login failure currently */}
+      {errors.length === 0 ? null: errors.errors.map(e => <p key={e} style={{color:'red'}}>{`${e}`}</p>)}
+      <SignUpForm setErrors={setErrors}/>
     </div>
   )
 }

@@ -8,6 +8,7 @@ import BookPage from "./routes/BookPage";
 import NavBar from "./components/NavBar";
 import './App.css'
 import ClubGrid from "./components/ClubGrid";
+import BookGrid from "./components/BookGrid";
 
 function App() {
   const [user, setUser] = useState({ id: false });
@@ -34,16 +35,23 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {/* ContextLayout is encapsulating below routes to provide context */}
           <Route element={<ContextLayout values={{ user, setUser }} />}>
+          {/* ContextLayout is encapsulating below routes to provide context */}
             <Route path="/" element={<LandingPage />} />
+
             <Route element={<NavBar />}>
+            {/* NavBar wraps around site after a user is logged in */}
               <Route path="homepage" element={<UserPage />}>
+                {/* homepage for user should contain user's books and clubs */}
                 <Route path="clubs" element={<ClubGrid />} />
+                <Route path="books" element={<BookGrid />} />
               </Route>
+              
               <Route path="/clubs/:clubId" element={<ClubPage />} />
               <Route path="/books/:bookId" element={<BookPage />} />
+              
             </Route>
+
           </Route>
           <Route path="/testing" element={<h1>Test/Page Count: {count}</h1>} />
         </Routes>
