@@ -17,7 +17,7 @@ private
   end
 
   def grab_user 
-    User.find(params[:id]) 
+    User.find_by(id:params[:id]) || User.find(session[:user_id])
     # || User.find_by(username:params[:username])
   end
 

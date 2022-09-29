@@ -7,6 +7,7 @@ function BookGrid() {
 // pulling in data from user which includes books in user's collection
   return (
     <div>
+      <h2>Your Books</h2>
       {user.books.map(book => <BookTile key={book.id} book={book} />)}
     </div>
   )
