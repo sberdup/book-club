@@ -5,7 +5,7 @@ class ClubsController < ApplicationController
 
     def create 
         new_club = Club.create!(club_params)
-        ClubUser.create!({club_id:new_club.id, user_id:grab_user.id, is_owner:true})
+        ClubUser.create!({club_id:new_club.id, user_id:grab_user.id, is_owner:true, is_admin:true})
         render json:new_club, status: :created
     end
 
