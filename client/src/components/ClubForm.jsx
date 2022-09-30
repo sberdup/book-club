@@ -1,7 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { UserContext } from '../context/UserContext'
 
 function ClubForm({setErrors}) {
-  const [formData, setFormData] = useState({ name: '', clubPicture: '', message: ''})
+  const emptyForm = { name: '', clubPicture: '', message: ''}
+  const [formData, setFormData] = useState(emptyForm)
+  const {user, setUser} = useContext(UserContext)
 
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -21,9 +24,9 @@ function ClubForm({setErrors}) {
     const data = await resp.json()
     console.log(data)
     if (resp.ok){
-      // setUser(data)
-      console.log(data)
-      // will have to copy this into user context as new group
+      setFormData(emptyForm)
+      setUser({...user, clubs:[...user.clubs, data]})
+      setErrors({errors:['Success!']})
     } else {
       setErrors(data)
     }

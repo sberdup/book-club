@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import React, { useEffect, useContext } from 'react'
+import { Outlet, useParams } from 'react-router'
+import { ClubContext } from '../context/ClubContext'
 
 function ClubPage() {
-  const [club, setClub] = useState({id: false })
+  const {club, setClub} = useContext(ClubContext)
   const { clubId } = useParams()
 
   // getting appropriate club based on params
@@ -23,6 +24,7 @@ function ClubPage() {
         <>
           <h2>{`Welcome to ${club.name}!`}</h2>
           <p>{club.message}</p>
+          <Outlet/>
         </>
         : null}
     </div>

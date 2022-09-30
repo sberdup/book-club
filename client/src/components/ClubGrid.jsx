@@ -13,7 +13,7 @@ function ClubGrid() {
         <div>
             {location.pathname === '/homepage/clubs' ? <ClubForm setErrors={setErrors} /> : null}
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
-            <h2>Your Books</h2>
+            <h2>Your Clubs</h2>
             {user.clubs.map(club => <ClubTile key={club.id} club={club} />)}
         </div>
     )
