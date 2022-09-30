@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { Outlet, useParams } from 'react-router'
+import { NavLink } from 'react-router-dom'
 import { ClubContext } from '../context/ClubContext'
 
 function ClubPage() {
@@ -24,6 +25,7 @@ function ClubPage() {
         <>
           <h2>{`Welcome to ${club.name}!`}</h2>
           <p>{club.message}</p>
+          <NavLink to="books">Club Books</NavLink>
           <Outlet/>
         </>
         : null}
