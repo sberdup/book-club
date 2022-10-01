@@ -9,10 +9,11 @@ import NavBar from "./components/NavBar";
 import './App.css'
 import ClubGrid from "./components/ClubGrid";
 import BookGrid from "./components/BookGrid";
+import ClubUsersForm from "./components/ClubUsersForm";
 
 function App() {
   const [user, setUser] = useState({ id: false });
-  const [club, setClub] = useState({id: false })
+  const [club, setClub] = useState({ id: false })
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -45,11 +46,16 @@ function App() {
               <Route path="homepage" element={<UserPage />}>
                 {/* homepage for user should contain user's books and clubs */}
                 <Route path="clubs" element={<ClubGrid />} />
-                <Route path="books" element={<BookGrid type={'user'}/>} />
+                <Route path="books" element={<BookGrid type={'user'} />} />
               </Route>
 
               <Route path="/clubs/:clubId" element={<ClubPage />}>
-                <Route path="books" element={<BookGrid type={'club'}/>} />
+                <Route path="books" element={<BookGrid type={'club'} />} />
+                <Route path="options" element={
+                  <>
+                    <ClubUsersForm/>
+                  </>
+                } />
               </Route>
 
               <Route path="/books/:bookId" element={<BookPage />} />
