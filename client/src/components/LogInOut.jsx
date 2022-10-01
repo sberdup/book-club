@@ -43,7 +43,7 @@ function LogInOut({setErrors}) {
 
         <button onClick={logoutHandler}>Log Out</button> :
 
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} className='basicborder'>
           <label htmlFor='username'>Username: </label>
           <input type="text" id="username" value={formData.username} onChange={inputHandler}></input>
           <label htmlFor="password">Password: </label>

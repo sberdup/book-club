@@ -37,7 +37,7 @@ function SignUpForm({setErrors}) {
   return (
     <div>
       <h3>Sign Up for a New Account</h3>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className='basicborder'>
         <div>
           <label htmlFor="firstName">First Name: </label>
           <input type="text" id="firstName" value={formData.firstName} onChange={inputHandler}></input>

@@ -36,7 +36,7 @@ function ClubForm({setErrors}) {
   return (
     <div>
       <h3>Create a new Club!</h3>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className='basicborder'>
         <div>
           <label htmlFor="name">Club Name: </label>
           <input type="text" id="name" value={formData.name} onChange={inputHandler}></input>

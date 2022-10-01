@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #74BAFE;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -41,5 +43,19 @@
   display: grid;
   grid-template-columns: auto auto auto;
   max-width: 100%;
+  background-color: bisque;
 }
 
+.basicborder {
+  border: 3px solid green;
+  width:fit-content; 
+  margin:auto;
+  padding:1px;
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  max-width: 100%;
+  background-color: rgb(255, 253, 141);
+}

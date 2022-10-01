@@ -1,8 +1,11 @@
 import React from 'react'
+import WikiTile from './WikiTile'
 
 function WikiGrid() {
   return (
-    <div>WikiGrid</div>
+    <div>
+      <WikiTile/>
+    </div>
   )
 }
 

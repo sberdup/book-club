@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router'
+import WikiBar from '../components/WikiBar'
+import WikiGrid from '../components/WikiGrid'
 
 function BookPage() {
     const [book, setBook] = useState({id: false })
@@ -26,6 +28,8 @@ function BookPage() {
             <p>{book.description}</p>
           </>
           : null}
+          <WikiBar/>
+          <WikiGrid/>
       </div>
     )
   }

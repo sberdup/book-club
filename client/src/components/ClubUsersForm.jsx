@@ -86,14 +86,14 @@ function ClubUsersForm() {
     // trying to get selection box items to refresh with state
 
     return (
-        <div>
+        <div className='basicborder'>
             <h4>{mode.message}</h4>
-            <div>
+            <div className="basicborder">
                 <button onClick={() => setMode(inviteParams)}>Invite</button>
                 <button onClick={() => setMode(kickParams)}>Remove</button>
                 <button onClick={() => setMode(editParams)}>Edit</button>
             </div>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} className="basicborder">
                 {mode.action === 'POST' ?
                     <div>
                         <label htmlFor="username">Username: </label>
