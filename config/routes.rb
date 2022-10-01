@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :club_books
   resources :collections, except: [:show]
   resources :books
-  resources :club_users
+  resources :club_users, except: [:index]
   resources :clubs
   resources :users, except: [:index, :show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

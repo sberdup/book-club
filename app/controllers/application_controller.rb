@@ -15,14 +15,6 @@ private
     render json: {errors: "User not authorized."}, status: :unauthorized unless grab_user
   end
 
-  def auth_admin 
-    render json:{errors:"You do not have admin permissions for this action."}, status: :unauthorized unless grab_user.is_admin?
-  end
-
-  def auth_owner
-    render json: {errors: "You do not have owner permissions for this action."}, status: :unauthorized unless grab_user.is_owner?
-  end
-
   def grab_user 
     @current_user ||= User.find(session[:user_id])
     # || User.find_by(username:params[:username])
@@ -33,6 +25,6 @@ private
   end
 
   def render_not_found_response(exception)
-    render json:{errors: "#{exception.model} not found!"}, status: :not_found
+    render json:{errors: ["#{exception.model} not found!"]}, status: :not_found
   end
 end

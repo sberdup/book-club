@@ -18,6 +18,7 @@ function ClubUsersForm() {
     }, [])
 
     async function getClubUsers() {
+        console.log(club)
         const resp = await fetch(`/club_users/${club.id}`)
         const data = await resp.json()
         if (resp.ok) {
@@ -43,7 +44,8 @@ function ClubUsersForm() {
             body: (mode.action !== 'DELETE') && JSON.stringify({
                 username: formData.username,
                 is_admin: (mode.action !== 'POST') && formData.isAdmin,
-                is_owner: false
+                is_owner: false,
+                club_id:club.id
             })
         })
         const data = await resp.json()
@@ -73,8 +75,11 @@ function ClubUsersForm() {
                     :
                     <div>
                         <label htmlFor='users'>Select a user: </label>
-                        <select id='users'>
-                            {clubUsers.map(user => <option key={user.id}>{user.id}</option>)}
+                        <select id='users' onChange={(e) => {console.log(e.target.value)}}>
+                            {clubUsers.map(clubUser =>
+                                <option key={clubUser.user.id}>
+                                    {clubUser.user.username}
+                                </option>)}
                         </select>
                     </div>
                 }
