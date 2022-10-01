@@ -8,7 +8,6 @@ class ClubUsersController < ApplicationController
 
     def create 
         new_user = User.find_by!(username:params[:username])
-        debugger
         render json:ClubUser.create!({club_id:params[:club_id], user_id:new_user.id, is_admin:params[:is_admin], is_owner:params[:is_owner]}), status: :created
     end
 
@@ -19,7 +18,7 @@ class ClubUsersController < ApplicationController
 
     def destroy
         find_club_user.destroy
-        head :no_content
+        render json:{message:"User removed."}, status: :ok
     end
 
     private 
