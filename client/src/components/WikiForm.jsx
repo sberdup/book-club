@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { BookContext } from '../context/BookContext'
 
 function WikiForm() {
@@ -39,15 +39,16 @@ function WikiForm() {
 
         let endpoint
         if (mode.action === 'POST') {
-            endpoint = `/${fetchParams.category}/${fetchParams.id}`
-        } else {
             endpoint = `/${fetchParams.category}`
+        } else {
+            endpoint = `/${fetchParams.category}/${fetchParams.id}`
         }
 
         const resp = await fetch(endpoint, {
             method: mode.action,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                book_id:book.id,
                 id: fetchParams.id,
                 name: formData.name,
                 description: formData.description,
@@ -59,20 +60,27 @@ function WikiForm() {
                 page: parseInt(formData.page)
             })
         })
-        const data = await resp.json()
-        // head: :no_content causes unexpected end of JSON here, return usable data instead
+        let data
+        if (mode.action !== 'DELETE'){
+            data = await resp.json()
+        }
+        // head: :no_content can be circumvented by not resolving the response
+        console.log(data)
         if (resp.ok) {
             if (mode.action === 'DELETE') {
-                setBook([...book].filter(bookPart => bookPart.id !== data.id))
+                setBook({ ...book, [fetchParams.category]: book[fetchParams.category].filter(bookPart => bookPart.id !== parseInt(fetchParams.id)) })
             } else if (mode.action === 'POST') {
-                setBook([...book, data])
+                setBook({ ...book, [fetchParams.category]: [...book[fetchParams.category], data] })
             } else {
-                setBook([...book].map(bookPart => {
-                    if (bookPart.id === data.id) {
-                        return data
-                    }
-                    return bookPart
-                }))
+                setBook({
+                    ...book,
+                    [fetchParams.category]: [...book[fetchParams.category]].map(bookPart => {
+                        if (bookPart.id === data.id) {
+                            return data
+                        }
+                        return bookPart
+                    })
+                })
             }
             setFormData(emptyForm)
             setErrors({ errors: ['Success!'] })
@@ -80,7 +88,6 @@ function WikiForm() {
             setErrors(data)
         }
     }
-    console.log(formData)
     // const sortedElements = book.sort(bookPart => bookPart.id)
 
     return (
@@ -108,7 +115,8 @@ function WikiForm() {
                 {mode.action !== 'POST' ?
                     <>
                         <label htmlFor='elementSelect'>Entry: </label>
-                        <select onChange={entrySelectHandler}>
+                        <select onChange={entrySelectHandler} defaultValue='default'>
+                            <option disabled value='default'>--choose an element--</option>
                             {book[fetchParams.category].map((element) => (
                                 <option key={element.id} value={element.id}>
                                     {element.name || element.body.slice(0, 50)}

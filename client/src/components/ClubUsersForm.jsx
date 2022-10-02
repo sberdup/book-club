@@ -62,13 +62,14 @@ function ClubUsersForm() {
         })
         const data = await resp.json()
         // head: :no_content causes unexpected end of JSON here, return usable data instead
+        console.log(data)
         if (resp.ok) {
             if (mode.action === 'DELETE') {
-                setClubUsers([...clubUsers].filter(clubUser => clubUser.id !== data.id))
+                setClubUsers(clubUsers.filter(clubUser => clubUser.id !== parseInt(formData.clubUserID)))
             } else if (mode.action === 'POST') {
                 setClubUsers([...clubUsers, data])
             } else {
-                setClubUsers([...clubUsers].map(clubUser => {
+                setClubUsers(clubUsers.map(clubUser => {
                     if (clubUser.id === data.id) {
                         return data
                     }
@@ -76,6 +77,7 @@ function ClubUsersForm() {
                 }))
             }
             setFormData(emptyForm)
+            e.target.reset()
             setErrors({ errors: ['Success!'] })
         } else {
             setErrors(data)
@@ -102,7 +104,8 @@ function ClubUsersForm() {
                     :
                     <div>
                         <label htmlFor='clubUserID'>Select a user: </label>
-                        <select id='clubUserID' onChange={inputHandler}>
+                        <select id='clubUserID' onChange={inputHandler} defaultValue='default'>
+                            <option disabled value='default'>--choose a user--</option>
                             {sortedUsers.map(clubUser =>
                                 <option key={clubUser.user.id} value={clubUser.id}>
                                     {clubUser.user.username}

@@ -4,7 +4,6 @@ function WikiTile({ element }) {
 
   function objectToKeys(object) {
     const elKeys = Object.keys(object)
-    console.log(elKeys)
     return elKeys
   }
   function propertyToJSX(key, element) {
