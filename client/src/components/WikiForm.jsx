@@ -2,23 +2,36 @@ import React, { useContext, useState } from 'react'
 import { BookContext } from '../context/BookContext'
 
 function WikiForm() {
-    const emptyForm = { id: 'none', name: '', description: '', aliases: '', time: '', location: '', chapter: '', page: '' }
+    const emptyForm = { name: '', description: '', aliases: '', time: '', location: '', chapter: '', page: '', body: '' }
     const addParams = { action: 'POST', message: 'Add a new entry!' }
     const deleteParams = { action: 'DELETE', message: 'Remove an entry (careful!)' }
     const editParams = { action: 'PATCH', message: "Update an entry." }
+
+    const categories = ['book_elements', 'characters', "eras", "events", "groups", "items", "locations", "quotes", "storylines", "themes"]
+    const displayNames = ['Misc', 'Characters', "Times", "Events", "Groups", "Objects", "Places", "Quotes", "Storylines", "Themes"]
+
 
     const [mode, setMode] = useState(addParams)
     const [formData, setFormData] = useState(emptyForm)
     const [errors, setErrors] = useState([])
     const { book, setBook } = useContext(BookContext)
 
+    const [fetchParams, setFetchParams] = useState({ category: 'book_elements', id: 'none' })
+
     function inputHandler(e) {
-        if (e.target.type === 'checkbox') {
-            setFormData({ ...formData, [e.target.id]: e.target.checked })
-        } else {
-            setFormData({ ...formData, [e.target.id]: e.target.value })
-        }
+        setFormData({ ...formData, [e.target.id]: e.target.value })
+        // if (e.target.type === 'checkbox') {
+        //     setFormData({ ...formData, [e.target.id]: e.target.checked })
+        // } else {
+        // }
+
         // may need condition for selection
+    }
+    function categorySelectHandler(e) {
+        setFetchParams({ ...fetchParams, category: e.target.value })
+    }
+    function entrySelectHandler(e) {
+        setFetchParams({ ...fetchParams, id: e.target.value })
     }
 
     async function submitHandler(e) {
@@ -26,24 +39,24 @@ function WikiForm() {
 
         let endpoint
         if (mode.action === 'POST') {
-            endpoint = '/club_users'
+            endpoint = `/${fetchParams.category}/${fetchParams.id}`
         } else {
-            endpoint = `/club_users/${formData.bookPartID}`
+            endpoint = `/${fetchParams.category}`
         }
-        // gets params from form to navigate delete/update
 
         const resp = await fetch(endpoint, {
             method: mode.action,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: formData.id,
+                id: fetchParams.id,
                 name: formData.name,
                 description: formData.description,
                 aliases: formData.aliases,
                 time: formData.time,
                 location: formData.location,
-                chapter: formData.chapter,
-                page: formData.page
+                body: formData.body,
+                chapter: parseInt(formData.chapter),
+                page: parseInt(formData.page)
             })
         })
         const data = await resp.json()
@@ -67,62 +80,99 @@ function WikiForm() {
             setErrors(data)
         }
     }
-    console.log(book)
+    console.log(formData)
     // const sortedElements = book.sort(bookPart => bookPart.id)
-    // trying to get selection box items to refresh with state
 
     return (
         <div className='basicborder'>
+
             <h4>{mode.message}</h4>
             <div className="basicborder">
                 <button onClick={() => setMode(addParams)}>Add</button>
                 <button onClick={() => setMode(editParams)}>Edit</button>
                 <button onClick={() => setMode(deleteParams)}>Delete</button>
             </div>
-            <form onSubmit={submitHandler} className="basicborder">
-                {mode.action !== 'DELETE' ?
-                    <div>
-                        <div>
-                            <label htmlFor="name">Name: </label>
-                            <input type="text" id="name" value={formData.name} onChange={inputHandler}></input>
-                        </div>
-                        <div>
 
-                            <label htmlFor="description">Description: </label>
-                            <input type="text" id="description" value={formData.description} onChange={inputHandler}></input>
-                        </div>
-                        <div>
-                            <label htmlFor="aliases">Aliases: </label>
-                            <input type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></input>
-                        </div>
-                        <div>
-                            <label htmlFor="time">Time: </label>
-                            <input type="text" id="time" value={formData.time} onChange={inputHandler}></input>
-                        </div>
-                        <div>
-                            <label htmlFor="location">Location: </label>
-                            <input type="text" id="location" value={formData.location} onChange={inputHandler}></input>
-                        </div>
-                        <div>
-                            <label htmlFor="chapter">Chapter: </label>
-                            <input type="text" id="chapter" value={formData.chapter} onChange={inputHandler}></input>
-                        </div>
-                        <div>
-                            <label htmlFor="page">Page: </label>
-                            <input type="text" id="page" value={formData.page} onChange={inputHandler}></input>
-                        </div>
-                    </div>
-                    :
-                    <div>
-                        {/* <label htmlFor='bookPartID'>Select a user: </label>
-                        <select id='bookPartID' onChange={inputHandler}>
-                            {sortedElements.map(bookPart =>
-                                <option key={bookPart.id} value={bookPart.id}>
-                                    {bookPart.id}
+            <form onSubmit={submitHandler} className="basicborder">
+
+                <label htmlFor='categorySelect'>Category: </label>
+                <select onChange={categorySelectHandler}>
+                    {categories.map((category, idx) => (
+                        <option key={category} value={category}>
+                            {displayNames[idx]}
+                        </option>
+                    ))}
+                </select>
+                {/* ^ will change the select box below it to get entry for edit/delete's ID */}
+
+                {mode.action !== 'POST' ?
+                    <>
+                        <label htmlFor='elementSelect'>Entry: </label>
+                        <select onChange={entrySelectHandler}>
+                            {book[fetchParams.category].map((element) => (
+                                <option key={element.id} value={element.id}>
+                                    {element.name || element.body.slice(0, 50)}
                                 </option>
-                            )}
-                        </select> */}
-                    </div>
+                            ))}
+                        </select>
+                    </>
+                    : null
+                }
+
+                {mode.action !== 'DELETE' ?
+                    <>
+                        {fetchParams.category !== 'quotes' ?
+                            <>
+                                <div>
+                                    <label htmlFor="name">Name: </label>
+                                    <input type="text" id="name" value={formData.name} onChange={inputHandler}></input>
+                                </div>
+                                <div>
+                                    <label htmlFor="description">Description: </label>
+                                    <input type="text" id="description" value={formData.description} onChange={inputHandler}></input>
+                                </div>
+
+                                {fetchParams.category === 'characters' ?
+                                    <div>
+                                        <label htmlFor="aliases">Aliases: </label>
+                                        <input type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></input>
+                                    </div>
+                                    : null
+                                }
+                                {fetchParams.category === 'eras' ?
+                                    <div>
+                                        <label htmlFor="time">Time: </label>
+                                        <input type="datetime-local" id="time" value={formData.time} onChange={inputHandler}></input>
+                                    </div>
+                                    : null
+                                }
+                                {fetchParams.category === 'locations' ?
+                                    <div>
+                                        <label htmlFor="location">Location: </label>
+                                        <input type="text" id="location" value={formData.location} onChange={inputHandler}></input>
+                                    </div>
+                                    : null
+                                }
+                            </>
+                            :
+                            <>
+                                <div>
+                                    <label htmlFor="body">Body: </label>
+                                    <input type="text" id="body" value={formData.body} onChange={inputHandler}></input>
+                                </div>
+                                <div>
+                                    <label htmlFor="chapter">Chapter: </label>
+                                    <input type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></input>
+                                </div>
+                                <div>
+                                    <label htmlFor="page">Page: </label>
+                                    <input type="number" id="page" value={formData.page} onChange={inputHandler}></input>
+                                </div>
+                            </>
+                        }
+                    </>
+                    :
+                    <div>delete</div>
                 }
                 <input type='submit' />
             </form>

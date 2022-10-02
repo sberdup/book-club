@@ -90,8 +90,8 @@ function ClubUsersForm() {
             <h4>{mode.message}</h4>
             <div className="basicborder">
                 <button onClick={() => setMode(inviteParams)}>Invite</button>
-                <button onClick={() => setMode(kickParams)}>Remove</button>
                 <button onClick={() => setMode(editParams)}>Edit</button>
+                <button onClick={() => setMode(kickParams)}>Remove</button>
             </div>
             <form onSubmit={submitHandler} className="basicborder">
                 {mode.action === 'POST' ?
