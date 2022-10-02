@@ -1,10 +1,11 @@
 import React from 'react'
 import WikiTile from './WikiTile'
 
-function WikiGrid() {
+function WikiGrid({bookSelection}) {
+  console.log(bookSelection)
   return (
-    <div>
-      <WikiTile/>
+    <div className='tileGrid'>
+      {bookSelection.map(element => <WikiTile element={element} key={element.id}/>)}
     </div>
   )
 }
