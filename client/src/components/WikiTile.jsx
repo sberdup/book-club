@@ -8,12 +8,25 @@ function WikiTile({ element }) {
     return elKeys
   }
   function propertyToJSX(key, element) {
-    return (
-      <>
-        <h4>{key}</h4>
-        <li>{element[key]}</li>
-      </>
-    )
+    if (key === 'id' || element[key] === null) {
+      return <span style={{ display: 'none' }}></span>
+    }
+    // Not displaying ID or fields with no information
+    switch (key) {
+      case 'chapter':
+      case 'page':
+        return (
+            <h6>{key.charAt(0).toUpperCase() + key.slice(1) + ': ' + element[key]}</h6>
+        )
+      default:
+        return (
+          <>
+            <h4>{key.charAt(0).toUpperCase() + key.slice(1)}</h4>
+            <p>{element[key]}</p>
+          </>
+        )
+    }
+
   }
 
   const elementMap = objectToKeys(element).map((key) => {
