@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from './routes/LandingPage'
+import './App.css'
+import LandingPage from './routes/LandingPage';
 import ContextLayout from "./context/ContextLayout";
 import UserPage from "./routes/UserPage";
 import ClubPage from "./routes/ClubPage";
 import BookPage from "./routes/BookPage";
 import NavBar from "./components/NavBar";
-import './App.css'
 import ClubGrid from "./components/ClubGrid";
 import BookGrid from "./components/BookGrid";
 import ClubUsersForm from "./components/ClubUsersForm";
+import WikiForm from "./components/WikiForm";
 
 function App() {
-  const [user, setUser] = useState({ id: false });
+  const [user, setUser] = useState({ id: false })
   const [club, setClub] = useState({ id: false })
+  const [book, setBook] = useState({ id: false })
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -37,7 +39,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route element={<ContextLayout values={{ user, setUser, club, setClub }} />}>
+          <Route element={<ContextLayout values={{ user, setUser, club, setClub, book, setBook }} />}>
             {/* ContextLayout is encapsulating below routes to provide context */}
             <Route path="/" element={<LandingPage />} />
 
@@ -53,12 +55,14 @@ function App() {
                 <Route path="books" element={<BookGrid type={'club'} />} />
                 <Route path="options" element={
                   <>
-                    <ClubUsersForm/>
+                    <ClubUsersForm />
                   </>
                 } />
               </Route>
 
-              <Route path="/books/:bookId" element={<BookPage />} />
+              <Route path="/books/:bookId" element={<BookPage />}>
+                <Route path="edit" element={<WikiForm/>}/>
+              </Route>
 
             </Route>
 
