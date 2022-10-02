@@ -12,13 +12,21 @@ class ClubUsersController < ApplicationController
     end
 
     def update 
-        find_club_user.update!(club_user_params)
-        render json:find_club_user, status: :accepted
+        if find_club_user.is_owner?
+            render json:{errors:["Abdication not permitted."]}, status: :forbidden 
+        else
+            find_club_user.update!(club_user_params)
+            render json:find_club_user, status: :accepted
+        end
     end
 
     def destroy
-        find_club_user.destroy
-        render json:{message:"User removed."}, status: :ok
+        if find_club_user.is_admin?
+            render json:{errors:["Can't remove admins!"]}, status: :forbidden
+        else
+            find_club_user.destroy
+            render json:{message:"User removed."}, status: :ok
+        end
     end
 
     private 

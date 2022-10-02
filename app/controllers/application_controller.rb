@@ -12,7 +12,7 @@ end
 private 
 
   def authenticate_user 
-    render json: {errors: "User not authorized."}, status: :unauthorized unless grab_user
+    render json: {errors: ["User not authorized."]}, status: :unauthorized unless grab_user
   end
 
   def grab_user 
