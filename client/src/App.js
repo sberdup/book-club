@@ -48,11 +48,11 @@ function App() {
               <Route path="homepage" element={<UserPage />}>
                 {/* homepage for user should contain user's books and clubs */}
                 <Route path="clubs" element={<ClubGrid />} />
-                <Route path="books" element={<BookGrid type={'user'} />} />
+                <Route path="books" element={<BookGrid source={'user'} />} />
               </Route>
 
               <Route path="/clubs/:clubId" element={<ClubPage />}>
-                <Route path="books" element={<BookGrid type={'club'} />} />
+                <Route path="books" element={<BookGrid source={'club'} />} />
                 <Route path="options" element={
                   <>
                     <ClubUsersForm />

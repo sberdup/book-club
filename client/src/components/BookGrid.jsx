@@ -4,31 +4,33 @@ import { UserContext } from '../context/UserContext'
 import BookForm from './BookForm'
 import BookTile from './BookTile'
 
-function BookGrid({ type }) {
-  const { user } = useContext(UserContext)
-  const { club } = useContext(ClubContext)
+function BookGrid({ source }) {
+  const { user, setUser } = useContext(UserContext)
+  const { club, setClub } = useContext(ClubContext)
   // pulling in data from user which includes books in user's collection
   //also getting club
   const [errors, setErrors] = useState([])
   const [formToggle, setFormToggle] = useState(false)
-
   let collection
+  let setCollection
 
-  if (type === 'user') {
+  if (source === 'user') {
     collection = user
+    setCollection = setUser
   }
-  else if (type === 'club') {
+  else if (source === 'club') {
     collection = club
+    setCollection = setClub
   }
-  //  determining if collections originates from club or user
+  //  determining if collections originates from club or user, prop from App.js level
 
   return (
     <>
       <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Book Form' : 'Add Book'}</button>
-      {(formToggle) ? <BookForm setErrors={setErrors}/> : null}
+      {(formToggle) ? <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source}/> : null}
       {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 
-      {(type === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>}
+      {(source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>}
       <div className="tileGrid">
         {collection.books.map(book => <BookTile key={book.id} book={book} />)}
       </div>

@@ -86,6 +86,7 @@ function ClubUsersForm() {
 
     const sortedUsers = clubUsers.sort(clubUser => clubUser.user.username)
     // trying to get selection box items to refresh with state
+    // failure to change state was a result of comparing form number(actually a string) with response data(integer)
 
     return (
         <div className='basicborder'>

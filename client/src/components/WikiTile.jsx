@@ -28,12 +28,12 @@ function WikiTile({ element }) {
 
   }
 
-  const elementMap = objectToKeys(element).map((key) => {
+  const elementMap = objectToKeys(element).map((key, idx) => {
     let jsx = propertyToJSX(key, element)
     return (
-      <>
+      <div key={idx}>
         {jsx}
-      </>
+      </div>
     )
   })
 
