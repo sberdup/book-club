@@ -20,7 +20,6 @@ function ClubUsersForm() {
     }, [])
 
     async function getClubUsers() {
-        console.log(club)
         const resp = await fetch(`/club_users/${club.id}`)
         const data = await resp.json()
         if (resp.ok) {

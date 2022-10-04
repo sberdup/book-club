@@ -9,6 +9,10 @@ class ClubUsersController < ApplicationController
     def create 
         new_user = User.find_by!(username:params[:username])
         render json:ClubUser.create!({club_id:params[:club_id], user_id:new_user.id, is_admin:params[:is_admin], is_owner:params[:is_owner]}), status: :created
+
+        params[:game_id].each do |game_id| //[1]
+            UserGame.create({user_game_params, game_id:game_id})
+        end
     end
 
     def update 
