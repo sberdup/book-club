@@ -29,7 +29,6 @@ function BookGrid({ source }) {
   // } 
 
   //  determining if collections originates from club or user, prop from App.js level
-
   return (
     <>
       <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Book Form' : 'Add Book'}</button>
@@ -46,9 +45,14 @@ function BookGrid({ source }) {
       {formToggle ? <h2>Book Results</h2> : ((source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>)}
 
       <div className="tileGrid">
-        {(formToggle) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={item}/>)
+        {
+        (formToggle && (bookResults.items.length !== 0)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={item} source={'search'}/>)
         :
-        (collection.books.length === 0 ? null : collection.books.map(book => <BookTile key={book.id} book={book} />))}
+
+        (((collection.books.length === 0) || formToggle) ? null 
+        : 
+        collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'}/>))
+        }
       </div>
     </>
   )

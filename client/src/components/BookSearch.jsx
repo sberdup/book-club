@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
-function BookSearch({setBookResults, errors, setErrors}) {
+function BookSearch({setBookResults, setErrors}) {
     const emptyForm = { title: '', author: '', keywords:''}
     const [formData, setFormData] = useState(emptyForm)
 
@@ -9,6 +9,7 @@ function BookSearch({setBookResults, errors, setErrors}) {
     const title = (formData.title === '' ? '' : `+intitle:${formData.title.split(' ').join(' ', '+')}`)
     const keywords = (formData.keywords === '' ? '' : `${formData.keywords.split(' ').join(' ', '+')}`)
     const fields = '&fields=items/volumeInfo(authors,categories,description,imageLinks/thumbnail,pageCount,title)'
+    
     function inputHandler(e) {
       setFormData({ ...formData, [e.target.id]: e.target.value })
     }
@@ -23,39 +24,11 @@ function BookSearch({setBookResults, errors, setErrors}) {
       console.log(data)
       if (resp.ok){
         setFormData(emptyForm)
-        setBookResults({books:[data]})
-        // replace this with setState to pass to parent to display after creation
+        setBookResults(data)
         setErrors({errors:[]})
       } else {
         console.log(data.error.errors)
         setErrors(data.error.errors)
-      }
-      //passing user into context, which goes up to App state
-    }
-  
-    async function collectionLinker(bookID, destination){
-      let endpoint
-      if (destination === 'user') {
-        endpoint = '/collections'
-      } else {
-        endpoint = '/club_books'
-      }
-  
-      const resp = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          book_id: bookID,
-          status: 'unread'
-          //^ have to add input for this
-        })
-      })
-      const data = await resp.json()
-      console.log(data)
-      if (resp.ok){
-        setErrors({errors:['Success!']})
-      } else {
-        setErrors(data)
       }
     }
   
