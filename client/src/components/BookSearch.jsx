@@ -21,14 +21,14 @@ function BookSearch({setBookResults, setErrors}) {
         headers: { 'Content-Type': 'application/json' },
       })
       const data = await resp.json()
-      console.log(data)
+    //   console.log(data)
       if (resp.ok){
         setFormData(emptyForm)
         setBookResults(data)
         setErrors({errors:[]})
       } else {
-        console.log(data.error)
-        setErrors(data.error)
+        // console.log(data.error)
+        setErrors({errors: [data.error.errors[0].message]})
       }
     }
   
