@@ -70,7 +70,7 @@ function BookForm({setErrors, collection, setCollection, source}) {
 
   return (
     <div>
-      <h3>Add a book to this collection!</h3>
+      <h3>Manually Add a Book</h3>
       <form onSubmit={submitHandler} className='basicborder'>
         <div>
           <label htmlFor="title">Title: </label>

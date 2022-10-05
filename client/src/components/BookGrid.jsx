@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
 import BookForm from './BookForm'
+import BookSearch from './BookSearch'
 import BookTile from './BookTile'
-const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
 function BookGrid({ source }) {
   const { user, setUser } = useContext(UserContext)
@@ -12,28 +12,41 @@ function BookGrid({ source }) {
   //also getting club
   const [errors, setErrors] = useState([])
   const [formToggle, setFormToggle] = useState(false)
+  const [bookResults, setBookResults] = useState({books:[]})
+
   let collection
   let setCollection
-
-  if (source === 'user') {
-    collection = user
-    setCollection = setUser
-  }
-  else if (source === 'club') {
-    collection = club
-    setCollection = setClub
+  if (!formToggle) {
+    if (source === 'user') {
+      collection = user
+      setCollection = setUser
+    }
+    else if (source === 'club') {
+      collection = club
+      setCollection = setClub
+    }
+  } else if (formToggle) {
+    collection = bookResults
+    setCollection = setBookResults
   }
   //  determining if collections originates from club or user, prop from App.js level
 
   return (
     <>
       <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Book Form' : 'Add Book'}</button>
-      {(formToggle) ? <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source}/> : null}
+      {(formToggle) ?
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} />
+          <h2 style={{padding:'5%'}}> OR </h2>
+          <BookSearch collection={collection} setCollection={setCollection} errors={errors} setErrors={setErrors}/>
+        </div>
+        : null}
+
       {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 
-      {(source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>}
+      {formToggle ? <h2>Book Results</h2> : ((source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>)}
       <div className="tileGrid">
-        {collection.books.map(book => <BookTile key={book.id} book={book} />)}
+        {collection.books.length === 0 ? null : collection.books.map(book => <BookTile key={book.id} book={book} />)}
       </div>
     </>
   )

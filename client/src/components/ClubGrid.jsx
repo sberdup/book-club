@@ -15,10 +15,10 @@ function ClubGrid() {
             <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Club Form' : 'New Club'}</button>
             {((location.pathname === '/homepage/clubs') && formToggle) ? <ClubForm setErrors={setErrors} /> : null}
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
-            
+
             <h2>Your Clubs</h2>
             <div className="tileGrid">
-                {user.clubs.map(club => <ClubTile key={club.id} club={club} />)}
+                {user.clubs === null ? <h2>please wait...</h2> : user.clubs.map(club => <ClubTile key={club.id} club={club} />)}
             </div>
         </>
     )
