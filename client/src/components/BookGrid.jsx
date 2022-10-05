@@ -12,11 +12,12 @@ function BookGrid({ source }) {
   //also getting club
   const [errors, setErrors] = useState([])
   const [formToggle, setFormToggle] = useState(false)
-  const [bookResults, setBookResults] = useState({books:[]})
+  const [bookResults, setBookResults] = useState({items:[]})
 
   let collection
   let setCollection
-  if (!formToggle) {
+  // if (!formToggle) {
+    // ^^^ Doing this makes it impossible to load the collection data from user/club fast enough to avoid null.map
     if (source === 'user') {
       collection = user
       setCollection = setUser
@@ -25,10 +26,8 @@ function BookGrid({ source }) {
       collection = club
       setCollection = setClub
     }
-  } else if (formToggle) {
-    collection = bookResults
-    setCollection = setBookResults
-  }
+  // } 
+
   //  determining if collections originates from club or user, prop from App.js level
 
   return (
@@ -38,15 +37,18 @@ function BookGrid({ source }) {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} />
           <h2 style={{padding:'5%'}}> OR </h2>
-          <BookSearch collection={collection} setCollection={setCollection} errors={errors} setErrors={setErrors}/>
+          <BookSearch setBookResults={setBookResults} setErrors={setErrors}/>
         </div>
         : null}
 
       {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 
       {formToggle ? <h2>Book Results</h2> : ((source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>)}
+
       <div className="tileGrid">
-        {collection.books.length === 0 ? null : collection.books.map(book => <BookTile key={book.id} book={book} />)}
+        {(formToggle) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={item}/>)
+        :
+        (collection.books.length === 0 ? null : collection.books.map(book => <BookTile key={book.id} book={book} />))}
       </div>
     </>
   )

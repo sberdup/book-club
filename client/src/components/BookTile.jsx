@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function BookTile({book}) {
+function BookTile({ book }) {
   return (
-    <div>
-        <h4>{book.title}</h4>
-        <li>{book.author}</li>
-        <Link to={`/books/${book.id}`}>Book Page</Link>
-    </div>
+    <>
+    {!!book.volumeInfo ? (<div>{'hi'}</div>) :
+        (<div>
+          <h4>{book.title}</h4>
+          <li>{book.author}</li>
+          <Link to={`/books/${book.id}`}>Book Page</Link>
+        </div>)
+    }
+    </>
   )
 }
 

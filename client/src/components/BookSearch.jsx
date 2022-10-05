@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
-function BookSearch({collection, setCollection, errors, setErrors}) {
+function BookSearch({setBookResults, errors, setErrors}) {
     const emptyForm = { title: '', author: '', keywords:''}
     const [formData, setFormData] = useState(emptyForm)
 
@@ -23,7 +23,7 @@ function BookSearch({collection, setCollection, errors, setErrors}) {
       console.log(data)
       if (resp.ok){
         setFormData(emptyForm)
-        setCollection({books:[data]})
+        setBookResults({books:[data]})
         // replace this with setState to pass to parent to display after creation
         setErrors({errors:[]})
       } else {
