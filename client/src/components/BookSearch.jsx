@@ -9,7 +9,7 @@ function BookSearch({setBookResults, setErrors}) {
     const title = (formData.title === '' ? '' : `+intitle:${formData.title.split(' ').join(' ', '+')}`)
     const keywords = (formData.keywords === '' ? '' : `${formData.keywords.split(' ').join(' ', '+')}`)
     const fields = '&fields=items/volumeInfo(authors,categories,description,imageLinks/thumbnail,pageCount,title)'
-    
+
     function inputHandler(e) {
       setFormData({ ...formData, [e.target.id]: e.target.value })
     }
@@ -27,8 +27,8 @@ function BookSearch({setBookResults, setErrors}) {
         setBookResults(data)
         setErrors({errors:[]})
       } else {
-        console.log(data.error.errors)
-        setErrors(data.error.errors)
+        console.log(data.error)
+        setErrors(data.error)
       }
     }
   

@@ -12,7 +12,6 @@ function LandingPage() {
 
   // vvv handles sending the user to the homepage if they're logged in successfully
   useEffect(() => {
-    console.log(user)
     if (user.id) {
       navigate('homepage')
     }
