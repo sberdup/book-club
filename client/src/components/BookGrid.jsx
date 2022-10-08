@@ -12,21 +12,34 @@ function BookGrid({ source }) {
   //also getting club
   const [errors, setErrors] = useState([])
   const [formToggle, setFormToggle] = useState(false)
-  const [bookResults, setBookResults] = useState({items:[]})
+  const [bookResults, setBookResults] = useState({ items: [] })
 
   let collection
   let setCollection
   // if (!formToggle) {
-    // ^^^ Doing this makes it impossible to load the collection data from user/club fast enough to avoid null.map
-    if (source === 'user') {
-      collection = user
-      setCollection = setUser
-    }
-    else if (source === 'club') {
-      collection = club
-      setCollection = setClub
-    }
+  // ^^^ Doing this makes it impossible to load the collection data from user/club fast enough to avoid null.map
+  if (source === 'user') {
+    collection = user
+    setCollection = setUser
+  }
+  else if (source === 'club') {
+    collection = club
+    setCollection = setClub
+  }
   // } 
+  function searchDataPopulator(bookData) {
+    const standardReturn = {authors: false, categories: false, description: false, pageCount: false, title: false, thumbnail: false }
+  
+    const volumeData = Object.keys(bookData.volumeInfo)
+    volumeData.forEach(key => {
+      if (key === 'imageLinks') {
+        standardReturn.thumbnail = bookData.volumeInfo.imageLinks.thumbnail
+      } else {
+        standardReturn[key] = bookData.volumeInfo[key]
+      }
+    })
+    return standardReturn
+  }
 
   //  determining if collections originates from club or user, prop from App.js level
   return (
@@ -35,8 +48,8 @@ function BookGrid({ source }) {
       {(formToggle) ?
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} />
-          <h2 style={{padding:'5%'}}> OR </h2>
-          <BookSearch setBookResults={setBookResults} setErrors={setErrors}/>
+          <h2 style={{ padding: '5%' }}> OR </h2>
+          <BookSearch setBookResults={setBookResults} setErrors={setErrors} />
         </div>
         : null}
 
@@ -46,12 +59,12 @@ function BookGrid({ source }) {
 
       <div className="tileGrid">
         {
-        (formToggle && (bookResults.items.length !== 0)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={item} source={'search'}/>)
-        :
+          (formToggle && (bookResults.items.length !== 0)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} />)
+            :
 
-        (((collection.books.length === 0) || formToggle) ? null 
-        : 
-        collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'}/>))
+            (((collection.books.length === 0) || formToggle) ? null
+              :
+              collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />))
         }
       </div>
     </>

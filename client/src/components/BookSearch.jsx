@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
 function BookSearch({setBookResults, setErrors}) {
