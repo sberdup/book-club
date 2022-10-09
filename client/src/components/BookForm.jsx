@@ -1,13 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
 
-function BookForm({setErrors, collection, setCollection, source}) {
+function BookForm({setErrors, collection, setCollection, source, formData, setFormData, bookForm}) {
   const emptyForm = { title: '', author: '', pages: '', genre:'', coverPicture:'', description:''}
-  const [formData, setFormData] = useState(emptyForm)
   const {user} = useContext(UserContext)
   const {club} = useContext(ClubContext)
 
+  useEffect(() => {
+    bookForm.current = document.getElementById('bookform')
+  }, [])
+  
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
@@ -71,7 +74,7 @@ function BookForm({setErrors, collection, setCollection, source}) {
   return (
     <div>
       <h3>Manually Add a Book</h3>
-      <form onSubmit={submitHandler} className='basicborder'>
+      <form id='bookform' onSubmit={submitHandler} className='basicborder'>
         <div>
           <label htmlFor="title">Title: </label>
           <input type="text" id="title" value={formData.title} onChange={inputHandler}></input>

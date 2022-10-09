@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
 import BookForm from './BookForm'
@@ -14,6 +14,10 @@ function BookGrid({ source }) {
   const [formToggle, setFormToggle] = useState(false)
   const [bookResults, setBookResults] = useState({ items: [] })
 
+  const [formData, setFormData] = useState({ title: '', author: '', pages: '', genre: '', coverPicture: '', description: '' })
+  // lifted state from BookForm
+  const bookForm = useRef(null)
+
   let collection
   let setCollection
   // if (!formToggle) {
@@ -26,10 +30,13 @@ function BookGrid({ source }) {
     collection = club
     setCollection = setClub
   }
+  //  determining if collections originates from club or user, prop from App.js level
   // } 
+
+  // vvv This will only fill in the returned fields from the search data and pass along everything else as false to BookTile so it doesn't break
   function searchDataPopulator(bookData) {
-    const standardReturn = {authors: false, categories: false, description: false, pageCount: false, title: false, thumbnail: false }
-  
+    const standardReturn = { authors: false, categories: false, description: false, pageCount: false, title: false, thumbnail: false }
+
     const volumeData = Object.keys(bookData.volumeInfo)
     volumeData.forEach(key => {
       if (key === 'imageLinks') {
@@ -41,13 +48,13 @@ function BookGrid({ source }) {
     return standardReturn
   }
 
-  //  determining if collections originates from club or user, prop from App.js level
+
   return (
     <>
       <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Book Form' : 'Add Book'}</button>
       {(formToggle) ?
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} />
+          <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm}/>
           <h2 style={{ padding: '5%' }}> OR </h2>
           <BookSearch setBookResults={setBookResults} setErrors={setErrors} />
         </div>
@@ -59,10 +66,10 @@ function BookGrid({ source }) {
 
       <div className="tileGrid">
         {
-          (formToggle && (bookResults.items.length !== 0)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} />)
+          (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm}/>)
             :
 
-            (((collection.books.length === 0) || formToggle) ? null
+            (((collection.books === undefined) || formToggle) ? null
               :
               collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />))
         }

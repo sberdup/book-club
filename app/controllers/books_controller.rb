@@ -4,7 +4,7 @@ class BooksController < ApplicationController
     end
 
     def create 
-        render json:Book.create!(book_params), status: :created
+        render json:Book.find_or_create_by!(book_params), status: :created
     end
 
     def show 
