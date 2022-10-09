@@ -7,7 +7,7 @@ function WikiTile({ element }) {
     return elKeys
   }
   function propertyToJSX(key, element) {
-    if (key === 'id' || element[key] === null) {
+    if (key === 'id' || element[key] === null || element[key] === '') {
       return <span style={{ display: 'none' }}></span>
     }
     // Not displaying ID or fields with no information

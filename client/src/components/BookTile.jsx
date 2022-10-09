@@ -6,6 +6,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
 
   function bookClickHandler(book) {
     setFormData({ title: book.title, author: book.authors.join(), pages: book.pageCount, genre: book.categories.join(), coverPicture: book.thumbnail, description: book.description})
+    window.scrollTo(0, 0)
     setTimeout(() => bookForm.current.requestSubmit(), 100)
   }
 
@@ -19,7 +20,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
           {book.categories ? (book.categories.length > 1 ? <li>Genres: {book.categories.join()}</li> : <li>Genre: {book.categories[0]}</li>) : null}
           {book.description ? <li>Description: {book.description}</li> : null}
           {book.pages ? <li>Pages: {book.pageCount}</li> : null}
-          <button onClick={() => bookClickHandler(book)}>Add to Current Collection</button>
+          {((book.title && book.authors) && (book.description && book.pageCount)) ? <button onClick={() => bookClickHandler(book)}>Add to Current Collection</button> : null}
         </div>)
         :
         (<div>
