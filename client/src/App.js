@@ -11,6 +11,7 @@ import ClubGrid from "./components/ClubGrid";
 import BookGrid from "./components/BookGrid";
 import ClubUsersForm from "./components/ClubUsersForm";
 import WikiForm from "./components/WikiForm";
+import { Grommet } from 'grommet'
 
 function App() {
   const [user, setUser] = useState({ id: false })
@@ -35,9 +36,26 @@ function App() {
     }
   }
 
+  const theme = {
+    global: {
+      colors: {
+        'light-2': '#f5f5f5',
+        'text': {
+          light: 'rgba(0, 0, 0, 0.87)',
+        },
+        
+      },
+      font: {
+        family: 'Roboto',
+        size: '14px',
+        height: '20px',
+      },
+    },
+  };
+
   return (
     <BrowserRouter>
-      <div className="App">
+      <Grommet className='App' theme={theme}>
         <Routes>
           <Route element={<ContextLayout values={{ user, setUser, club, setClub, book, setBook }} />}>
             {/* ContextLayout is encapsulating below routes to provide context */}
@@ -61,7 +79,7 @@ function App() {
               </Route>
 
               <Route path="/books/:bookId" element={<BookPage />}>
-                <Route path="edit" element={<WikiForm/>}/>
+                <Route path="edit" element={<WikiForm />} />
               </Route>
 
             </Route>
@@ -69,7 +87,7 @@ function App() {
           </Route>
           <Route path="/testing" element={<h1>Test/Page Count: {count}</h1>} />
         </Routes>
-      </div>
+      </Grommet>
     </BrowserRouter>
   );
 }

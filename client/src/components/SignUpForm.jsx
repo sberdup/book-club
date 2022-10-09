@@ -1,3 +1,4 @@
+import { Button, Form, FormField, TextInput } from 'grommet'
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 
@@ -36,38 +37,38 @@ function SignUpForm({setErrors}) {
 
   return (
     <div>
-      <h3>Sign Up for a New Account</h3>
-      <form onSubmit={submitHandler} className='basicborder'>
-        <div>
-          <label htmlFor="firstName">First Name: </label>
-          <input type="text" name="firstName" value={formData.firstName} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name: </label>
-          <input type="text" name="lastName" value={formData.lastName} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor='username'>Username: </label>
-          <input type="text" name="username" value={formData.username} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input type="password" name="password" value={formData.password} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="passwordConfirmation">Confirm Password: </label>
-          <input type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input type="text" name="email" value={formData.email} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="profilePicture">Profile Picture: </label>
-          <input type="text" name="profilePicture" value={formData.profilePicture} onChange={inputHandler}></input>
-        </div>
-        <input type='submit' />
-      </form>
+      <Form onSubmit={submitHandler} className='flex-login'>
+      <h2>Sign Up for a New Account</h2>
+        <FormField label='First Name'>
+          <TextInput type="text" name="firstName" value={formData.firstName} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Last Name'>
+          <TextInput type="text" name="lastName" value={formData.lastName} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Username'>
+          <TextInput type="text" name="username" value={formData.username} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Password'>
+          <TextInput type="password" name="password" value={formData.password} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Confirm Password'>
+          <TextInput type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Email'>
+          <TextInput type="text" name="email" value={formData.email} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Profile Picture'>
+          <TextInput type="text" name="profilePicture" value={formData.profilePicture} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <Button primary label='Submit' type='submit'/>
+      </Form>
     </div>
   )
 }

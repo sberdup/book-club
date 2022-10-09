@@ -1,29 +1,28 @@
-* {
-  margin:0
-}
-
 .App {
   text-align: center;
-  background-color: #74BAFE;
+  background-image: linear-gradient(rgb(0, 200, 255), rgb(0, 51, 255));
   min-height: 100vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flex-login {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 7%;
+  margin-bottom: 2%;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.NavBar {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  max-width: 100%;
-  background-color: bisque;
+.flex-login input {
+  text-align: center;
+  font-size: x-large;
+}
+
+.flex-login label {
+  text-align: left;
+  margin-left: 50px;
+  margin-bottom: -5%;
 }
 
 .basicborder {
@@ -41,9 +40,25 @@
 }
 
 .activeLink {
-  color: goldenrod;
+  background-color: #f44336;
+  color: white;
+  padding: 1% 15%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  max-height: 20px;
 }
-
 .inactiveLink {
-  color: green;
+  color: black;
+  background-color: rgb(25, 164, 25);
+  padding: 1% 10%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.activeLink:hover {
+  background-color: red;
+}
+.inactiveLink:hover {
+  background-color: green;
 }
