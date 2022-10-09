@@ -7,6 +7,7 @@ function ClubPage() {
   const { club, setClub } = useContext(ClubContext)
   const { clubId } = useParams()
   const location = useLocation()
+  const navLinkFunction = ({isActive}) => isActive ? 'activeLink' : 'inactiveLink'
 
   // getting appropriate club based on params
   useEffect(() => {
@@ -27,9 +28,9 @@ function ClubPage() {
           <h2>{`Welcome to ${club.name}!`}</h2>
           <p>{club.message}</p>
           <div className='NavBar'>
-            <NavLink to="options">Club Options</NavLink>
-            <NavLink to="books">Club Books</NavLink>
-            {(location.pathname !== `/clubs/${clubId}`) ? <NavLink to={`/clubs/${clubId}`}>Club Home</NavLink> : <p>Link</p>}
+            <NavLink to="options" className={navLinkFunction}>Club Options</NavLink>
+            <NavLink to="books" className={navLinkFunction}>Club Books</NavLink>
+            <NavLink to={`/clubs/${clubId}`} className={location.pathname === `/clubs/${clubId}` ? 'activeLink' : 'inactiveLink'}>Club Home</NavLink>
           </div>
           <Outlet />
         </>
