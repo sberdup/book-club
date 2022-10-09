@@ -10,7 +10,7 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
   useEffect(() => {
     bookForm.current = document.getElementById('bookform')
   }, [])
-  
+
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
@@ -30,7 +30,6 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
       })
     })
     const data = await resp.json()
-    console.log(data)
     if (resp.ok){
       setFormData(emptyForm)
       setCollection({...collection, books:[...collection.books, data]})

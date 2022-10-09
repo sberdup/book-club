@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 function BookTile({ source, book, setFormData, bookForm }) {
-  console.log(bookForm)
 
   function bookClickHandler(book) {
     setFormData({ title: book.title, author: book.authors.join(), pages: book.pageCount, genre: book.categories.join(), coverPicture: book.thumbnail, description: book.description})
