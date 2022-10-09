@@ -9,7 +9,7 @@ function LogInOut({setErrors}) {
 
   // fills out the state for the form
   function inputHandler(e) {
-    setFormData({ ...formData, [e.target.id]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   async function submitHandler(e) {
@@ -45,9 +45,9 @@ function LogInOut({setErrors}) {
 
         <form onSubmit={submitHandler} className='basicborder'>
           <label htmlFor='username'>Username: </label>
-          <input type="text" id="username" value={formData.username} onChange={inputHandler}></input>
+          <input type="text" name="username" value={formData.username} onChange={inputHandler}></input>
           <label htmlFor="password">Password: </label>
-          <input type="password" id="password" value={formData.password} onChange={inputHandler}></input>
+          <input type="password" name="password" value={formData.password} onChange={inputHandler}></input>
           <input type='submit'/>
         </form>
       }

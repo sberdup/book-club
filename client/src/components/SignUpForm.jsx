@@ -6,7 +6,7 @@ function SignUpForm({setErrors}) {
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', username: '', password: '', passwordConfirmation: '', profilePicture: '' })
 
   function inputHandler(e) {
-    setFormData({ ...formData, [e.target.id]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   async function submitHandler(e) {
@@ -40,31 +40,31 @@ function SignUpForm({setErrors}) {
       <form onSubmit={submitHandler} className='basicborder'>
         <div>
           <label htmlFor="firstName">First Name: </label>
-          <input type="text" id="firstName" value={formData.firstName} onChange={inputHandler}></input>
+          <input type="text" name="firstName" value={formData.firstName} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="lastName">Last Name: </label>
-          <input type="text" id="lastName" value={formData.lastName} onChange={inputHandler}></input>
+          <input type="text" name="lastName" value={formData.lastName} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor='username'>Username: </label>
-          <input type="text" id="username" value={formData.username} onChange={inputHandler}></input>
+          <input type="text" name="username" value={formData.username} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="password" id="password" value={formData.password} onChange={inputHandler}></input>
+          <input type="password" name="password" value={formData.password} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="passwordConfirmation">Confirm Password: </label>
-          <input type="password" id="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></input>
+          <input type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="email">Email: </label>
-          <input type="text" id="email" value={formData.email} onChange={inputHandler}></input>
+          <input type="text" name="email" value={formData.email} onChange={inputHandler}></input>
         </div>
         <div>
           <label htmlFor="profilePicture">Profile Picture: </label>
-          <input type="text" id="profilePicture" value={formData.profilePicture} onChange={inputHandler}></input>
+          <input type="text" name="profilePicture" value={formData.profilePicture} onChange={inputHandler}></input>
         </div>
         <input type='submit' />
       </form>
