@@ -41,7 +41,14 @@ function App() {
       colors: {
         'light-2': '#f5f5f5',
         'orange-1': '#FFA422',
-        'yellow-1' : '#FDFA4E',
+        'yellow-1' : '#FFEE1A',
+        'red-1' : '#FF2121',
+        'green-1' : '#21B800',
+        'blue-1' : '#0047DE',
+        'cyan-1' : '#11F3FF',
+        'gray-1' : '#6B6B6B',
+        'purple-1' : '#802AFF',
+
         'text': {
           light: 'rgba(0, 0, 0, 0.87)',
         },

@@ -62,3 +62,7 @@
 .inactiveLink:hover {
   background-color: green;
 }
+
+a:hover {
+  color: white;
+}

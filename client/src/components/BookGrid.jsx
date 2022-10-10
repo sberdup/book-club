@@ -1,3 +1,4 @@
+import { Grid } from 'grommet'
 import React, { useContext, useState, useRef } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
@@ -64,7 +65,7 @@ function BookGrid({ source }) {
 
       {formToggle ? <h2>Book Results</h2> : ((source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>)}
 
-      <div className="tileGrid">
+      <Grid columns={{count:'fit', size:'medium'}} rows={{count:'fit', size:[['small', 'xlarge']]}} gap='medium' border={true}  alignContent='center' margin='small' pad='small'>
         {
           (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm}/>)
             :
@@ -73,7 +74,7 @@ function BookGrid({ source }) {
               :
               collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />))
         }
-      </div>
+      </Grid>
     </>
   )
 }

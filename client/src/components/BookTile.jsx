@@ -1,10 +1,11 @@
+import { Button, Card, CardFooter, Heading, Image } from 'grommet'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 function BookTile({ source, book, setFormData, bookForm }) {
 
   function bookClickHandler(book) {
-    setFormData({ title: book.title, author: book.authors.join(), pages: book.pageCount, genre: book.categories.join(), coverPicture: book.thumbnail, description: book.description})
+    setFormData({ title: book.title, author: book.authors.join(), pages: book.pageCount, genre: book.categories.join(), coverPicture: book.thumbnail, description: book.description })
     window.scrollTo(0, 0)
     setTimeout(() => bookForm.current.requestSubmit(), 100)
   }
@@ -12,21 +13,26 @@ function BookTile({ source, book, setFormData, bookForm }) {
   return (
     <>
       {source === 'search' ?
-        (<div>
-          {book.title ? <h4>{book.title}</h4> : null}
-          {book.thumbnail ? <img alt='book cover' src={book.thumbnail} /> : null}
-          {book.authors ? (book.authors.length > 1 ? <li>Author: {book.authors.join()}</li> : <li>Authors: {book.authors[0]}</li>) : null}
-          {book.categories ? (book.categories.length > 1 ? <li>Genres: {book.categories.join()}</li> : <li>Genre: {book.categories[0]}</li>) : null}
-          {book.description ? <li>Description: {book.description}</li> : null}
-          {book.pages ? <li>Pages: {book.pageCount}</li> : null}
-          {((book.title && book.authors) && (book.description && book.pageCount)) ? <button onClick={() => bookClickHandler(book)}>Add to Current Collection</button> : null}
-        </div>)
+        (<Card align='center' justify='center' background='purple-1' flex={true}>
+          {book.title ? <Heading margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading> : null}
+          {book.thumbnail ? <Image alt='book cover' src={book.thumbnail} /> : null}
+          {book.authors ? (book.authors.length > 1 ? <p>Author: {book.authors.join()}</p> : <p>Authors: {book.authors[0]}</p>) : null}
+          {book.categories ? (book.categories.length > 1 ? <p>Genres: {book.categories.join()}</p> : <p>Genre: {book.categories[0]}</p>) : null}
+          {book.description ? <p>Description: {book.description}</p> : null}
+          {book.pages ? <p>Pages: {book.pageCount}</p> : null}
+          <CardFooter margin={{ top: 'large', bottom: 'small' }}>
+          {((book.title && book.authors) && (book.description && book.pageCount)) ? <Button primary color='orange-1' label='Add to Current Collection' onClick={() => bookClickHandler(book)}/> : null}
+          </CardFooter>
+        </Card>)
         :
-        (<div>
-          <h4>{book.title}</h4>
-          <li>{book.author}</li>
-          <Link to={`/books/${book.id}`}>Book Page</Link>
-        </div>)
+        (<Card align='center' justify='center' background='purple-1'>
+          <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading>
+          <p>By: {book.author.split(',').join(', ')}</p>
+
+          <CardFooter margin={{ top: 'large', bottom: 'small' }}>
+            <Link to={`/books/${book.id}`}>Book Page</Link>
+          </CardFooter>
+        </Card>)
       }
     </>
   )

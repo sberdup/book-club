@@ -1,3 +1,4 @@
+import { Card } from 'grommet'
 import React from 'react'
 
 function WikiTile({ element }) {
@@ -15,32 +16,31 @@ function WikiTile({ element }) {
       case 'chapter':
       case 'page':
         return (
-            <h6>{key.charAt(0).toUpperCase() + key.slice(1) + ': ' + element[key]}</h6>
+            <h5 style={{margin:0}}>{key.charAt(0).toUpperCase() + key.slice(1) + ': ' + element[key]}</h5>
         )
       default:
         return (
           <>
-            <h4>{key.charAt(0).toUpperCase() + key.slice(1)}</h4>
-            <p>{element[key]}</p>
+            <h4 style={{margin:0}}>{key.charAt(0).toUpperCase() + key.slice(1)}</h4>
+            <p style={{marginTop:0, marginBottom:'10px'}}>{element[key]}</p>
           </>
         )
     }
-
   }
 
   const elementMap = objectToKeys(element).map((key, idx) => {
     let jsx = propertyToJSX(key, element)
     return (
-      <div key={idx}>
+      <div key={idx} style={{marginRight:'20px', marginLeft:'20px'}}>
         {jsx}
       </div>
     )
   })
 
   return (
-    <div>
+    <Card align='center' justify='center' background='yellow-1'>
       {elementMap}
-    </div>
+    </Card>
   )
 }
 
