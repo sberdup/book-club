@@ -15,6 +15,7 @@ function ClubPage() {
     // console.log(club)
     getClub()
   }, [])
+  
   async function getClub() {
     const resp = await fetch(`/clubs/${clubId}`)
     const data = await resp.json()
@@ -22,6 +23,7 @@ function ClubPage() {
       setClub(data)
     }
   }
+
   return (
     <div>
       {club.id ?
@@ -29,7 +31,7 @@ function ClubPage() {
           <h2>{`Welcome to ${club.name}!`}</h2>
           <p>{club.message}</p>
           <Box tag='header' direction='row' align='center' justify='between'
-        background='light-2' pad={{ vertical: 'small', horizontal: 'medium' }} elevation='medium'>
+        background='lightgrey' elevation='medium'>
             <NavLink to="options" className={navLinkFunction}>Club Options</NavLink>
             <NavLink to="books" className={navLinkFunction}>Club Books</NavLink>
             <NavLink to={`/clubs/${clubId}`} className={location.pathname === `/clubs/${clubId}` ? 'activeLink' : 'inactiveLink'}>Club Home</NavLink>

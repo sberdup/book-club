@@ -40,6 +40,8 @@ function App() {
     global: {
       colors: {
         'light-2': '#f5f5f5',
+        'orange-1': '#FFA422',
+        'yellow-1' : '#FDFA4E',
         'text': {
           light: 'rgba(0, 0, 0, 0.87)',
         },
