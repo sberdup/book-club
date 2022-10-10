@@ -74,7 +74,7 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
   return (
     <div>
       <h3>Manually Add a Book</h3>
-      <Form onSubmit={submitHandler} className='flex-form'>
+      <Form onSubmit={submitHandler} id='bookform' className='flex-form'>
         <FormField label='Title'>
           <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
         </FormField>
