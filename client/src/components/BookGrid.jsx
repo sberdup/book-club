@@ -1,4 +1,4 @@
-import { Grid } from 'grommet'
+import { Button, Grid } from 'grommet'
 import React, { useContext, useState, useRef } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
@@ -52,7 +52,7 @@ function BookGrid({ source }) {
 
   return (
     <>
-      <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Book Form' : 'Add Book'}</button>
+      <Button margin={{top:'small'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Hide Book Form' : 'Add Book'}/>
       {(formToggle) ?
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm}/>

@@ -1,3 +1,4 @@
+import { Button, Form, FormField, TextInput } from 'grommet'
 import React, { useState } from 'react'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
@@ -35,21 +36,18 @@ function BookSearch({setBookResults, setErrors}) {
     return (
       <div>
         <h3>Search via Google Books API!</h3>
-        <form onSubmit={submitHandler} className='basicborder'>
-          <div>
-            <label htmlFor="title">Title: </label>
-            <input type="text" id="title" value={formData.title} onChange={inputHandler}></input>
-          </div>
-          <div>
-            <label htmlFor="author">Author: </label>
-            <input type="text" id="author" value={formData.author} onChange={inputHandler}></input>
-          </div>
-          <div>
-            <label htmlFor="keywords">Keywords: </label>
-            <input type="text" id="keywords" value={formData.keywords} onChange={inputHandler}></input>
-          </div>
-          <input type='submit' />
-        </form>
+        <Form onSubmit={submitHandler} className='flex-form'>
+          <FormField label='Title'>
+            <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
+          </FormField>
+          <FormField label='Author'>
+            <TextInput type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
+          </FormField>
+          <FormField label='Keywords'>
+            <TextInput type="text" id="keywords" value={formData.keywords} onChange={inputHandler}></TextInput>
+          </FormField>
+          <Button primary color='orange-1' type='submit' label='Search'/>
+        </Form>
       </div>
     )
   }

@@ -1,3 +1,4 @@
+import { Button, Form, FormField, TextArea, TextInput } from 'grommet'
 import React, { useContext, useEffect } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
@@ -73,33 +74,33 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
   return (
     <div>
       <h3>Manually Add a Book</h3>
-      <form id='bookform' onSubmit={submitHandler} className='basicborder'>
-        <div>
-          <label htmlFor="title">Title: </label>
-          <input type="text" id="title" value={formData.title} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="author">Author: </label>
-          <input type="text" id="author" value={formData.author} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="genre">Genre: </label>
-          <input type="text" id="genre" value={formData.genre} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="description">Description: </label>
-          <input type="text" id="description" value={formData.description} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="pages">Pages: </label>
-          <input type="number" id="pages" value={formData.pages} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="coverPicture">Cover Picture: </label>
-          <input type="text" id="coverPicture" value={formData.coverPicture} onChange={inputHandler}></input>
-        </div>
-        <input type='submit' />
-      </form>
+      <Form onSubmit={submitHandler} className='flex-form'>
+        <FormField label='Title'>
+          <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Author'>
+          <TextInput type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Genre'>
+          <TextInput type="text" id="genre" value={formData.genre} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Description'>
+          <TextArea id="description" value={formData.description} onChange={inputHandler}></TextArea>
+        </FormField>
+
+        <FormField label='Pages'>
+          <TextInput type="number" id="pages" value={formData.pages} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Cover Picture'>
+          <TextInput type="text" id="coverPicture" value={formData.coverPicture} onChange={inputHandler}></TextInput>
+        </FormField>
+        
+        <Button primary type='submit' label='Submit'/>
+      </Form>
     </div>
   )
 }

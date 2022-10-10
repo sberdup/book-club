@@ -3,6 +3,33 @@
   background-image: linear-gradient(rgb(0, 200, 255), rgb(0, 51, 255));
   min-height: 100vh;
 }
+.flex-club {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  margin: auto;
+  justify-content: center;
+}
+
+.flex-form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+}
+.flex-form input {
+  text-align: right;
+  font-size: x-large;
+}
+.flex-form label {
+  text-align: left;
+  margin-right: 100px;
+  margin-bottom: -12%;
+}
+.flex-form textarea {
+  text-align: right;
+  font-size: large;
+}
 
 .flex-login {
   display: flex;
@@ -13,12 +40,10 @@
   margin-bottom: 2%;
   justify-content: center;
 }
-
 .flex-login input {
   text-align: center;
   font-size: x-large;
 }
-
 .flex-login label {
   text-align: left;
   margin-left: 50px;
@@ -30,13 +55,6 @@
   width:fit-content; 
   margin:auto;
   padding:1px;
-}
-
-.tileGrid {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  max-width: 100%;
-  background-color: rgb(255, 253, 141);
 }
 
 .activeLink {

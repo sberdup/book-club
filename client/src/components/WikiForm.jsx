@@ -1,3 +1,4 @@
+import { Box, Button, Form, FormField, TextInput } from 'grommet'
 import React, { useContext, useState, useEffect } from 'react'
 import { BookContext } from '../context/BookContext'
 
@@ -91,16 +92,21 @@ function WikiForm() {
     // const sortedElements = book.sort(bookPart => bookPart.id)
 
     return (
-        <div className='basicborder'>
+        <Box border={{
+            color: 'orange-1',
+            size: "medium",
+            style: "solid",
+            side: "all"
+        }} width='medium' height='20%' background='cyan-1' style={{margin:'auto', marginTop:'10px'}}>
 
             <h4>{mode.message}</h4>
-            <div className="basicborder">
-                <button onClick={() => setMode(addParams)}>Add</button>
-                <button onClick={() => setMode(editParams)}>Edit</button>
-                <button onClick={() => setMode(deleteParams)}>Delete</button>
-            </div>
+            <Box direction='row'  alignSelf='center' justify='center' width='small' margin='xsmall'>
+                <Button primary color='forestgreen' onClick={() => setMode(addParams)} label='Add' />
+                <Button primary color='yellow' onClick={() => setMode(editParams)} label='Edit' />
+                <Button primary color='red' onClick={() => setMode(deleteParams)} label='Delete' />
+            </Box>
 
-            <form onSubmit={submitHandler} className="basicborder">
+            <Form onSubmit={submitHandler}>
 
                 <label htmlFor='categorySelect'>Category: </label>
                 <select onChange={categorySelectHandler}>
@@ -131,61 +137,53 @@ function WikiForm() {
                     <>
                         {fetchParams.category !== 'quotes' ?
                             <>
-                                <div>
-                                    <label htmlFor="name">Name: </label>
-                                    <input type="text" id="name" value={formData.name} onChange={inputHandler}></input>
-                                </div>
-                                <div>
-                                    <label htmlFor="description">Description: </label>
-                                    <input type="text" id="description" value={formData.description} onChange={inputHandler}></input>
-                                </div>
+                                <FormField label='Name'>
+                                    <TextInput type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+                                </FormField>
+                                <FormField label='Description'>
+                                    <TextInput type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
+                                </FormField>
 
                                 {fetchParams.category === 'characters' ?
-                                    <div>
-                                        <label htmlFor="aliases">Aliases: </label>
-                                        <input type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></input>
-                                    </div>
+                                    <FormField label='Aliases'>
+                                        <TextInput type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
+                                    </FormField>
                                     : null
                                 }
                                 {fetchParams.category === 'eras' ?
-                                    <div>
-                                        <label htmlFor="time">Time: </label>
+                                    <FormField label='Time'>
                                         <input type="datetime-local" id="time" value={formData.time} onChange={inputHandler}></input>
-                                    </div>
+                                    </FormField>
                                     : null
                                 }
                                 {fetchParams.category === 'locations' ?
-                                    <div>
-                                        <label htmlFor="location">Location: </label>
-                                        <input type="text" id="location" value={formData.location} onChange={inputHandler}></input>
-                                    </div>
+                                    <FormField label='Location'>
+                                        <TextInput type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
+                                    </FormField>
                                     : null
                                 }
                             </>
                             :
                             <>
-                                <div>
-                                    <label htmlFor="body">Body: </label>
-                                    <input type="text" id="body" value={formData.body} onChange={inputHandler}></input>
-                                </div>
-                                <div>
-                                    <label htmlFor="chapter">Chapter: </label>
-                                    <input type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></input>
-                                </div>
-                                <div>
-                                    <label htmlFor="page">Page: </label>
-                                    <input type="number" id="page" value={formData.page} onChange={inputHandler}></input>
-                                </div>
+                                <FormField label='Body'>
+                                    <TextInput type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
+                                </FormField>
+                                <FormField label='Chapter'>
+                                    <TextInput type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
+                                </FormField>
+                                <FormField label='Page'>
+                                    <TextInput type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
+                                </FormField>
                             </>
                         }
                     </>
                     :
-                    <div>delete</div>
+                    null
                 }
-                <input type='submit' />
-            </form>
+                <Button primary type='submit' label='Submit' size='xsmall' margin={{top:'20px'}}/>
+            </Form>
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
-        </div>
+        </Box>
     )
 }
 

@@ -1,4 +1,4 @@
-import { Grid } from 'grommet'
+import { Button, Grid } from 'grommet'
 import React, { useContext, useState } from 'react'
 import { useLocation } from 'react-router'
 import { UserContext } from '../context/UserContext'
@@ -13,7 +13,8 @@ function ClubGrid() {
     const [formToggle, setFormToggle] = useState(false)
     return (
         <>
-            <button onClick={() => setFormToggle(!formToggle)}>{(formToggle) ? 'Hide Club Form' : 'New Club'}</button>
+            <Button onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Hide Club Form' : 'New Club'}/>
+            
             {((location.pathname === '/homepage/clubs') && formToggle) ? <ClubForm setErrors={setErrors} /> : null}
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 

@@ -1,3 +1,4 @@
+import { Button, Form, FormField, TextArea, TextInput } from 'grommet'
 import React, {useState, useContext} from 'react'
 import { UserContext } from '../context/UserContext'
 
@@ -36,21 +37,20 @@ function ClubForm({setErrors}) {
   return (
     <div>
       <h3>Create a new Club!</h3>
-      <form onSubmit={submitHandler} className='basicborder'>
-        <div>
-          <label htmlFor="name">Club Name: </label>
-          <input type="text" id="name" value={formData.name} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="clubPicture">Club Picture: </label>
-          <input type="text" id="clubPicture" value={formData.clubPicture} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <label htmlFor="message">Opening Club Message: </label>
-          <input type="text" id="message" value={formData.message} onChange={inputHandler}></input>
-        </div>
-        <input type='submit' />
-      </form>
+      <Form onSubmit={submitHandler} className='flex-club'>
+        <FormField label='Club Name'>
+          <TextInput type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Club Picture'>
+          <TextInput type="text" id="clubPicture" value={formData.clubPicture} onChange={inputHandler}></TextInput>
+        </FormField>
+
+        <FormField label='Opening Club Message'>
+          <TextArea type="text" id="message" value={formData.message} onChange={inputHandler}></TextArea>
+        </FormField>
+        <Button primary type='submit' label='Create'/>
+      </Form>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { Box, Button, CheckBox, Form, FormField, TextInput } from 'grommet'
 import React, { useState, useEffect, useContext } from 'react'
 import { ClubContext } from '../context/ClubContext'
 
@@ -88,22 +89,26 @@ function ClubUsersForm() {
     // failure to change state was a result of comparing form number(actually a string) with response data(integer)
 
     return (
-        <div className='basicborder'>
+        <Box border={{
+            color: 'yellow-1',
+            size: "medium",
+            style: "solid",
+            side: "all"
+        }} width='medium' height='medium' background='orange-1' style={{margin:'auto', marginTop:'10px'}}>
+
             <h4>{mode.message}</h4>
-            <div className="basicborder">
-                <button onClick={() => setMode(inviteParams)}>Invite</button>
-                <button onClick={() => setMode(editParams)}>Edit</button>
-                <button onClick={() => setMode(kickParams)}>Remove</button>
-            </div>
-            <form onSubmit={submitHandler} className="basicborder">
+            <Box direction='row'  alignSelf='center' justify='center' width='small' margin='xsmall'>
+                <Button primary color='forestgreen' onClick={() => setMode(inviteParams)} label='Invite'/>
+                <Button primary color='yellow' onClick={() => setMode(editParams)} label='Edit'/>
+                <Button primary color='red' onClick={() => setMode(kickParams)} label='Remove'/>
+            </Box>
+            <Form onSubmit={submitHandler}>
                 {mode.action === 'POST' ?
-                    <div>
-                        <label htmlFor="username">Username: </label>
-                        <input type="text" id="username" value={formData.username} onChange={inputHandler}></input>
-                    </div>
+                    <FormField label='Username' width='small' margin='auto'>
+                        <TextInput type="text" id="username" textAlign='center' value={formData.username} onChange={inputHandler}></TextInput>
+                    </FormField>
                     :
-                    <div>
-                        <label htmlFor='clubUserID'>Select a user: </label>
+                    <FormField label='Select a User'>
                         <select id='clubUserID' onChange={inputHandler} defaultValue='default'>
                             <option disabled value='default'>--choose a user--</option>
                             {sortedUsers.map(clubUser =>
@@ -112,20 +117,19 @@ function ClubUsersForm() {
                                 </option>
                             )}
                         </select>
-                    </div>
+                    </FormField>
                 }
                 {mode.action === 'PATCH' ?
-                    <div>
-                        <label htmlFor="isAdmin">Admin Status: </label>
-                        <input type="checkbox" id="isAdmin" checked={formData.isAdmin} onChange={inputHandler}></input>
+                    <div style={{width:'30%', margin:'auto', textAlign:'center'}}>
+                        <CheckBox type="checkbox" id="isAdmin" label='Admin Status' checked={formData.isAdmin} onChange={inputHandler}/>
                     </div>
                     :
                     null
                 }
-                <input type='submit' />
-            </form>
+                <Button primary type='submit' style={{marginTop:'10px'}} label='Submit'/>
+            </Form>
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
-        </div>
+        </Box>
     )
 }
 
