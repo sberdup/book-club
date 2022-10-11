@@ -1,70 +1,16 @@
-# Getting Started with Create React App
+# Book Club App
+This app centers around 3 central models. Users, Clubs, and Books.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Users
+An account may be created from the login landing page if a user doesn't already have one. Basic validations are run to make sure the requirements of a username, email, and password are met. A user has their own page from which they can access their associated books and clubs that they are a part of.
 
-## Available Scripts
+## Clubs
+A club may be created from a user's My Clubs section. After a valid club is created, you can access it from that club's tile. A club also has its own page with its own books and settings page. From club settings, users may be added via username and have their adminship status changed or be removed from a club outright. Currently, the user that creates the club is set as the club owner and has special permissions that regular admins and users will not be able to use. 
 
-In the project directory, you can run:
+## Books
+Currently books are added to the backend database whenever a user adds a book to a collection or a book club. A collection is made up of all the books associated with a specific user or club. From a club's page or a user's page, you can access a form to add a book. A user may either manually add all the book details or search a book using the Google Books API which has been integrated into the app. If a search result contains a Title, Description, Author, and a valid Page Count, it will allow the user to add it to the current colleciton with a simple button. 
 
-### `npm start`
+A book also gets its own page when it is added to the database.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Book Wiki
+A book wiki is the main feature of a book page. Basic details showing what book you are accessing are shown at the top of the page. A book wiki shows categories for Characters, Times, Events, Groups, Objects, Places, Quotes, Storylines, Themes, and Miscellaneous entries. Each category type has its own corresponding database model and details that are specific to it although there are shared qualities. A user may add, edit, or delete entries for a book's wiki. 
