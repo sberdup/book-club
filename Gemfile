@@ -48,3 +48,7 @@ group :development do
 end
 
 gem "active_model_serializers", "~> 0.10.13"
+
+#imagekit
+gem 'imagekitio'
+gem 'open-uri'
