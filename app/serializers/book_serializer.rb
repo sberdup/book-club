@@ -10,4 +10,5 @@ class BookSerializer < ActiveModel::Serializer
   has_many :quotes
   has_many :storylines
   has_many :themes
+  has_one :image
 end

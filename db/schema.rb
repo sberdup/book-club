@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_19_214433) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_14_173228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_214433) do
     t.string "author"
     t.integer "pages"
     t.string "genre"
-    t.string "cover_picture"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -67,7 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_214433) do
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
-    t.string "club_picture"
     t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -109,6 +107,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_214433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_groups_on_book_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "url"
+    t.string "ik_id"
+    t.string "file_name"
+    t.bigint "user_id"
+    t.bigint "club_id"
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_images_on_book_id"
+    t.index ["club_id"], name: "index_images_on_club_id"
+    t.index ["user_id"], name: "index_images_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -163,7 +175,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_214433) do
     t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
-    t.string "profile_picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
@@ -180,6 +191,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_214433) do
   add_foreign_key "eras", "books"
   add_foreign_key "events", "books"
   add_foreign_key "groups", "books"
+  add_foreign_key "images", "books"
+  add_foreign_key "images", "clubs"
+  add_foreign_key "images", "users"
   add_foreign_key "items", "books"
   add_foreign_key "locations", "books"
   add_foreign_key "quotes", "books"

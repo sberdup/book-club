@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :images
   resources :book_elements
   resources :storylines
   resources :themes

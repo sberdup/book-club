@@ -26,7 +26,7 @@ class ClubsController < ApplicationController
     private 
 
     def club_params 
-        params.permit(:name, :club_picture, :message)
+        params.permit(:name, :message)
     end
 
     def find_club 
