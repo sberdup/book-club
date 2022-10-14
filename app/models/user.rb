@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class User < ApplicationRecord
     has_many :club_users, dependent: :destroy
     has_many :clubs, through: :club_users

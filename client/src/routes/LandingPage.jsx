@@ -23,7 +23,7 @@ function LandingPage() {
       <Heading margin={{ top: 'none', bottom: 'large' }} fill={true}>Welcome to the Book Club App!</Heading>
 
       {toggleLogIn ? <LogInOut setErrors={setErrors} /> : <SignUpForm setErrors={setErrors} />}
-      {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
+      {errors.errors === undefined ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
       <Button secondary color='firebrick' label={toggleLogIn ? 'New User?' : 'Back to Log In'} onClick={() => {
         setToggleLogIn(!toggleLogIn)
         setErrors([])

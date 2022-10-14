@@ -1,5 +1,5 @@
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :title, :author, :pages, :genre, :cover_picture, :description
+  attributes :id, :title, :author, :pages, :genre, :description
   has_many :book_elements
   has_many :characters
   has_many :eras
