@@ -27,14 +27,12 @@ function SignUpForm({ setErrors }) {
       })
     })
     const data = await resp.json()
-    console.log(data)
+    
     if (resp.ok && fileName === '') {
-      console.log('image left blank and user will be logged in')
       setUser(data)
     } else if (resp.ok) {
       sendPic(data)
-    }
-      else {
+    } else {
       setErrors(data)
     }
     //passing user into context, which goes up to App state
@@ -45,12 +43,11 @@ function SignUpForm({ setErrors }) {
     formData.append("file", fileRef.current.files[0]);
     formData.append("fileName", fileName)
     formData.append("userId", parseInt(user.id))
-    console.log(formData)
+
     const resp = await fetch('/images', {method:'POST', body: formData})
     const data = await resp.json()
 
     if (resp.ok) {
-      console.log('picture resp OK', data)
       setUser({...user, image:data})
     } else {
       setErrors(data)
@@ -88,8 +85,7 @@ function SignUpForm({ setErrors }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignSelf: 'center', height: '10em', width: '20em' }}>
           <Text>Profile Picture</Text>
-          {/* <FileInput type='file' name="profilePicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput> */}
-          <input type="file" name="file" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name) } />
+          <FileInput type='file' name="profilePicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput>
         </div>
 
         <Button primary label='Submit' type='submit' />

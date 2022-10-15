@@ -2,6 +2,8 @@ class Image < ApplicationRecord
     belongs_to :user, optional:true 
     belongs_to :club, optional:true
     belongs_to :book, optional:true
+    # optional must be set to true even if the foreign key is nullable
+    # for associations to be properly validated on creation
 
     def self.ik_upload(image_params)
         @imagekitio = ImageKitIo.client
@@ -11,6 +13,7 @@ class Image < ApplicationRecord
         response = @imagekitio.upload_file(
             file: file, # required
             file_name: file_name,  # required
+            folder:'bookclub',
             response_fields: 'isPrivateFile, tags',
             tags: %w[abc def],
             use_unique_file_name: true
