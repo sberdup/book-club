@@ -10,7 +10,8 @@ class ImagesController < ApplicationController
 
     def create 
         @ex_params = Image.ik_upload(image_params)
-        @image = Image.create!(@ex_params)
+        @image = Image.create!({url:@ex_params[:url], file_name:@ex_params[:file_name], ik_id:@ex_params[:ik_id], 
+            user_id:params[:userId], club_id:params[:clubId], book_id:params[:bookId]})
         render json: {data: @image, status: :ok}
     end
 
@@ -25,6 +26,6 @@ class ImagesController < ApplicationController
     private
 
     def image_params
-        params.permit(:id, :file, :fileName)
+        params.permit(:id, :file, :fileName, :userId, :clubId, :bookId)
     end
 end

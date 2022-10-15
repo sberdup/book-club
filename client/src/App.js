@@ -32,6 +32,7 @@ function App() {
     const resp = await fetch('/me')
     const data = await resp.json()
     if (resp.ok) {
+      console.log(data)
       setUser(data)
     }
   }

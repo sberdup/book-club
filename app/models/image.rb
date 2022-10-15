@@ -1,4 +1,8 @@
 class Image < ApplicationRecord
+    belongs_to :user, optional:true 
+    belongs_to :club, optional:true
+    belongs_to :book, optional:true
+
     def self.ik_upload(image_params)
         @imagekitio = ImageKitIo.client
         file = image_params[:file]
