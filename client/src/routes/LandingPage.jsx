@@ -24,11 +24,11 @@ function LandingPage() {
 
       {toggleLogIn ? <LogInOut setErrors={setErrors} /> : <SignUpForm setErrors={setErrors} />}
       {errors.errors === undefined ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
+      
       <Button secondary color='firebrick' label={toggleLogIn ? 'New User?' : 'Back to Log In'} onClick={() => {
         setToggleLogIn(!toggleLogIn)
         setErrors([])
       }} />
-      {/* vvv handles errors received from either user creation or login failure currently */}
     </div>
   )
 }

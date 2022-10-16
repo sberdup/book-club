@@ -27,7 +27,7 @@ function SignUpForm({ setErrors }) {
       })
     })
     const data = await resp.json()
-    
+
     if (resp.ok && fileName === '') {
       setUser(data)
     } else if (resp.ok) {
@@ -42,7 +42,7 @@ function SignUpForm({ setErrors }) {
     const formData = new FormData();
     formData.append("file", fileRef.current.files[0]);
     formData.append("fileName", fileName)
-    formData.append("userId", parseInt(user.id))
+    formData.append("userId", user.id)
 
     const resp = await fetch('/images', {method:'POST', body: formData})
     const data = await resp.json()

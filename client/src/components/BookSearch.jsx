@@ -35,7 +35,7 @@ function BookSearch({setBookResults, setErrors}) {
   
     return (
       <div>
-        <h3>Search via Google Books API!</h3>
+        <h3>Search</h3>
         <Form onSubmit={submitHandler} className='flex-form'>
           <FormField label='Title'>
             <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>

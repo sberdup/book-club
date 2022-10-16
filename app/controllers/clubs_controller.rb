@@ -10,7 +10,7 @@ class ClubsController < ApplicationController
     end
 
     def show 
-        render json:find_club
+        render json:find_club, include:['users','users.image', 'books', 'books.image', 'image']
     end
 
     def update 

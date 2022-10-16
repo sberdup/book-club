@@ -1,4 +1,4 @@
-import { Button, Card, CardFooter, Heading, Image } from 'grommet'
+import { Button, Card, CardFooter, Heading, Image, Paragraph, Box } from 'grommet'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -21,14 +21,16 @@ function BookTile({ source, book, setFormData, bookForm }) {
           {book.description ? <p>Description: {book.description}</p> : null}
           {book.pages ? <p>Pages: {book.pageCount}</p> : null}
           <CardFooter margin={{ top: 'large', bottom: 'small' }}>
-          {((book.title && book.authors) && (book.description && book.pageCount)) ? <Button primary color='orange-1' label='Add to Current Collection' onClick={() => bookClickHandler(book)}/> : null}
+            {((book.title && book.authors) && (book.description && book.pageCount)) ? <Button primary color='orange-1' label='Add to Current Collection' onClick={() => bookClickHandler(book)} /> : null}
           </CardFooter>
         </Card>)
         :
         (<Card align='center' justify='center' background='purple-1'>
           <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading>
-          <p>By: {book.author.split(',').join(', ')}</p>
-
+          <Box height="small" width="small">
+            <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
+            <Paragraph>By: {book.author.split(',').join(', ')}</Paragraph>
+          </Box>
           <CardFooter margin={{ top: 'large', bottom: 'small' }}>
             <Link to={`/books/${book.id}`}>Book Page</Link>
           </CardFooter>

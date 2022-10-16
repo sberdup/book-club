@@ -1,5 +1,5 @@
-import { Button, Form, FormField, TextArea, TextInput } from 'grommet'
-import React, { useContext, useEffect } from 'react'
+import { Button, Form, FormField, TextArea, TextInput, Text, FileInput } from 'grommet'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
 
@@ -8,10 +8,13 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
   const {user} = useContext(UserContext)
   const {club} = useContext(ClubContext)
 
+  const fileRef = useRef(null)
+  const[fileName, setFileName] = useState('')
+
   useEffect(() => {
     bookForm.current = document.getElementById('bookform')
   }, [])
-
+  //^ makes the form targetable in the dom and available to booktile.jsx
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
@@ -26,14 +29,17 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
         author: formData.author,
         pages: parseInt(formData.pages),
         genre: formData.genre,
-        cover_picture: formData.coverPicture,
         description: formData.description,
       })
     })
     const data = await resp.json()
     if (resp.ok){
+      if (formData.coverPicture !== '' || fileName !== '') {
+        sendPic(data)
+      } else {
+        setCollection({...collection, books:[...collection.books, data]})
+      }
       setFormData(emptyForm)
-      setCollection({...collection, books:[...collection.books, data]})
       // replace this with setState to pass to parent to display after creation
       collectionLinker(data.id, source)
       setErrors({errors:['Success!']})
@@ -41,6 +47,28 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
       setErrors(data)
     }
     //passing user into context, which goes up to App state
+  }
+
+  async function sendPic(book) {
+    const newForm = new FormData();
+    if (formData.coverPicture !== '') {
+      newForm.append('file', formData.coverPicture)
+      newForm.append('fileName', formData.coverPicture.match('=(.+)&print')[1])
+    } else {
+      newForm.append("file", fileRef.current.files[0]);
+      newForm.append("fileName", fileName)
+    }
+    newForm.append("bookId", book.id)
+
+    const resp = await fetch('/images', {method:'POST', body: newForm})
+    const data = await resp.json()
+
+    if (resp.ok) {
+      setCollection({...collection, books:[...collection.books, {...book, image:data}] })
+    } else {
+      setErrors({errors:['Cover picture was not accepted.']})
+      setTimeout(setCollection({...collection, books:[...collection.books, book] }), 2000)
+    }
   }
 
   async function collectionLinker(bookID, destination){
@@ -63,7 +91,7 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
       })
     })
     const data = await resp.json()
-    console.log(data)
+    
     if (resp.ok){
       setErrors({errors:['Success!']})
     } else {
@@ -95,9 +123,10 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
           <TextInput type="number" id="pages" value={formData.pages} onChange={inputHandler}></TextInput>
         </FormField>
 
-        <FormField label='Cover Picture'>
-          <TextInput type="text" id="coverPicture" value={formData.coverPicture} onChange={inputHandler}></TextInput>
-        </FormField>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignSelf: 'center', height: '10em', width: '20em' }}>
+          <Text>Cover Picture</Text>
+          <FileInput type='file' name="coverPicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput>
+        </div>
         
         <Button primary type='submit' label='Submit'/>
       </Form>

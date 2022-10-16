@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     end
 
     def show 
-        render json:User.find(session[:user_id])
+        render json:User.find(session[:user_id]), include: ['books', 'books.image', 'clubs', 'clubs.image', 'image']
     end
 
     def update 

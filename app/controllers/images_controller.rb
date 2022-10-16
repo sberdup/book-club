@@ -12,7 +12,7 @@ class ImagesController < ApplicationController
         @ex_params = Image.ik_upload(image_params)
         # creation was breaking running validations on nil data, see Image model
         @image = Image.create!({url:@ex_params[:url], file_name:@ex_params[:file_name], ik_id:@ex_params[:ik_id], 
-            user_id:params[:userId], club_id:params[:clubId], book_id:params[:bookId]})
+            user_id:image_params[:userId], club_id:image_params[:clubId], book_id:image_params[:bookId]})
         render json: @image, status: :ok
     end
 

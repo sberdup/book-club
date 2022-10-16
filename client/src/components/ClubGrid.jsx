@@ -19,8 +19,10 @@ function ClubGrid() {
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 
             <h2>Your Clubs</h2>
-            <Grid columns={{count:'fit', size:'medium'}} rows='small' gap='medium' border={true}  alignContent='center' margin='small' pad='small'>
-                {user.clubs === null ? <h2>please wait...</h2> : user.clubs.map(club => <ClubTile key={club.id} club={club} />)}
+            <Grid columns={{count:'fit', size:'medium'}} rows='medium' gap='medium' border={true}  alignContent='center' margin='small' pad='small'>
+                {user.clubs?.length === 0 ? <h2>No clubs yet!</h2> 
+                : 
+                user.clubs.map(club => <ClubTile key={club.id} club={club} />)}
             </Grid>
         </>
     )
