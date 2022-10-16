@@ -35,7 +35,7 @@ function ClubPage() {
             <NavLink to={`/clubs/${clubId}`} className={location.pathname === `/clubs/${clubId}` ? 'activeLink' : 'inactiveLink'}>Club Home</NavLink>
           </Box>
           {location.pathname === `/clubs/${clubId}` ?
-            <Card align='center' justify='center' background='orange-1' margin={{top:'small'}}>
+            <Card background='accent-3' >
               <Box height="small" width="small">
                 <Image src={`${club.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/shape-27531_emuhhi80e.png' />
                 <Paragraph>{club.message}</Paragraph>

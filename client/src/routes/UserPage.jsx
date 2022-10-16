@@ -13,7 +13,7 @@ function UserPage() {
       <h2>{user ? `Hello ${user.first_name || user.username}!` : 'Please log in.'}</h2>
       <Outlet />
       {location.pathname === '/homepage' ?
-      <Card align='center' justify='center' background='green-1'>
+      <Card align='center' justify='center' background='accent-1'>
         <Box height="small" width="small">
           <Image src={`${user.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/149071_Dcw9gvaSe.png' />
           <Paragraph>{user.first_name}</Paragraph>

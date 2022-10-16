@@ -32,7 +32,7 @@ function BookPage() {
     return (
         <div>
             {(book.id && location.pathname !== `/books/${bookId}/edit`) ?
-                <Card align='center' justify='center' background='purple-1' margin={{ top: 'small' }}>
+                <Card background='accent-2'>
                         <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{`${book.title} by ${book.author}`}</Heading>
                     <Box height="small" width="large" direction='row' margin={{bottom:'small'}}>
                         <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />

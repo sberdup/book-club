@@ -12,6 +12,7 @@ import BookGrid from "./components/BookGrid";
 import ClubUsersForm from "./components/ClubUsersForm";
 import WikiForm from "./components/WikiForm";
 import { Grommet } from 'grommet'
+import {theme} from "./theme/theme.js"
 
 function App() {
   const [user, setUser] = useState({ id: false })
@@ -36,31 +37,6 @@ function App() {
     }
   }
 
-  const theme = {
-    global: {
-      colors: {
-        'light-2': '#f5f5f5',
-        'orange-1': '#FFA422',
-        'yellow-1' : '#FFEE1A',
-        'red-1' : '#FF2121',
-        'green-1' : '#21B800',
-        'blue-1' : '#0047DE',
-        'cyan-1' : '#11F3FF',
-        'gray-1' : '#6B6B6B',
-        'purple-1' : '#802AFF',
-
-        'text': {
-          light: 'rgba(0, 0, 0, 0.87)',
-        },
-        
-      },
-      font: {
-        family: 'Roboto',
-        size: '14px',
-        height: '20px',
-      },
-    },
-  };
 
   return (
     <BrowserRouter>

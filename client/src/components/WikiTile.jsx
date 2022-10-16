@@ -38,7 +38,7 @@ function WikiTile({ element }) {
   })
 
   return (
-    <Card align='center' justify='center' background='yellow-1'>
+    <Card align='center' justify='center' background='accent-5'>
       {elementMap}
     </Card>
   )

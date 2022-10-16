@@ -25,7 +25,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
           </CardFooter>
         </Card>)
         :
-        (<Card align='center' justify='center' background='purple-1'>
+        (<Card align='center' justify='center' background='accent-2'>
           <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading>
           <Box height="small" width="small">
             <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
