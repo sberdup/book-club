@@ -1,4 +1,4 @@
-import { Spinner } from 'grommet'
+import { Spinner, Card, Box, Paragraph, Image, Heading } from 'grommet'
 import React, { useState, useEffect, useContext } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
@@ -31,16 +31,19 @@ function BookPage() {
 
     return (
         <div>
-            {book.id ?
-                <>
-                    <h2>{`${book.title} by ${book.author}`}</h2>
-                    <p>{book.description}</p>
-                </>
+            {(book.id && location.pathname !== `/books/${bookId}/edit`) ?
+                <Card align='center' justify='center' background='purple-1' margin={{ top: 'small' }}>
+                        <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{`${book.title} by ${book.author}`}</Heading>
+                    <Box height="small" width="large" direction='row' margin={{bottom:'small'}}>
+                        <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
+                        <Paragraph>{book.description}</Paragraph>
+                    </Box>
+                </Card>
                 : null}
-            {(location.pathname !== `/books/${bookId}`) ? <NavLink to={`/books/${bookId}`}>Back to Book</NavLink> :<NavLink to="edit">Edit BookWiki</NavLink>}
             <Outlet />
+            {(location.pathname !== `/books/${bookId}`) ? <NavLink to={`/books/${bookId}`}>Back to Book</NavLink> : <NavLink to="edit">Edit BookWiki</NavLink>}
             <WikiBar setCategoryFilter={setCategoryFilter} />
-            {loading ? <Spinner color='goldenrod' size='xlarge' style={{margin:'auto'}}/> : <WikiGrid bookSelection={book[categoryFilter]} />}
+            {loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <WikiGrid bookSelection={book[categoryFilter]} />}
         </div>
     )
 }
