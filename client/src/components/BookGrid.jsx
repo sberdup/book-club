@@ -1,4 +1,4 @@
-import { Button, Grid } from 'grommet'
+import { Button, Grid, Box, Heading } from 'grommet'
 import React, { useContext, useState, useRef } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
@@ -13,6 +13,7 @@ function BookGrid({ source }) {
   //also getting club
   const [errors, setErrors] = useState([])
   const [formToggle, setFormToggle] = useState(false)
+  const [searchToggle, setSearchToggle] = useState(true)
   const [bookResults, setBookResults] = useState({ items: [] })
 
   const [formData, setFormData] = useState({ title: '', author: '', pages: '', genre: '', coverPicture: '', description: '' })
@@ -52,18 +53,18 @@ function BookGrid({ source }) {
 
   return (
     <>
-      <Button margin={{top:'small'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Hide Book Form' : 'Add Book'}/>
+      <Button secondary color='accent-1' alignSelf='center' fill style={{maxWidth:'25%'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Hide Book Form' : 'Add Book'}/>
       {(formToggle) ?
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <BookForm setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm}/>
-          <h2 style={{ padding: '5%' }}> OR </h2>
-          <BookSearch setBookResults={setBookResults} setErrors={setErrors} />
-        </div>
+        <Box>
+          <BookForm searchToggle={searchToggle} setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm}/>
+          <BookSearch searchToggle={searchToggle} setBookResults={setBookResults} setErrors={setErrors} />
+          <Button primary fill color='accent-2' label={`${searchToggle ? 'Manual Entry' : 'Back to Search'}`} alignSelf='center' margin='small' style={{ maxWidth: '25%' }} onClick={() => setSearchToggle(!searchToggle)} />
+        </Box>
         : null}
 
       {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 
-      {formToggle ? <h2>Book Results</h2> : ((source === 'user') ? <h2>Your Books</h2> : <h2>Book Collection</h2>)}
+      {formToggle ? <Heading level={2}>Book Results</Heading> : ((source === 'user') ? <Heading level={2}>Your Books</Heading> : <Heading level={2}>Book Collection</Heading>)}
 
       <Grid columns={{count:'fit', size:'medium'}} rows={{count:'fit', size:[['small', 'xlarge']]}} gap='medium' border={true}  alignContent='center' margin='small' pad='small'>
         {

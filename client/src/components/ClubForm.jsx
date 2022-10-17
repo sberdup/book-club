@@ -1,4 +1,4 @@
-import { Button, Form, FormField, TextArea, TextInput, Text, FileInput } from 'grommet'
+import { Button, Form, FormField, TextArea, TextInput, Text, FileInput, Box } from 'grommet'
 import React, {useState, useContext, useRef} from 'react'
 import { UserContext } from '../context/UserContext'
 
@@ -60,24 +60,23 @@ function ClubForm({setErrors}) {
   }
 
   return (
-    <div>
-      <h3>Create a new Club!</h3>
-      <Form onSubmit={submitHandler} className='flex-club'>
+    <Box width={{max:'50%'}} alignSelf='center'>
+      <Form onSubmit={submitHandler} >
         <FormField label='Club Name'>
-          <TextInput type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+          <TextInput type="text" id="name" required value={formData.name} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Opening Club Message'>
           <TextArea type="text" id="message" value={formData.message} onChange={inputHandler}></TextArea>
         </FormField>
 
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignSelf: 'center', height: '10em', width: '20em' }}>
+        <Box gap='small'>
           <Text>Club Picture</Text>
           <FileInput type='file' name="clubPicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput>
-        </div>
-        <Button primary type='submit' label='Create'/>
+        </Box>
+        <Button margin={{top:'small'}} primary color='accent-4' type='submit' label='Create'/>
       </Form>
-    </div>
+    </Box>
   )
 }
 

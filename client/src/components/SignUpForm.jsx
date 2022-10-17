@@ -1,4 +1,4 @@
-import { Button, FileInput, Form, FormField, TextInput, Text } from 'grommet'
+import { Button, FileInput, Form, FormField, TextInput, Text, Box } from 'grommet'
 import React, { useState, useContext, useRef } from 'react'
 import { UserContext } from '../context/UserContext'
 
@@ -56,41 +56,40 @@ function SignUpForm({ setErrors }) {
   }
 
   return (
-    <div>
-      <Form onSubmit={submitHandler} className='flex-login'>
-        <h2>Sign Up for a New Account</h2>
+    <Box width={{max:'50vw'}} fill>
+      <Form onSubmit={submitHandler}>
         <FormField label='First Name'>
-          <TextInput type="text" name="firstName" value={formData.firstName} onChange={inputHandler}></TextInput>
+          <TextInput textAlign='center' type="text" name="firstName" value={formData.firstName} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Last Name'>
-          <TextInput type="text" name="lastName" value={formData.lastName} onChange={inputHandler}></TextInput>
+          <TextInput textAlign='center' type="text" name="lastName" value={formData.lastName} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Username'>
-          <TextInput type="text" name="username" value={formData.username} onChange={inputHandler}></TextInput>
+          <TextInput textAlign='center' type="text" name="username" required value={formData.username} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Password'>
-          <TextInput type="password" name="password" value={formData.password} onChange={inputHandler}></TextInput>
+          <TextInput textAlign='center' type="password" name="password" required value={formData.password} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Confirm Password'>
-          <TextInput type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onChange={inputHandler}></TextInput>
+          <TextInput textAlign='center' type="password" name="passwordConfirmation" required value={formData.passwordConfirmation} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Email'>
-          <TextInput type="text" name="email" value={formData.email} onChange={inputHandler}></TextInput>
+          <TextInput textAlign='center' type="text" name="email" required value={formData.email} onChange={inputHandler}></TextInput>
         </FormField>
 
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignSelf: 'center', height: '10em', width: '20em' }}>
+        <Box gap='small'>
           <Text>Profile Picture</Text>
           <FileInput type='file' name="profilePicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput>
-        </div>
+        </Box>
 
-        <Button primary label='Submit' type='submit' />
+        <Button primary label='Submit' type='submit' margin='xsmall'/>
       </Form>
-    </div>
+    </Box>
   )
 }
 export default SignUpForm

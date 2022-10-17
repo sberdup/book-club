@@ -21,12 +21,6 @@ function App() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
-
-  useEffect(() => {
     getUser()
   }, [])
   async function getUser() {
@@ -70,7 +64,6 @@ function App() {
             </Route>
 
           </Route>
-          <Route path="/testing" element={<h1>Test/Page Count: {count}</h1>} />
         </Routes>
       </Grommet>
     </BrowserRouter>

@@ -1,8 +1,8 @@
-import { Button, Form, FormField, TextInput } from 'grommet'
+import { Button, Form, FormField, TextInput, Box, Heading } from 'grommet'
 import React, { useState } from 'react'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
-function BookSearch({setBookResults, setErrors}) {
+function BookSearch({setBookResults, setErrors, searchToggle}) {
     const emptyForm = { title: '', author: '', keywords:''}
     const [formData, setFormData] = useState(emptyForm)
 
@@ -32,11 +32,11 @@ function BookSearch({setBookResults, setErrors}) {
         setErrors({errors: [data.error.errors[0].message]})
       }
     }
-  
+    const hiddenStyle = (searchToggle ? {} : {display:'none'})
+
     return (
-      <div>
-        <h3>Search</h3>
-        <Form onSubmit={submitHandler} className='flex-form'>
+      <Box style={hiddenStyle} width={{max:'50vw'}} alignSelf='center' fill>
+        <Form onSubmit={submitHandler}>
           <FormField label='Title'>
             <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
           </FormField>
@@ -46,9 +46,9 @@ function BookSearch({setBookResults, setErrors}) {
           <FormField label='Keywords'>
             <TextInput type="text" id="keywords" value={formData.keywords} onChange={inputHandler}></TextInput>
           </FormField>
-          <Button primary color='orange-1' type='submit' label='Search'/>
+          <Button margin={{top:'small'}} style={{maxWidth:'65%'}} primary color='accent-1' type='submit' label='Search' fill/>
         </Form>
-      </div>
+      </Box>
     )
   }
 

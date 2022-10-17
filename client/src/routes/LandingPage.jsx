@@ -3,7 +3,7 @@ import LogInOut from '../components/LogInOut'
 import SignUpForm from '../components/SignUpForm'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
-import { Button, Heading } from 'grommet'
+import { Box, Button, Header, Heading, Page, PageContent } from 'grommet'
 
 function LandingPage() {
   const navigate = useNavigate()
@@ -19,17 +19,23 @@ function LandingPage() {
   }, [user, navigate])
 
   return (
-    <div>
-      <Heading margin={{ top: 'none', bottom: 'large' }} fill={true}>Welcome to the Book Club App!</Heading>
+    <Page height={{ min: '100vh' }} width={{min:'100vw'}}>
+      <Header background='brand' justify='center' height={{max:'20vh'}}>
+        <Heading color='black' level={1}>Welcome to the Book Club App!</Heading>
+      </Header>
+      <PageContent justify='evenly' align='center' width={{min:'30vw', max:'80vw'}} height={{min:'80vh'}} fill>
 
-      {toggleLogIn ? <LogInOut setErrors={setErrors} /> : <SignUpForm setErrors={setErrors} />}
-      {errors.errors === undefined ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
-      
-      <Button secondary color='firebrick' label={toggleLogIn ? 'New User?' : 'Back to Log In'} onClick={() => {
-        setToggleLogIn(!toggleLogIn)
-        setErrors([])
-      }} />
-    </div>
+          {toggleLogIn ? <LogInOut setErrors={setErrors} /> : <SignUpForm setErrors={setErrors} />}
+
+        <Box align='center' width={{max:'80vw'}} fill>
+          {errors.errors === undefined ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
+          <Button primary color='accent-3' style={{ minWidth: '35%' }} label={toggleLogIn ? 'New User?' : 'Back to Log In'} onClick={() => {
+            setToggleLogIn(!toggleLogIn)
+            setErrors([])
+          }} />
+        </Box>
+      </PageContent>
+    </Page>
   )
 }
 

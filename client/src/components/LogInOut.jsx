@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
-import { useNavigate } from 'react-router-dom'
-import { Button, Form, FormField, TextInput } from 'grommet'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { Button, Form, FormField, TextInput, Box } from 'grommet'
 
 function LogInOut({ setErrors }) {
   const { user, setUser } = useContext(UserContext)
@@ -41,19 +41,19 @@ function LogInOut({ setErrors }) {
   return (
     <>
       {user.id ?
-        <div className='activeLink'>
-          <Button primary color='green' label='Log Out' size='small' margin='none' onClick={logoutHandler}/>
-        </div> :
-
-        <Form onSubmit={submitHandler} className='flex-login'>
-          <FormField label='Username' margin='small'>
-            <TextInput type="text" name="username" label='Username:' value={formData.username} onChange={inputHandler}></TextInput>
-          </FormField>
-          <FormField label='Password' margin='small'>
-            <TextInput type="password" name="password" value={formData.password} onChange={inputHandler}></TextInput>
-          </FormField>
-          <Button label='Log In' type='submit' primary color='#45BF3A' size='medium' margin={{vertical:'medium'}} />
-        </Form>
+          <NavLink className='activeLink' onClick={logoutHandler}>Log Out</NavLink>
+        :
+        <Box width={{ max: '60vw' }} fill>
+          <Form onSubmit={submitHandler} align='center' >
+            <FormField label='Username' margin='small'>
+              <TextInput textAlign='center' type="text" name="username" required value={formData.username} onChange={inputHandler}></TextInput>
+            </FormField>
+            <FormField label='Password' margin='small'>
+              <TextInput textAlign='center' type="password" name="password" required value={formData.password} onChange={inputHandler}></TextInput>
+            </FormField>
+            <Button label='Log In' type='submit' primary color='accent-1' size='medium' style={{ maxWidth: '30vw' }} margin={{ vertical: 'medium' }} fill />
+          </Form>
+        </Box>
       }
     </>
   )

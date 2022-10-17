@@ -1,9 +1,9 @@
-import { Button, Form, FormField, TextArea, TextInput, Text, FileInput } from 'grommet'
+import { Button, Form, FormField, TextArea, TextInput, Text, FileInput, Box, Heading } from 'grommet'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
 
-function BookForm({setErrors, collection, setCollection, source, formData, setFormData, bookForm}) {
+function BookForm({setErrors, collection, setCollection, source, formData, setFormData, bookForm, searchToggle}) {
   const emptyForm = { title: '', author: '', pages: '', genre:'', coverPicture:'', description:''}
   const {user} = useContext(UserContext)
   const {club} = useContext(ClubContext)
@@ -98,17 +98,18 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
       setErrors(data)
     }
   }
+  const hiddenStyle = (searchToggle ? {display:'none'} : {})
 
   return (
-    <div>
-      <h3>Manually Add a Book</h3>
-      <Form onSubmit={submitHandler} id='bookform' className='flex-form'>
+    <Box style={hiddenStyle} width={{max:'50vw'}} alignSelf='center' fill>
+      <Heading alignSelf='center' level={4}>Manually Add a Book</Heading>
+      <Form onSubmit={submitHandler} id='bookform'>
         <FormField label='Title'>
-          <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
+          <TextInput required type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Author'>
-          <TextInput type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
+          <TextInput required type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Genre'>
@@ -116,21 +117,21 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
         </FormField>
 
         <FormField label='Description'>
-          <TextArea id="description" value={formData.description} onChange={inputHandler}></TextArea>
+          <TextArea required id="description" value={formData.description} onChange={inputHandler}></TextArea>
         </FormField>
 
         <FormField label='Pages'>
-          <TextInput type="number" id="pages" value={formData.pages} onChange={inputHandler}></TextInput>
+          <TextInput required type="number" id="pages" value={formData.pages} onChange={inputHandler}></TextInput>
         </FormField>
 
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignSelf: 'center', height: '10em', width: '20em' }}>
+        <Box gap='small'>
           <Text>Cover Picture</Text>
           <FileInput type='file' name="coverPicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput>
-        </div>
+        </Box>
         
-        <Button primary type='submit' label='Submit'/>
+        <Button margin='small' style={{maxWidth:'65%'}} primary type='submit' label='Submit' fill/>
       </Form>
-    </div>
+    </Box>
   )
 }
 
