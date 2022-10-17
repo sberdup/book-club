@@ -13,7 +13,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
   return (
     <>
       {source === 'search' ?
-        (<Card align='center' justify='center' background='purple-1' flex={true}>
+        (<Card align='center' justify='center' background='accent-2' flex={true}>
           {book.title ? <Heading margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading> : null}
           {book.thumbnail ? <Image alt='book cover' src={book.thumbnail} /> : null}
           {book.authors ? (book.authors.length > 1 ? <p>Author: {book.authors.join()}</p> : <p>Authors: {book.authors[0]}</p>) : null}
@@ -21,14 +21,14 @@ function BookTile({ source, book, setFormData, bookForm }) {
           {book.description ? <p>Description: {book.description}</p> : null}
           {book.pages ? <p>Pages: {book.pageCount}</p> : null}
           <CardFooter margin={{ top: 'large', bottom: 'small' }}>
-            {((book.title && book.authors) && (book.description && book.pageCount)) ? <Button primary color='orange-1' label='Add to Current Collection' onClick={() => bookClickHandler(book)} /> : null}
+            {((book.title && book.authors) && (book.description && book.pageCount)) ? <Button primary color='accent-3' label='Add to Current Collection' onClick={() => bookClickHandler(book)} /> : null}
           </CardFooter>
         </Card>)
         :
         (<Card align='center' justify='center' background='accent-2'>
           <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading>
           <Box height="small" width="small">
-            <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
+            <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
             <Paragraph>By: {book.author.split(',').join(', ')}</Paragraph>
           </Box>
           <CardFooter margin={{ top: 'large', bottom: 'small' }}>

@@ -10,7 +10,7 @@ function NavBar() {
 
   return (
     <>
-      <Header >
+      <Header background='accent-3'>
         <NavLink to="homepage/clubs" className={navLinkFunction}>My Clubs</NavLink>
         <NavLink to="homepage/books" className={navLinkFunction}>My Books</NavLink>
         {(location.pathname === '/homepage') ? <LogInOut /> : <NavLink to="homepage" className='inactiveLink'>Home</NavLink>}

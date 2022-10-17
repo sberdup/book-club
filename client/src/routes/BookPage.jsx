@@ -1,4 +1,4 @@
-import { Spinner, Card, Box, Paragraph, Image, Heading } from 'grommet'
+import { Spinner, Card, Box, Paragraph, Image, Heading, Grid } from 'grommet'
 import React, { useState, useEffect, useContext } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
@@ -30,21 +30,21 @@ function BookPage() {
     }
 
     return (
-        <div>
+        <Box>
             {(book.id && location.pathname !== `/books/${bookId}/edit`) ?
-                <Card background='accent-2'>
-                        <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{`${book.title} by ${book.author}`}</Heading>
-                    <Box height="small" width="large" direction='row' margin={{bottom:'small'}}>
-                        <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
+                <Card background='accent-2' alignSelf='center' margin='medium' width='xlarge'>
+                        <Heading level={3} alignSelf='center' margin={{ top: 'small', bottom: 'large' }}>{`${book.title} by ${book.author}`}</Heading>
+                    <Grid columns={{count:'fit', size:'small'}} justify='center' gap='medium' margin='small' >
+                        <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-200,h-200/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
                         <Paragraph>{book.description}</Paragraph>
-                    </Box>
+                    </Grid>
                 </Card>
                 : null}
             <Outlet />
             {(location.pathname !== `/books/${bookId}`) ? <NavLink to={`/books/${bookId}`}>Back to Book</NavLink> : <NavLink to="edit">Edit BookWiki</NavLink>}
             <WikiBar setCategoryFilter={setCategoryFilter} />
             {loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <WikiGrid bookSelection={book[categoryFilter]} />}
-        </div>
+        </Box>
     )
 }
 

@@ -38,13 +38,13 @@ function BookSearch({setBookResults, setErrors, searchToggle}) {
       <Box style={hiddenStyle} width={{max:'50vw'}} alignSelf='center' fill>
         <Form onSubmit={submitHandler}>
           <FormField label='Title'>
-            <TextInput type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
+            <TextInput textAlign='center' type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
           </FormField>
           <FormField label='Author'>
-            <TextInput type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
+            <TextInput textAlign='center' type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
           </FormField>
           <FormField label='Keywords'>
-            <TextInput type="text" id="keywords" value={formData.keywords} onChange={inputHandler}></TextInput>
+            <TextInput textAlign='center' type="text" id="keywords" value={formData.keywords} onChange={inputHandler}></TextInput>
           </FormField>
           <Button margin={{top:'small'}} style={{maxWidth:'65%'}} primary color='accent-1' type='submit' label='Search' fill/>
         </Form>

@@ -1,4 +1,4 @@
-import { Box, Image, Card, Paragraph} from 'grommet'
+import { Box, Image, Card, Paragraph, Heading} from 'grommet'
 import React, { useEffect, useContext } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
@@ -24,19 +24,18 @@ function ClubPage() {
   }
 
   return (
-    <div>
+    <Box>
       {club.id ?
         <>
-          <h2>{`Welcome to ${club.name}!`}</h2>
-          <Box tag='header' direction='row' align='center' justify='between'
-            background='lightgrey' elevation='medium'>
+          <Heading alignSelf='center' level={2}>{`Welcome to ${club.name}!`}</Heading>
+          <Box tag='header' direction='row' align='center' justify='between' margin={{bottom:'small'}} background='accent-3'>
             <NavLink to="options" className={navLinkFunction}>Club Options</NavLink>
             <NavLink to="books" className={navLinkFunction}>Club Books</NavLink>
             <NavLink to={`/clubs/${clubId}`} className={location.pathname === `/clubs/${clubId}` ? 'activeLink' : 'inactiveLink'}>Club Home</NavLink>
           </Box>
           {location.pathname === `/clubs/${clubId}` ?
-            <Card background='accent-3' >
-              <Box height="small" width="small">
+            <Card background='accent-3' width='medium' alignSelf='center' align='center' margin='small'>
+              <Box height="small" width="small" margin='small'>
                 <Image src={`${club.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/shape-27531_emuhhi80e.png' />
                 <Paragraph>{club.message}</Paragraph>
               </Box>
@@ -45,7 +44,7 @@ function ClubPage() {
           <Outlet />
         </>
         : null}
-    </div>
+    </Box>
   )
 }
 

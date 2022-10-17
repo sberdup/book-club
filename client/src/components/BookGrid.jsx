@@ -64,13 +64,12 @@ function BookGrid({ source }) {
 
       {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
 
-      {formToggle ? <Heading level={2}>Book Results</Heading> : ((source === 'user') ? <Heading level={2}>Your Books</Heading> : <Heading level={2}>Book Collection</Heading>)}
+      {formToggle ? <Heading alignSelf='center' level={2}>Book Results</Heading> : ((source === 'user') ? <Heading alignSelf='center' level={2}>Your Books</Heading> : <Heading alignSelf='center' level={2}>Book Collection</Heading>)}
 
-      <Grid columns={{count:'fit', size:'medium'}} rows={{count:'fit', size:[['small', 'xlarge']]}} gap='medium' border={true}  alignContent='center' margin='small' pad='small'>
+      <Grid columns={{count:'fit', size:'medium'}}  gap='medium' margin='small' >
         {
           (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm}/>)
             :
-
             (((collection.books?.length === 0) || formToggle) ? <h2>No books yet!</h2>
               :
               collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />))

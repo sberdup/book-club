@@ -105,15 +105,15 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
       <Heading alignSelf='center' level={4}>Manually Add a Book</Heading>
       <Form onSubmit={submitHandler} id='bookform'>
         <FormField label='Title'>
-          <TextInput required type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
+          <TextInput required textAlign='center' type="text" id="title" value={formData.title} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Author'>
-          <TextInput required type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
+          <TextInput required textAlign='center' type="text" id="author" value={formData.author} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Genre'>
-          <TextInput type="text" id="genre" value={formData.genre} onChange={inputHandler}></TextInput>
+          <TextInput type="text" textAlign='center' id="genre" value={formData.genre} onChange={inputHandler}></TextInput>
         </FormField>
 
         <FormField label='Description'>
@@ -121,7 +121,7 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
         </FormField>
 
         <FormField label='Pages'>
-          <TextInput required type="number" id="pages" value={formData.pages} onChange={inputHandler}></TextInput>
+          <TextInput required textAlign='center' type="number" id="pages" value={formData.pages} onChange={inputHandler}></TextInput>
         </FormField>
 
         <Box gap='small'>
@@ -129,7 +129,7 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
           <FileInput type='file' name="coverPicture" ref={fileRef} onChange={(e) => setFileName(e.target.files[0].name)}></FileInput>
         </Box>
         
-        <Button margin='small' style={{maxWidth:'65%'}} primary type='submit' label='Submit' fill/>
+        <Button color='accent-4' margin='small' style={{maxWidth:'65%'}} primary type='submit' label='Submit' fill/>
       </Form>
     </Box>
   )
