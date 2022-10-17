@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_many :collections, dependent: :destroy
     has_many :books, through: :collections
 
-    has_one :image
+    has_one :image, dependent: :destroy
 
     has_secure_password
     validates :username, :email, :password, :password_confirmation, presence:true

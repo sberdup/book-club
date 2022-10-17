@@ -16,7 +16,7 @@ class Book < ApplicationRecord
     has_many :storylines, dependent: :destroy 
     has_many :themes, dependent: :destroy 
 
-    has_one :image
+    has_one :image, dependent: :destroy
 
     validates :title, :author, :description, presence:true 
     validates :title, uniqueness:{scope: :author}
