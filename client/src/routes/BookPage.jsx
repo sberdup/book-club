@@ -33,14 +33,15 @@ function BookPage() {
         <Box>
             {(book.id && location.pathname !== `/books/${bookId}/edit`) ?
                 <Card background='accent-2' alignSelf='center' margin='medium' width='xlarge'>
-                        <Heading level={3} alignSelf='center' margin={{ top: 'small', bottom: 'large' }}>{`${book.title} by ${book.author}`}</Heading>
-                    <Grid columns={{count:'fit', size:'small'}} justify='center' gap='medium' margin='small' >
+                    <Heading level={3} alignSelf='center' margin={{ top: 'small', bottom: 'large' }}>{`${book.title} by ${book.author}`}</Heading>
+                    <Grid columns={{ count: 'fit', size: 'small' }} justify='center' gap='medium' margin='small' >
                         <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-200,h-200/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />
                         <Paragraph>{book.description}</Paragraph>
                     </Grid>
                 </Card>
                 : null}
             <Outlet />
+
             {(location.pathname !== `/books/${bookId}`) ? <NavLink to={`/books/${bookId}`}>Back to Book</NavLink> : <NavLink to="edit">Edit BookWiki</NavLink>}
             <WikiBar setCategoryFilter={setCategoryFilter} />
             {loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <WikiGrid bookSelection={book[categoryFilter]} />}

@@ -1,4 +1,4 @@
-import { Box, Button, Form, FormField, TextInput } from 'grommet'
+import { Box, Button, Form, FormField, Grid, Heading, TextInput } from 'grommet'
 import React, { useContext, useState, useEffect } from 'react'
 import { BookContext } from '../context/BookContext'
 
@@ -49,7 +49,7 @@ function WikiForm() {
             method: mode.action,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                book_id:book.id,
+                book_id: book.id,
                 id: fetchParams.id,
                 name: formData.name,
                 description: formData.description,
@@ -62,7 +62,7 @@ function WikiForm() {
             })
         })
         let data
-        if (mode.action !== 'DELETE'){
+        if (mode.action !== 'DELETE') {
             data = await resp.json()
         }
         // head: :no_content can be circumvented by not resolving the response
@@ -92,61 +92,59 @@ function WikiForm() {
     // const sortedElements = book.sort(bookPart => bookPart.id)
 
     return (
-        <Box border={{
-            color: 'orange-1',
-            size: "medium",
-            style: "solid",
-            side: "all"
-        }} width='medium' height='20%' background='cyan-1' style={{margin:'auto', marginTop:'10px'}}>
+        <Box alignSelf='center' gap='small' width={{ max: '50vw' }} fill>
+            <Heading alignSelf='center' level={4}>{mode.message}</Heading>
 
-            <h4>{mode.message}</h4>
-            <Box direction='row'  alignSelf='center' justify='center' width='small' margin='xsmall'>
-                <Button primary color='forestgreen' onClick={() => setMode(addParams)} label='Add' />
-                <Button primary color='yellow' onClick={() => setMode(editParams)} label='Edit' />
-                <Button primary color='red' onClick={() => setMode(deleteParams)} label='Delete' />
+            <Box direction='row' alignSelf='center' justify='center'>
+                <Button primary color='accent-1' onClick={() => setMode(addParams)} label='Add' />
+                <Button primary color='accent-2' onClick={() => setMode(editParams)} label='Edit' />
+                <Button primary color='status-critical' onClick={() => setMode(deleteParams)} label='Delete' />
             </Box>
 
             <Form onSubmit={submitHandler}>
-
-                <label htmlFor='categorySelect'>Category: </label>
-                <select onChange={categorySelectHandler}>
-                    {categories.map((category, idx) => (
-                        <option key={category} value={category}>
-                            {displayNames[idx]}
-                        </option>
-                    ))}
-                </select>
-                {/* ^ will change the select box below it to get entry for edit/delete's ID */}
-
-                {mode.action !== 'POST' ?
-                    <>
-                        <label htmlFor='elementSelect'>Entry: </label>
-                        <select onChange={entrySelectHandler} defaultValue='default'>
-                            <option disabled value='default'>--choose an element--</option>
-                            {book[fetchParams.category].map((element) => (
-                                <option key={element.id} value={element.id}>
-                                    {element.name || element.body.slice(0, 50)}
+                <Grid direction='row' columns={{ count: 'fit', size: 'medium' }} gap='large' justify='center' margin={{bottom:'large'}}>
+                    <Box width={{min:'medium'}}>
+                        <label htmlFor='categorySelect'>Category</label>
+                        <select onChange={categorySelectHandler}>
+                            {categories.map((category, idx) => (
+                                <option key={category} value={category}>
+                                    {displayNames[idx]}
                                 </option>
                             ))}
                         </select>
-                    </>
-                    : null
-                }
+                    </Box>
 
+                    {/* ^ will change the select box below it to get entry for edit/delete's ID */}
+
+                    {mode.action !== 'POST' ?
+                        <Box width={{min:'medium'}}>
+                            <label htmlFor='elementSelect'>Entry</label>
+                            <select onChange={entrySelectHandler} defaultValue='default'>
+                                <option disabled value='default'>--choose an element--</option>
+                                {book[fetchParams.category].map((element) => (
+                                    <option key={element.id} value={element.id}>
+                                        {element.name || element.body.slice(0, 50)}
+                                    </option>
+                                ))}
+                            </select>
+                        </Box>
+                        : null
+                    }
+                </Grid>
                 {mode.action !== 'DELETE' ?
                     <>
                         {fetchParams.category !== 'quotes' ?
                             <>
                                 <FormField label='Name'>
-                                    <TextInput type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+                                    <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
                                 </FormField>
                                 <FormField label='Description'>
-                                    <TextInput type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
+                                    <TextInput textAlign='center' type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
                                 </FormField>
 
                                 {fetchParams.category === 'characters' ?
                                     <FormField label='Aliases'>
-                                        <TextInput type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
+                                        <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
                                     </FormField>
                                     : null
                                 }
@@ -158,7 +156,7 @@ function WikiForm() {
                                 }
                                 {fetchParams.category === 'locations' ?
                                     <FormField label='Location'>
-                                        <TextInput type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
+                                        <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
                                     </FormField>
                                     : null
                                 }
@@ -166,13 +164,13 @@ function WikiForm() {
                             :
                             <>
                                 <FormField label='Body'>
-                                    <TextInput type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
+                                    <TextInput textAlign='center' type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
                                 </FormField>
                                 <FormField label='Chapter'>
-                                    <TextInput type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
+                                    <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
                                 </FormField>
                                 <FormField label='Page'>
-                                    <TextInput type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
+                                    <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
                                 </FormField>
                             </>
                         }
@@ -180,9 +178,9 @@ function WikiForm() {
                     :
                     null
                 }
-                <Button primary type='submit' label='Submit' size='xsmall' margin={{top:'20px'}}/>
+                <Button primary type='submit' label='Submit' margin='small' />
             </Form>
-            {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
+            {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>)}
         </Box>
     )
 }

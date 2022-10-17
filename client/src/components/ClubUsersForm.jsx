@@ -1,4 +1,4 @@
-import { Box, Button, CheckBox, Form, FormField, TextInput } from 'grommet'
+import { Box, Button, CheckBox, Form, FormField, Heading, TextInput } from 'grommet'
 import React, { useState, useEffect, useContext } from 'react'
 import { ClubContext } from '../context/ClubContext'
 
@@ -89,26 +89,21 @@ function ClubUsersForm() {
     // failure to change state was a result of comparing form number(actually a string) with response data(integer)
 
     return (
-        <Box border={{
-            color: 'yellow-1',
-            size: "medium",
-            style: "solid",
-            side: "all"
-        }} width='medium' height='medium' background='orange-1' style={{margin:'auto', marginTop:'10px'}}>
-
-            <h4>{mode.message}</h4>
-            <Box direction='row'  alignSelf='center' justify='center' width='small' margin='xsmall'>
-                <Button primary color='forestgreen' onClick={() => setMode(inviteParams)} label='Invite'/>
-                <Button primary color='yellow' onClick={() => setMode(editParams)} label='Edit'/>
-                <Button primary color='red' onClick={() => setMode(kickParams)} label='Remove'/>
+        <Box gap='small' align='center'>
+            <Heading alignSelf='center' level={4}>{mode.message}</Heading>
+            
+            <Box direction='row' alignSelf='center' justify='center' >
+                <Button primary color='accent-1' onClick={() => setMode(inviteParams)} label='Invite' />
+                <Button primary color='accent-2' onClick={() => setMode(editParams)} label='Edit' />
+                <Button primary color='status-critical' onClick={() => setMode(kickParams)} label='Remove' />
             </Box>
             <Form onSubmit={submitHandler}>
                 {mode.action === 'POST' ?
-                    <FormField label='Username' width='small' margin='auto'>
+                    <FormField label='Username' width='small' margin='medium'>
                         <TextInput type="text" id="username" textAlign='center' value={formData.username} onChange={inputHandler}></TextInput>
                     </FormField>
                     :
-                    <FormField label='Select a User'>
+                    <FormField label='Select a User' width='small' alignSelf='center' justify='center' margin='medium'>
                         <select id='clubUserID' onChange={inputHandler} defaultValue='default'>
                             <option disabled value='default'>--choose a user--</option>
                             {sortedUsers.map(clubUser =>
@@ -120,15 +115,15 @@ function ClubUsersForm() {
                     </FormField>
                 }
                 {mode.action === 'PATCH' ?
-                    <div style={{width:'30%', margin:'auto', textAlign:'center'}}>
-                        <CheckBox type="checkbox" id="isAdmin" label='Admin Status' checked={formData.isAdmin} onChange={inputHandler}/>
-                    </div>
+                    <Box align='center'>
+                        <CheckBox type="checkbox" id="isAdmin" label='Admin Status' checked={formData.isAdmin} onChange={inputHandler} />
+                    </Box>
                     :
                     null
                 }
-                <Button primary type='submit' style={{marginTop:'10px'}} label='Submit'/>
+                <Button primary type='submit' margin={{top:'medium'}} label='Submit' />
             </Form>
-            {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
+            {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>)}
         </Box>
     )
 }

@@ -16,7 +16,7 @@ function ClubGrid() {
             <Button secondary fill color='accent-4' alignSelf='center' style={{maxWidth:'25%'}} margin={{bottom:'small'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Hide Club Form' : 'New Club'}/>
             
             {((location.pathname === '/homepage/clubs') && formToggle) ? <ClubForm setErrors={setErrors} /> : null}
-            {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'red' }}>{`${e}`}</p>)}
+            {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>)}
 
             <Heading level={2} alignSelf='center' margin={{bottom:'none'}}>Your Clubs</Heading>
             <Grid columns={{count:'fit', size:'medium'}} rows='medium' gap='medium'  alignContent='center' margin='small' pad='small'>
