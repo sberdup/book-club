@@ -29,9 +29,7 @@ function LogInOut({ setErrors }) {
     }
   }
   async function logoutHandler() {
-    const resp = await fetch('/logout', {
-      method: 'DELETE'
-    })
+    const resp = await fetch('/logout', {method: 'DELETE'})
     if (resp.ok) {
       setUser({ id: false })
       navigate('/')

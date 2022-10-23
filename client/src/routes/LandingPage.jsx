@@ -28,7 +28,7 @@ function LandingPage() {
           {toggleLogIn ? <LogInOut setErrors={setErrors} /> : <SignUpForm setErrors={setErrors} />}
 
         <Box align='center' width={{max:'80vw'}} fill>
-          {errors.errors === undefined ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>)}
+          {errors?.errors ? errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>) : null}
           <Button primary color='accent-3' style={{ minWidth: '35%' }} label={toggleLogIn ? 'New User?' : 'Back to Log In'} onClick={() => {
             setToggleLogIn(!toggleLogIn)
             setErrors([])
