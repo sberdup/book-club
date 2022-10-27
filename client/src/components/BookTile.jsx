@@ -13,7 +13,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
   return (
     <>
       {source === 'search' ?
-        (<Card align='center' justify='center' background='accent-2' flex={true}>
+        (<Card align='center' justify='center' background='accent-2' flex={true} width={{min:'medium'}}>
           {book.title ? <Heading margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading> : null}
           {book.thumbnail ? <Image alt='book cover' src={book.thumbnail} /> : null}
           {book.authors ? (book.authors.length > 1 ? <p>Author: {book.authors.join()}</p> : <p>Authors: {book.authors[0]}</p>) : null}
@@ -25,7 +25,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
           </CardFooter>
         </Card>)
         :
-        (<Card align='center' justify='center' background='accent-2'>
+        (<Card align='center' justify='center' background='accent-2' width={{min:'medium'}} >
           <Heading level={3} margin={{ top: 'small', bottom: 'large' }}>{book.title}</Heading>
           <Box height="small" width="small">
             <Image src={`${book.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/depositphotos_63590137-stock-illustration-blue-book-logo-vector_xkPW5oumg.jpg' />

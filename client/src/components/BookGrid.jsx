@@ -66,7 +66,7 @@ function BookGrid({ source }) {
 
       {formToggle ? <Heading alignSelf='center' level={2}>Book Results</Heading> : ((source === 'user') ? <Heading alignSelf='center' level={2}>Your Books</Heading> : <Heading alignSelf='center' level={2}>Book Collection</Heading>)}
 
-      <Grid columns={{count:'fit', size:'medium'}}  gap='medium' margin='small' >
+      <Grid columns={{count:'fit', size:'medium'}}  gap='medium' margin='small' justify='center'>
         {
           (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm}/>)
             :

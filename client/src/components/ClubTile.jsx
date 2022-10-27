@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function ClubTile({ club }) {
   return (
-    <Card align='center' justify='center' background='accent-3'>
+    <Card align='center' justify='center' background='accent-3' width={{min:'medium'}}>
       <CardHeader margin={{ top: 'small', bottom: 'large' }}>{club.name}</CardHeader>
       <Box height="small" width="small">
         <Image src={`${club.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/shape-27531_emuhhi80e.png' />
