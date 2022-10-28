@@ -1,4 +1,5 @@
-import { Card } from 'grommet'
+import { Card, CardFooter } from 'grommet'
+import WikiDeleteButton from '../subcomponents/WikiDeleteButton'
 import React from 'react'
 
 function WikiTile({ element }) {
@@ -40,6 +41,9 @@ function WikiTile({ element }) {
   return (
     <Card width={{max:'large'}} height={{min:'small'}} background='accent-5'>
       {elementMap}
+      <CardFooter justify='center'>
+        <WikiDeleteButton element={element}/>
+      </CardFooter>
     </Card>
   )
 }

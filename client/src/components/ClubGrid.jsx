@@ -19,6 +19,7 @@ function ClubGrid() {
             {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>)}
 
             <Heading level={2} alignSelf='center' margin={{bottom:'none'}}>Your Clubs</Heading>
+            
             <Grid columns={{count:'fit', size:'large'}} rows='medium' gap='medium' margin='small' pad='small' justify='center' >
                 {user?.clubs?.length === 0 ? <h2>No clubs yet!</h2> 
                 : 
