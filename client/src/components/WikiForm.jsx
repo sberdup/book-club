@@ -66,7 +66,6 @@ function WikiForm() {
             data = await resp.json()
         }
         // head: :no_content can be circumvented by not resolving the response
-        console.log(data)
         if (resp.ok) {
             if (mode.action === 'DELETE') {
                 setBook({ ...book, [fetchParams.category]: book[fetchParams.category].filter(bookPart => bookPart.id !== parseInt(fetchParams.id)) })

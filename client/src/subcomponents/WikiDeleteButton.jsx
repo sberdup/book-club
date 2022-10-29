@@ -1,9 +1,20 @@
 import { Button } from 'grommet'
-import React from 'react'
+import React, {useContext} from 'react'
+import { BookContext } from '../context/BookContext'
 
-function WikiDeleteButton({element}) {
-    function deleteHandler(){
-        console.log(element)
+function WikiDeleteButton({element, category}) {
+    const {book, setBook} = useContext(BookContext)
+
+    async function deleteHandler(){
+        console.log(element, category)
+        const resp = await fetch(`/${category}/${element.id}`, 
+        {method: 'DELETE'})
+        if (resp.ok) {
+            setBook({ ...book, [category]: book[category].filter(bookPart => bookPart.id !== parseInt(element.id)) })
+        } else {
+            console.log('unable to delete')
+            //need to change to output error at higher level 
+        }
     }
   return (
     <Button primary color='status-critical' size='xsmall' margin={{top:'small', bottom:'none'}} label='Delete' onClick={deleteHandler}/>

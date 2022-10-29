@@ -1,11 +1,15 @@
 import { Card, CardFooter } from 'grommet'
 import WikiDeleteButton from '../subcomponents/WikiDeleteButton'
-import React from 'react'
+import React, {useState} from 'react'
+import WikiEditButton from '../subcomponents/WikiEditButton'
 
-function WikiTile({ element }) {
+function WikiTile({ element, category }) {
+
+  const [editToggle, setEditToggle] = useState(false)
 
   function objectToKeys(object) {
     const elKeys = Object.keys(object)
+    console.log(element, elKeys)
     return elKeys
   }
   function propertyToJSX(key, element) {
@@ -41,8 +45,9 @@ function WikiTile({ element }) {
   return (
     <Card width={{max:'large'}} height={{min:'small'}} background='accent-5'>
       {elementMap}
-      <CardFooter justify='center'>
-        <WikiDeleteButton element={element}/>
+      <CardFooter >
+        <WikiEditButton element={element} category={category} editToggle={editToggle} setEditToggle={setEditToggle}/>
+        <WikiDeleteButton element={element} category={category}/>
       </CardFooter>
     </Card>
   )

@@ -44,7 +44,7 @@ function BookPage() {
 
             {(location.pathname !== `/books/${bookId}`) ? <NavLink to={`/books/${bookId}`}>Back to Book</NavLink> : <NavLink to="edit">Edit BookWiki</NavLink>}
             <WikiBar setCategoryFilter={setCategoryFilter} />
-            {loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <WikiGrid bookSelection={book[categoryFilter]} />}
+            {loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <WikiGrid category={categoryFilter} bookSelection={book[categoryFilter]} />}
         </Box>
     )
 }
