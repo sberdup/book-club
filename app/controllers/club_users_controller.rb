@@ -41,11 +41,11 @@ class ClubUsersController < ApplicationController
 
     def auth_admin 
         perm_user = ClubUser.where("user_id = ? AND club_id = ?", @current_user.id, params[:club_id])
-        render json:{errors:"You do not have admin permissions for this action."}, status: :forbidden unless perm_user[0].is_admin?
+        render json:{errors:["You do not have admin permissions for this action."]}, status: :forbidden unless perm_user[0].is_admin?
     end
     
     def auth_owner
         perm_user = ClubUser.where("user_id = ? AND club_id = ?", @current_user.id, params[:club_id])
-        render json: {errors: "You do not have owner permissions for this action."}, status: :forbidden unless perm_user[0].is_owner?
+        render json: {errors:["You do not have owner permissions for this action."]}, status: :forbidden unless perm_user[0].is_owner?
     end
 end

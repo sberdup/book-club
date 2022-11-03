@@ -62,7 +62,6 @@ function ClubUsersForm() {
         })
         const data = await resp.json()
         // head: :no_content causes unexpected end of JSON here, return usable data instead
-        console.log(data)
         if (resp.ok) {
             if (mode.action === 'DELETE') {
                 setClubUsers(clubUsers.filter(clubUser => clubUser.id !== parseInt(formData.clubUserID)))
