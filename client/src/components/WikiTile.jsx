@@ -2,9 +2,12 @@ import { Box, Card, CardBody, CardFooter, CardHeader, FormField, TextInput, Para
 import WikiDeleteButton from '../subcomponents/WikiDeleteButton'
 import React, { useState } from 'react'
 import WikiEditButton from '../subcomponents/WikiEditButton'
+import { useContext } from 'react'
+import { BookContext } from '../context/BookContext'
 
 function WikiTile({ element, category }) {
-
+  const {book, setBook} = useContext(BookContext)
+  const [errors, setErrors] = useState([])
   const [editToggle, setEditToggle] = useState(false)
   const [formData, setFormData] = useState({
     name: element.name, description: element.description, aliases: element.aliases
@@ -15,95 +18,124 @@ function WikiTile({ element, category }) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
   async function submitHandler() {
-    console.log(element.id, category)
+    const resp = await fetch(`/${category}/${element.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.name,
+        description: formData.description,
+        aliases: formData.aliases,
+        time: formData.time,
+        location: formData.location,
+        body: formData.body,
+        chapter: parseInt(formData.chapter),
+        page: parseInt(formData.page)
+      })
+    })
+    const data = await resp.json()
+    if (resp.ok) {
+      setBook({...book,
+        [category]: [...book[category]].map(bookPart => {
+          if (bookPart.id === data.id) {
+            return data
+          }
+          return bookPart
+        })
+      })
+      setErrors({ errors: ['Success!'] })
+      setEditToggle(false)
+    } else {
+      setErrors(data)
+    }
   }
 
   return (
     <Card width={{ max: 'large' }} height={{ min: 'small' }} background='accent-5' flex>
-        {/* {elementMap} */}
-        <CardHeader justify='center' >
-          {element.name !== undefined ?
-            (editToggle ?
-              <FormField label='Name'>
-                <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
-              </FormField>
-              : <Text margin='small' >{element.name}</Text>
-            ) : null
-          }
-          {element.body !== undefined ?
-            (editToggle ?
-              <FormField label='Body'>
-                <TextInput textAlign='center' type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
-              </FormField>
-              : <Text margin='medium' >{element.body}</Text>
-            ) : null
-          }
-        </CardHeader>
+      {/* {elementMap} */}
+      <CardHeader justify='center' >
+        {element.name !== undefined ?
+          (editToggle ?
+            <FormField label='Name'>
+              <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+            </FormField>
+            : <Text margin='small' >{element.name}</Text>
+          ) : null
+        }
+        {element.body !== undefined ?
+          (editToggle ?
+            <FormField label='Body'>
+              <TextInput textAlign='center' type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
+            </FormField>
+            : <Text margin='medium' >{element.body}</Text>
+          ) : null
+        }
+      </CardHeader>
 
-        <CardBody justify='around'>
-          {element.description !== undefined ?
-            (editToggle ?
-              <FormField label='Description'>
-                <TextInput textAlign='center' type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
-              </FormField>
-              : <Text>{element.description}</Text>
-            ) : null
-          }
-          {element.aliases !== undefined ?
-            (editToggle ?
-              <FormField label='Aliases'>
-                <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
-              </FormField>
-              : <Text>{element.aliases}</Text>
-            ) : null
-          }
-          {element.time !== undefined ?
-            (editToggle ?
-              <FormField label='Time'>
-                <input type="datetime-local" id="time" value={formData.time} onChange={inputHandler}></input>
-              </FormField>
-              : <Text>{element.time}</Text>
-            ) : null
-          }
-          {element.location !== undefined ?
-            (editToggle ?
-              <FormField label='Location'>
-                <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
-              </FormField>
-              : <Text>{element.location}</Text>
-            ) : null
-          }
+      <CardBody justify='around'>
+        {element.description !== undefined ?
+          (editToggle ?
+            <FormField label='Description'>
+              <TextInput textAlign='center' type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
+            </FormField>
+            : <Text>{element.description}</Text>
+          ) : null
+        }
+        {element.aliases !== undefined ?
+          (editToggle ?
+            <FormField label='Aliases'>
+              <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
+            </FormField>
+            : <Text>{element.aliases}</Text>
+          ) : null
+        }
+        {element.time !== undefined ?
+          (editToggle ?
+            <FormField label='Time'>
+              <input type="datetime-local" id="time" value={formData.time} onChange={inputHandler}></input>
+            </FormField>
+            : <Text>{element.time}</Text>
+          ) : null
+        }
+        {element.location !== undefined ?
+          (editToggle ?
+            <FormField label='Location'>
+              <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
+            </FormField>
+            : <Text>{element.location}</Text>
+          ) : null
+        }
 
-          <Box direction='row' justify='around'>
-            {element.chapter !== undefined ?
-              (editToggle ?
-                <FormField label='Chapter'>
-                  <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
-                </FormField>
-                : <Paragraph size='small' margin='none'>{`Chapter: ${element.chapter}`}</Paragraph>
-              ) : null
-            }
-            {element.page !== undefined ?
-              (editToggle ?
-                <FormField label='Page'>
-                  <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
-                </FormField>
-                : <Paragraph size='small' margin='none'>{`Page: ${element.page}`}</Paragraph>
-              ) : null
-            }
-          </Box>
-        </CardBody>
+        <Box direction='row' justify='around'>
+          {element.chapter !== undefined ?
+            (editToggle ?
+              <FormField label='Chapter'>
+                <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
+              </FormField>
+              : <Paragraph size='small' margin='none'>{`Chapter: ${element.chapter}`}</Paragraph>
+            ) : null
+          }
+          {element.page !== undefined ?
+            (editToggle ?
+              <FormField label='Page'>
+                <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
+              </FormField>
+              : <Paragraph size='small' margin='none'>{`Page: ${element.page}`}</Paragraph>
+            ) : null
+          }
+        </Box>
+      </CardBody>
 
-        <CardFooter>
-          <WikiEditButton element={element} category={category} editToggle={editToggle} setEditToggle={setEditToggle} />
+      <CardFooter>
+        <WikiEditButton element={element} category={category} editToggle={editToggle} setEditToggle={setEditToggle} />
 
-          {editToggle ? <Button onClick={submitHandler} primary size='small' label='Submit'/> :
+        {editToggle ? <Button onClick={submitHandler} primary size='small' label='Submit' /> :
           (category !== 'book_elements' ?
             <Paragraph size='small'>{category.charAt(0).toUpperCase() + category.slice(1, -1)}</Paragraph>
             : <Paragraph size='small'>Misc</Paragraph>)
-          }
-          <WikiDeleteButton element={element} category={category} />
-        </CardFooter>
+        }
+
+        <WikiDeleteButton element={element} category={category} />
+      </CardFooter>
     </Card>
   )
 }

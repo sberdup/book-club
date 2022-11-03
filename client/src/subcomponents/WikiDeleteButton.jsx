@@ -6,7 +6,6 @@ function WikiDeleteButton({element, category}) {
     const {book, setBook} = useContext(BookContext)
 
     async function deleteHandler(){
-        console.log(element, category)
         const resp = await fetch(`/${category}/${element.id}`, 
         {method: 'DELETE'})
         if (resp.ok) {
