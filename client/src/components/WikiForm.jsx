@@ -1,5 +1,5 @@
 import { Box, Button, Form, FormField, Grid, Heading, TextInput } from 'grommet'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { BookContext } from '../context/BookContext'
 
 function WikiForm() {

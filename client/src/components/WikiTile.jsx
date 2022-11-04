@@ -126,15 +126,16 @@ function WikiTile({ element, category }) {
       </CardBody>
 
       <CardFooter>
-        <WikiEditButton element={element} category={category} editToggle={editToggle} setEditToggle={setEditToggle} />
+        <WikiEditButton editToggle={editToggle} setEditToggle={setEditToggle} />
 
-        {editToggle ? <Button onClick={submitHandler} primary size='small' label='Submit' /> :
-          (category !== 'book_elements' ?
+        
+          {category !== 'book_elements' ?
             <Paragraph size='small'>{category.charAt(0).toUpperCase() + category.slice(1, -1)}</Paragraph>
-            : <Paragraph size='small'>Misc</Paragraph>)
-        }
+            : <Paragraph size='small'>Misc</Paragraph>}
+        
 
-        <WikiDeleteButton element={element} category={category} />
+        {editToggle ? <Button onClick={submitHandler} primary size='xsmall' label='Submit' /> 
+        :<WikiDeleteButton element={element} category={category} />}
       </CardFooter>
     </Card>
   )
