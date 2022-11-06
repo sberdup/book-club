@@ -47,9 +47,9 @@ function NewWikiTile({ category }) {
         }
     }
     return (
-        <>
+        <Card width={{ max: 'large' }} height={{ min: 'small' }} background='accent-5' flex className='zFloor'>
             {createToggle ?
-                <Card width={{ max: 'large' }} height={{ min: 'small' }} background='accent-5' flex className='zFloor'>
+                <>
                     <CardHeader justify='center' >
                         {category !== 'quotes' ?
                             <FormField label='Name'>
@@ -104,13 +104,15 @@ function NewWikiTile({ category }) {
                         <Button onClick={() => setCreateToggle(!createToggle)} primary color='status-warning' size='xsmall' margin='xsmall' label='Cancel' />
                         <Button onClick={submitHandler} primary size='xsmall' margin='xsmall' label='Submit' />
                     </CardFooter>
+                </>
+                : <Button primary label={`New ${label}`} onClick={() => setCreateToggle(!createToggle)} fill/>
+            }
             <Box className='errorBox fade' id='errorBox'>
                 {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
             </Box>
-                </Card>
-                : <Button primary label={`New ${label}`} onClick={() => setCreateToggle(!createToggle)} />
-            }
-        </>
+        </Card>
+
+
     )
 }
 
