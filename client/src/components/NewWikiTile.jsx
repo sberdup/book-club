@@ -1,14 +1,20 @@
 import { Button, Card, CardHeader, CardBody, FormField, TextInput, Box, CardFooter, TextArea } from 'grommet'
-import React, { useState } from 'react'
-import { useContext } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { BookContext } from '../context/BookContext'
 
 function NewWikiTile({ category }) {
     const [createToggle, setCreateToggle] = useState(false)
     const emptyForm = { name: '', description: '', aliases: '', time: '', location: '', chapter: '', page: '', body: '' }
     const [formData, setFormData] = useState(emptyForm)
+    const errorBox = useRef(null)
+    const [errors, setErrors] = useState([])
     const { book, setBook } = useContext(BookContext)
+
     const label = (category !== 'book_elements' ? (category.charAt(0).toUpperCase() + category.slice(1, -1)) : 'Misc')
+
+    useEffect(() => {
+        errorBox.current = document.getElementById('errorBox')
+    }, [createToggle])
 
     function inputHandler(e) {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -35,13 +41,15 @@ function NewWikiTile({ category }) {
             setFormData(emptyForm)
             setCreateToggle(false)
         } else {
-            console.log('unable to create')
+            setErrors(data)
+            errorBox.current.className = 'errorBox'
+            setTimeout(() => errorBox.current.className = 'errorBox fade', 2000)
         }
     }
     return (
         <>
             {createToggle ?
-                <Card width={{ max: 'large' }} height={{ min: 'small' }} background='accent-5' flex>
+                <Card width={{ max: 'large' }} height={{ min: 'small' }} background='accent-5' flex className='zFloor'>
                     <CardHeader justify='center' >
                         {category !== 'quotes' ?
                             <FormField label='Name'>
@@ -96,6 +104,9 @@ function NewWikiTile({ category }) {
                         <Button onClick={() => setCreateToggle(!createToggle)} primary color='status-warning' size='xsmall' margin='xsmall' label='Cancel' />
                         <Button onClick={submitHandler} primary size='xsmall' margin='xsmall' label='Submit' />
                     </CardFooter>
+            <Box className='errorBox fade' id='errorBox'>
+                {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
+            </Box>
                 </Card>
                 : <Button primary label={`New ${label}`} onClick={() => setCreateToggle(!createToggle)} />
             }

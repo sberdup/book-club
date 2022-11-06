@@ -87,3 +87,23 @@ a:hover {
 .hidden {
   display: none;
 }
+.errorBox {
+  z-index: 1;
+  position: absolute;
+  background-color: #3aff30de;
+  left: 50%; 
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px;
+  visibility: visible;
+  opacity: 1;
+}
+.errorBox.fade{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 10s, opacity 2s linear;
+}
+.zFloor {
+  z-index: 0;
+  position: relative;
+}
