@@ -16,7 +16,7 @@ function WikiDeleteButton({element, category}) {
         }
     }
   return (
-    <Button primary color='status-critical' size='xsmall' margin={{top:'small', bottom:'none'}} label='Delete' onClick={deleteHandler}/>
+    <Button primary color='status-critical' size='xsmall' margin='xsmall' label='Delete' onClick={deleteHandler}/>
   )
 }
 

@@ -1,15 +1,42 @@
-import { Button, Card, CardHeader, CardBody, FormField, TextInput, Box, CardFooter } from 'grommet'
+import { Button, Card, CardHeader, CardBody, FormField, TextInput, Box, CardFooter, TextArea } from 'grommet'
 import React, { useState } from 'react'
+import { useContext } from 'react'
+import { BookContext } from '../context/BookContext'
 
 function NewWikiTile({ category }) {
     const [createToggle, setCreateToggle] = useState(false)
-    const [formData, setFormData] = useState({ name: '', description: '', aliases: '', time: '', location: '', chapter: '', page: '', body: '' })
+    const emptyForm = { name: '', description: '', aliases: '', time: '', location: '', chapter: '', page: '', body: '' }
+    const [formData, setFormData] = useState(emptyForm)
+    const { book, setBook } = useContext(BookContext)
     const label = (category !== 'book_elements' ? (category.charAt(0).toUpperCase() + category.slice(1, -1)) : 'Misc')
+
     function inputHandler(e) {
         setFormData({ ...formData, [e.target.id]: e.target.value })
     }
     async function submitHandler() {
-        console.log(formData)
+        const resp = await fetch(`/${category}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                book_id: book.id,
+                name: formData.name,
+                description: formData.description,
+                aliases: formData.aliases,
+                time: formData.time,
+                location: formData.location,
+                body: formData.body,
+                chapter: parseInt(formData.chapter),
+                page: parseInt(formData.page)
+            })
+        })
+        const data = await resp.json()
+        if (resp.ok) {
+            setBook({ ...book, [category]: [...book[category], data] })
+            setFormData(emptyForm)
+            setCreateToggle(false)
+        } else {
+            console.log('unable to create')
+        }
     }
     return (
         <>
@@ -18,11 +45,11 @@ function NewWikiTile({ category }) {
                     <CardHeader justify='center' >
                         {category !== 'quotes' ?
                             <FormField label='Name'>
-                                <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+                                <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler} />
                             </FormField>
                             :
                             <FormField label='Body'>
-                                <TextInput textAlign='center' type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
+                                <TextArea id="body" value={formData.body} onChange={inputHandler} />
                             </FormField>
                         }
                     </CardHeader>
@@ -31,14 +58,22 @@ function NewWikiTile({ category }) {
                         {category !== 'quotes' ?
 
                             <FormField label='Description'>
-                                <TextInput textAlign='center' type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
+                                <TextArea id="description" value={formData.description} onChange={inputHandler} />
                             </FormField>
-                            : null
+                            :
+                            <Box direction='row' justify='around' height='xsmall' margin='none' >
+                                <FormField label='Chapter'>
+                                    <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler} />
+                                </FormField>
+                                <FormField label='Page'>
+                                    <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler} />
+                                </FormField>
+                            </Box>
                         }
                         {category === 'characters' ?
 
                             <FormField label='Aliases'>
-                                <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
+                                <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler} />
                             </FormField>
                             : null
                         }
@@ -52,31 +87,14 @@ function NewWikiTile({ category }) {
                         {category === 'locations' ?
 
                             <FormField label='Location'>
-                                <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
+                                <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler} />
                             </FormField>
                             : null
                         }
-
-                        <Box direction='row' justify='around'>
-                            {category === 'quotes' ?
-
-                                <FormField label='Chapter'>
-                                    <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
-                                </FormField>
-                                : null
-                            }
-                            {category === 'quotes' ?
-
-                                <FormField label='Page'>
-                                    <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
-                                </FormField>
-                                : null
-                            }
-                        </Box>
                     </CardBody>
                     <CardFooter>
-                        <Button onClick={() => setCreateToggle(!createToggle)} primary color='status-warning' size='xsmall' label='Cancel' />
-                        <Button onClick={submitHandler} primary size='xsmall' label='Submit' />
+                        <Button onClick={() => setCreateToggle(!createToggle)} primary color='status-warning' size='xsmall' margin='xsmall' label='Cancel' />
+                        <Button onClick={submitHandler} primary size='xsmall' margin='xsmall' label='Submit' />
                     </CardFooter>
                 </Card>
                 : <Button primary label={`New ${label}`} onClick={() => setCreateToggle(!createToggle)} />

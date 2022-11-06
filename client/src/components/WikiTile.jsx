@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, CardFooter, CardHeader, FormField, TextInput, Paragraph, Text, Form, Button } from 'grommet'
+import { Box, Card, CardBody, CardFooter, CardHeader, FormField, TextInput, Paragraph, Text, TextArea, Button } from 'grommet'
 import WikiDeleteButton from '../subcomponents/WikiDeleteButton'
 import React, { useState } from 'react'
 import WikiEditButton from '../subcomponents/WikiEditButton'
@@ -56,7 +56,7 @@ function WikiTile({ element, category }) {
         {element.name !== undefined ?
           (editToggle ?
             <FormField label='Name'>
-              <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler}></TextInput>
+              <TextInput textAlign='center' type="text" id="name" value={formData.name} onChange={inputHandler}/>
             </FormField>
             : <Text margin='small' >{element.name}</Text>
           ) : null
@@ -64,7 +64,7 @@ function WikiTile({ element, category }) {
         {element.body !== undefined ?
           (editToggle ?
             <FormField label='Body'>
-              <TextInput textAlign='center' type="text" id="body" value={formData.body} onChange={inputHandler}></TextInput>
+              <TextArea id="body" value={formData.body} onChange={inputHandler}/>
             </FormField>
             : <Text margin='medium' >{element.body}</Text>
           ) : null
@@ -75,7 +75,7 @@ function WikiTile({ element, category }) {
         {element.description !== undefined ?
           (editToggle ?
             <FormField label='Description'>
-              <TextInput textAlign='center' type="text" id="description" value={formData.description} onChange={inputHandler}></TextInput>
+              <TextArea id="description" value={formData.description} onChange={inputHandler}/>
             </FormField>
             : <Text>{element.description}</Text>
           ) : null
@@ -83,7 +83,7 @@ function WikiTile({ element, category }) {
         {element.aliases !== undefined ?
           (editToggle ?
             <FormField label='Aliases'>
-              <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler}></TextInput>
+              <TextInput textAlign='center' type="text" id="aliases" value={formData.aliases} onChange={inputHandler}/>
             </FormField>
             : <Text>{element.aliases}</Text>
           ) : null
@@ -99,7 +99,7 @@ function WikiTile({ element, category }) {
         {element.location !== undefined ?
           (editToggle ?
             <FormField label='Location'>
-              <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler}></TextInput>
+              <TextInput textAlign='center' type="text" id="location" value={formData.location} onChange={inputHandler}/>
             </FormField>
             : <Text>{element.location}</Text>
           ) : null
@@ -109,7 +109,7 @@ function WikiTile({ element, category }) {
           {element.chapter !== undefined ?
             (editToggle ?
               <FormField label='Chapter'>
-                <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler}></TextInput>
+                <TextInput textAlign='center' type="number" id="chapter" value={formData.chapter} onChange={inputHandler}/>
               </FormField>
               : <Paragraph size='small' margin='none'>{`Chapter: ${element.chapter}`}</Paragraph>
             ) : null
@@ -117,7 +117,7 @@ function WikiTile({ element, category }) {
           {element.page !== undefined ?
             (editToggle ?
               <FormField label='Page'>
-                <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler}></TextInput>
+                <TextInput textAlign='center' type="number" id="page" value={formData.page} onChange={inputHandler}/>
               </FormField>
               : <Paragraph size='small' margin='none'>{`Page: ${element.page}`}</Paragraph>
             ) : null
@@ -128,13 +128,11 @@ function WikiTile({ element, category }) {
       <CardFooter>
         <WikiEditButton editToggle={editToggle} setEditToggle={setEditToggle} />
 
-        
           {category !== 'book_elements' ?
             <Paragraph size='small'>{category.charAt(0).toUpperCase() + category.slice(1, -1)}</Paragraph>
             : <Paragraph size='small'>Misc</Paragraph>}
         
-
-        {editToggle ? <Button onClick={submitHandler} primary size='xsmall' label='Submit' /> 
+        {editToggle ? <Button onClick={submitHandler} primary size='xsmall' label='Submit' margin='xsmall'/> 
         :<WikiDeleteButton element={element} category={category} />}
       </CardFooter>
     </Card>
