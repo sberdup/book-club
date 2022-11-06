@@ -10,7 +10,6 @@ import NavBar from "./components/NavBar";
 import ClubGrid from "./components/ClubGrid";
 import BookGrid from "./components/BookGrid";
 import ClubUsersForm from "./components/ClubUsersForm";
-import WikiForm from "./components/WikiForm";
 import { Grommet } from 'grommet'
 import {theme} from "./theme/theme.js"
 
@@ -57,9 +56,7 @@ function App() {
                 } />
               </Route>
 
-              <Route path="/books/:bookId" element={<BookPage />}>
-                <Route path="edit" element={<WikiForm />} />
-              </Route>
+              <Route path="/books/:bookId" element={<BookPage />}/>
 
             </Route>
 

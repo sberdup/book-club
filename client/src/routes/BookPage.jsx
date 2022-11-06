@@ -1,7 +1,6 @@
 import { Spinner, Card, Box, Paragraph, Image, Heading, Grid } from 'grommet'
 import React, { useState, useEffect, useContext } from 'react'
-import { Outlet, useLocation, useParams } from 'react-router'
-import { NavLink } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router'
 import WikiBar from '../components/WikiBar'
 import WikiGrid from '../components/WikiGrid'
 import { BookContext } from '../context/BookContext'
@@ -40,9 +39,7 @@ function BookPage() {
                     </Grid>
                 </Card>
                 : null}
-            <Outlet />
 
-            {(location.pathname !== `/books/${bookId}`) ? <NavLink to={`/books/${bookId}`}>Back to Book</NavLink> : <NavLink to="edit">Edit BookWiki</NavLink>}
             <WikiBar setCategoryFilter={setCategoryFilter} />
             {loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <WikiGrid category={categoryFilter} bookSelection={book[categoryFilter]} />}
         </Box>
