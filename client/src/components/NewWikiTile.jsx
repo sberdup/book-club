@@ -47,7 +47,7 @@ function NewWikiTile({ category }) {
         }
     }
     return (
-        <Card width={{ max: 'large' }} height={{ min: 'small' }} background={createToggle ? 'accent-5' : ''} flex className='zFloor'>
+        <Card width={{max: 'large' }} height={{ min: 'small' }} background={createToggle ? 'accent-5' : ''} fill className='zFloor'>
             {createToggle ?
                 <>
                     <CardHeader justify='center' >
