@@ -4,7 +4,7 @@ import React from 'react'
 function WikiBar({setCategoryFilter}) {
   const categories = ['book_elements', 'characters', "eras", "events", "groups", "items", "locations", "quotes", "storylines", "themes"]
   const displayNames = ['Misc', 'Characters', "Times", "Events", "Groups", "Objects", "Places", "Quotes", "Storylines", "Themes"]
-  const buttonColors = ['dark-3', 'neutral-3', 'accent-5', 'accent-1', 'neutral-3', 'accent-4', 'neutral-4', 'accent-2', 'accent-3', 'light-1']
+  const buttonColors = ['dark-3', 'accent-6', 'accent-5', 'accent-1', 'neutral-3', 'accent-4', 'neutral-4', 'accent-2', 'accent-3', 'light-1']
 
   function clickFilterHandler(e) {
     setCategoryFilter(e.target.name)

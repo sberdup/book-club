@@ -36,6 +36,7 @@ export const theme = {
         "accent-3": "#FFBD20",
         "accent-4": "#20FDFF",
         "accent-5": "#FFFB20",
+        "accent-6": "#EA1717",
         "dark-1": "#333333",
         "dark-2": "#555555",
         "dark-3": "#777777",

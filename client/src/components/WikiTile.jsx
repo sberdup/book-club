@@ -65,7 +65,6 @@ function WikiTile({ element, category }) {
 
   return (
     <Card width={{ max: 'large' }} height={{ min: 'small' }} background='accent-5' flex className='zFloor'>
-      {/* {elementMap} */}
       <CardHeader justify='center' >
         {element.name !== undefined ?
           (editToggle ?
