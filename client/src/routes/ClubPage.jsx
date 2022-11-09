@@ -29,7 +29,7 @@ function ClubPage() {
         <>
           <Heading alignSelf='center' level={2}>{`Welcome to ${club.name}!`}</Heading>
           <Box tag='header' direction='row' align='center' justify='between' margin={{bottom:'small'}} background='accent-3'>
-            <NavLink to="options" className={navLinkFunction}>Club Options</NavLink>
+            <NavLink to="users" className={navLinkFunction}>Club Members</NavLink>
             <NavLink to="books" className={navLinkFunction}>Club Books</NavLink>
             <NavLink to={`/clubs/${clubId}`} className={location.pathname === `/clubs/${clubId}` ? 'activeLink' : 'inactiveLink'}>Club Home</NavLink>
           </Box>
