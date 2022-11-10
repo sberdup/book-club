@@ -5,6 +5,10 @@ class ClubUsersController < ApplicationController
     def show 
         render json:ClubUser.where("club_id = ?", params[:id])
     end
+    
+    def perms 
+        render json:ClubUser.where("user_id = ? AND club_id = ?", @current_user.id, params[:club_id])
+    end
 
     def create 
         new_user = User.find_by!(username:params[:username])

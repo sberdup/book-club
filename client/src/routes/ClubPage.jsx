@@ -1,13 +1,16 @@
-import { Box, Image, Card, Paragraph, Heading} from 'grommet'
-import React, { useEffect, useContext } from 'react'
+import { Box, Image, Card, Paragraph, Heading, Spinner} from 'grommet'
+import React, { useEffect, useContext, useState } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
+import ClubTile from '../components/ClubTile'
 import { ClubContext } from '../context/ClubContext'
 
 function ClubPage() {
   const { club, setClub } = useContext(ClubContext)
   const { clubId } = useParams()
   const location = useLocation()
+  const [loading, setLoading] = useState(true)
+
   const navLinkFunction = ({ isActive }) => isActive ? 'activeLink' : 'inactiveLink'
   // getting appropriate club based on params
   useEffect(() => {
@@ -16,10 +19,14 @@ function ClubPage() {
   }, [])
 
   async function getClub() {
+    setLoading(true)
     const resp = await fetch(`/clubs/${clubId}`)
+    const resp2 = await fetch(`/perms/${clubId}`)
     const data = await resp.json()
-    if (resp.ok) {
+    const data2 = await resp2.json()
+    if (resp.ok && resp2.ok) {
       setClub(data)
+      setLoading(false)
     }
   }
 
@@ -33,13 +40,8 @@ function ClubPage() {
             <NavLink to="books" className={navLinkFunction}>Club Books</NavLink>
             <NavLink to={`/clubs/${clubId}`} className={location.pathname === `/clubs/${clubId}` ? 'activeLink' : 'inactiveLink'}>Club Home</NavLink>
           </Box>
-          {location.pathname === `/clubs/${clubId}` ?
-            <Card background='accent-3' width='medium' alignSelf='center' align='center' margin='small'>
-              <Box height="small" width="small" margin='small'>
-                <Image src={`${club.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/shape-27531_emuhhi80e.png' />
-                <Paragraph>{club.message}</Paragraph>
-              </Box>
-            </Card>
+          {(location.pathname === `/clubs/${clubId}`) ?
+            (loading ? <Spinner color='goldenrod' size='xlarge' style={{ margin: 'auto' }} /> : <ClubTile club={club} home={true} />)
             : null}
           <Outlet />
         </>
