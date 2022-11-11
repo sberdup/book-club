@@ -9,16 +9,15 @@ import BookPage from "./routes/BookPage";
 import NavBar from "./components/NavBar";
 import ClubGrid from "./components/ClubGrid";
 import BookGrid from "./components/BookGrid";
-import ClubUsersForm from "./components/ClubUsersForm";
 import { Grommet } from 'grommet'
-import {theme} from "./theme/theme.js"
+import { theme } from "./theme/theme.js"
 import UserGrid from "./components/UserGrid";
 
 function App() {
   const [user, setUser] = useState({ id: false })
   const [club, setClub] = useState({ id: false })
   const [book, setBook] = useState({ id: false })
-  const [count, setCount] = useState(0)
+  const [clubUser, setClubUser] = useState({ id: false })
 
   useEffect(() => {
     getUser()
@@ -36,7 +35,7 @@ function App() {
     <BrowserRouter>
       <Grommet className='App' theme={theme}>
         <Routes>
-          <Route element={<ContextLayout values={{ user, setUser, club, setClub, book, setBook }} />}>
+          <Route element={<ContextLayout values={{ user, setUser, club, setClub, book, setBook, clubUser, setClubUser }} />}>
             {/* ContextLayout is encapsulating below routes to provide context */}
             <Route path="/" element={<LandingPage />} />
 
@@ -50,14 +49,10 @@ function App() {
 
               <Route path="/clubs/:clubId" element={<ClubPage />}>
                 <Route path="books" element={<BookGrid source={'club'} />} />
-                <Route path="users" element={
-                  <>
-                    <UserGrid />
-                  </>
-                } />
+                <Route path="users" element={<UserGrid source={'club'}/>} />
               </Route>
 
-              <Route path="/books/:bookId" element={<BookPage />}/>
+              <Route path="/books/:bookId" element={<BookPage />} />
 
             </Route>
 

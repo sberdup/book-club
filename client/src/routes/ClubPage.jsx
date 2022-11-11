@@ -1,12 +1,14 @@
-import { Box, Image, Card, Paragraph, Heading, Spinner} from 'grommet'
+import { Box, Heading, Spinner} from 'grommet'
 import React, { useEffect, useContext, useState } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import ClubTile from '../components/ClubTile'
 import { ClubContext } from '../context/ClubContext'
+import { ClubUserContext } from '../context/ClubUserContext'
 
 function ClubPage() {
   const { club, setClub } = useContext(ClubContext)
+  const { setClubUser} = useContext(ClubUserContext)
   const { clubId } = useParams()
   const location = useLocation()
   const [loading, setLoading] = useState(true)
@@ -20,12 +22,15 @@ function ClubPage() {
 
   async function getClub() {
     setLoading(true)
+    console.log(clubId)
     const resp = await fetch(`/clubs/${clubId}`)
     const resp2 = await fetch(`/perms/${clubId}`)
     const data = await resp.json()
     const data2 = await resp2.json()
     if (resp.ok && resp2.ok) {
+      console.log(data, data2)
       setClub(data)
+      setClubUser(data2)
       setLoading(false)
     }
   }
