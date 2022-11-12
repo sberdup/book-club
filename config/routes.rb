@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/hello', to: 'application#hello_world'
-  get '/perms/:id', to: 'club_users#perms'
+  get '/perms/:club_id', to: 'club_users#perms'
 
   get '*path',
     to: 'fallback#index',
