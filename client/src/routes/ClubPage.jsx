@@ -22,13 +22,11 @@ function ClubPage() {
 
   async function getClub() {
     setLoading(true)
-    console.log(clubId)
     const resp = await fetch(`/clubs/${clubId}`)
     const resp2 = await fetch(`/club_users/${clubId}`)
     const data = await resp.json()
     const data2 = await resp2.json()
     if (resp.ok && resp2.ok) {
-      console.log(data, data2)
       setClub(data)
       setClubUser(data2[0])
       setLoading(false)
