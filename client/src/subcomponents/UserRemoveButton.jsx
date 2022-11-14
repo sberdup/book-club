@@ -6,18 +6,20 @@ function UserRemoveButton({ user, errorHandler, deleteToggle, setDeleteToggle })
     const { club, setClub } = useContext(ClubContext)
 
     async function deleteHandler() {
-        const resp = await fetch(`/${'clubuserpath'}/${user.id}`,
+        const resp = await fetch(`/clubs/${club.id}/club_users/${user.id}`,
             { method: 'DELETE' })
+        const data = await resp.json()
         if (resp.ok) {
-            setClub({ ...club, 'users': club['users'].filter(member => member.id !== parseInt(user.id)) })
+            setClub({ ...club, users: club.users.filter(member => member.id !== parseInt(user.id)) })
         } else {
-            errorHandler({errors: ['Failed to delete!']})
+            errorHandler(data)
         }
     }
     return (
         <>
             {deleteToggle ?
-                <Button primary color='status-critical' size='xsmall' margin='xsmall' label='Confirm Removal' onClick={deleteHandler} />
+                <Button primary color='status-critical' size='xsmall' margin='xsmall' label='Confirm Removal'
+                    onClick={deleteHandler} onBlur={() => setDeleteToggle(false)} />
                 :
                 <Button primary color='status-critical' size='xsmall' margin='xsmall' label='Kick' onClick={() => setDeleteToggle(!deleteToggle)} />
             }

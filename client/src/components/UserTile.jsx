@@ -21,7 +21,7 @@ function UserTile({ user, source }) {
   }
 
   return (
-    <Card width='medium' alignSelf='center' align='center' background='accent-1'>
+    <Card width='medium' alignSelf='center' align='center' background='accent-1' className='zFloor'>
       <Box height="small" width="small" margin='small'>
         <Image src={`${user.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/149071_Dcw9gvaSe.png' />
         <Paragraph>{user.username}</Paragraph>

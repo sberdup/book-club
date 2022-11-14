@@ -2,8 +2,8 @@ class ClubUsersController < ApplicationController
     before_action :auth_admin, only:[:create, :destroy]
     before_action :auth_owner, only:[:update]
     # changing admins requires ownership, adding or removing requires adminship
-    def show 
-        render json:ClubUser.where("club_id = ?", params[:id])
+    def index 
+        render json:ClubUser.where("club_id = ?", params[:club_id])
     end
     
     def perms 
@@ -40,7 +40,7 @@ class ClubUsersController < ApplicationController
     end
 
     def find_club_user
-        ClubUser.find(params[:id])
+        ClubUser.where("user_id = ? AND club_id = ?", params[:id], params[:club_id])[0]
     end
 
     def auth_admin 

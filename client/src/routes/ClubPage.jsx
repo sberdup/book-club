@@ -23,7 +23,7 @@ function ClubPage() {
   async function getClub() {
     setLoading(true)
     const resp = await fetch(`/clubs/${clubId}`)
-    const resp2 = await fetch(`/club_users/${clubId}`)
+    const resp2 = await fetch(`/clubs/${clubId}/club_users`)
     const data = await resp.json()
     const data2 = await resp2.json()
     if (resp.ok && resp2.ok) {
