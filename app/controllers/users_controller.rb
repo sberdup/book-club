@@ -21,6 +21,9 @@ class UsersController < ApplicationController
         head :no_content
     end
 
+    def search
+        render json:User.find_by!(username:params[:username])
+    end
     private 
 
     def user_params 

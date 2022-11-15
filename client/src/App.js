@@ -12,6 +12,7 @@ import BookGrid from "./components/BookGrid";
 import { Grommet } from 'grommet'
 import { theme } from "./theme/theme.js"
 import UserGrid from "./components/UserGrid";
+import NewClubUser from "./components/NewClubUser";
 
 function App() {
   const [user, setUser] = useState({ id: false })
@@ -49,7 +50,10 @@ function App() {
 
               <Route path="/clubs/:clubId" element={<ClubPage />}>
                 <Route path="books" element={<BookGrid source={'club'} />} />
-                <Route path="users" element={<UserGrid source={'club'}/>} />
+                <Route path="users" element={<>
+                  <NewClubUser />
+                  <UserGrid source={'club'} />
+                </>} />
               </Route>
 
               <Route path="/books/:bookId" element={<BookPage />} />

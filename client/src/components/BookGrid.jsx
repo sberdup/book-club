@@ -53,7 +53,7 @@ function BookGrid({ source }) {
 
   return (
     <>
-      <Button secondary color='accent-1' alignSelf='center' fill style={{maxWidth:'25%'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Hide Book Form' : 'Add Book'}/>
+      <Button secondary color='accent-1' alignSelf='center' fill style={{maxWidth:'25%'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Cancel' : 'Add Book'}/>
       {(formToggle) ?
         <Box>
           <BookForm searchToggle={searchToggle} setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm}/>

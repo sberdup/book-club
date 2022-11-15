@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/hello', to: 'application#hello_world'
   get '/perms/:club_id', to: 'club_users#perms'
+  get '/users_search/:username', to:'users#search'
 
   get '*path',
     to: 'fallback#index',
