@@ -8,9 +8,9 @@ function UserGrid({source}) {
     const {club} = useContext(ClubContext)
   return (
     <Grid columns={{count:'fit', size:'medium'}}  gap='medium' margin='small' justify='center' >
-                {club.users?.length === 0 ? <h2>No clubs yet!</h2> 
+                {club.club_users?.length === 0 ? <h2>No clubs yet!</h2> 
                 : 
-                club.users.map(user => <UserTile source={source} key={user.id} user={user} />)}
+                club.club_users.map(member => <UserTile source={source} key={member.id} member={member} user={member.user}/>)}
             </Grid>
   )
 }

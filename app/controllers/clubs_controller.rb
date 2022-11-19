@@ -10,7 +10,7 @@ class ClubsController < ApplicationController
     end
 
     def show 
-        render json:find_club, include:['users','users.image', 'books', 'books.image', 'image']
+        render json:find_club, serializer: ClubSerializer, include:['club_users','club_users.user', 'club_users.user.image', 'books.image', 'image']
     end
 
     def update 

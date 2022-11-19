@@ -5,7 +5,7 @@ import { ClubUserContext } from '../context/ClubUserContext'
 import UserEditButton from '../subcomponents/UserEditButton'
 import UserRemoveButton from '../subcomponents/UserRemoveButton'
 
-function UserTile({ user, source }) {
+function UserTile({ user, member }) {
   const { clubUser } = useContext(ClubUserContext)
   const [errors, setErrors] = useState([])
   const errorBox = useRef(null)
@@ -23,9 +23,9 @@ function UserTile({ user, source }) {
   }
 
   let userStatus
-  if (user.is_owner) {
+  if (member.is_owner) {
     userStatus = 'Owner'
-  } else if (user.is_admin) {
+  } else if (member.is_admin) {
     userStatus = 'Admin'
   } else {
     userStatus = 'Member'
@@ -34,9 +34,9 @@ function UserTile({ user, source }) {
   return (
     <Card width='medium' alignSelf='center' align='center' background='accent-1' className='zFloor'>
       <Box height="small" width="small" margin='small'>
+        {(userStatus !== 'Member') ? <Paragraph margin='none' color={(userStatus === 'Owner') ? 'accent-2' : 'accent-3'}>{userStatus}</Paragraph> : null}
         <Image src={`${user.image?.url}`} fit='contain' fallback='https://ik.imagekit.io/sberdup/tr:w-100,h-100/149071_Dcw9gvaSe.png' />
         <Paragraph>{user.username}</Paragraph>
-        {(userStatus !== 'Member') ? <Paragraph color={(userStatus === 'Owner') ? 'accent-2' : 'accent-3'}>{userStatus}</Paragraph> : null}
         <Box direction='row'>
           {clubUser.is_owner ? <UserEditButton user={user} editToggle={editToggle}
             setEditToggle={setEditToggle} errorHandler={errorHandler} /> : null}
