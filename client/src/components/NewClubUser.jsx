@@ -40,7 +40,7 @@ function NewClubUser() {
         const data = await resp.json()
         if (resp.ok) {
             console.log(data)
-            setClub({ ...club, users: [user, ...club.users] })
+            setClub({ ...club, club_users: [{...data, user:user}, ...club.club_users] })
             setFormData({ username: '' })
             setUserConfirmToggle(false)
             setCreateToggle(false)

@@ -1,5 +1,4 @@
 import { Button } from 'grommet'
-import React, { useContext } from 'react'
 
 function UserRemoveButton({ user, club, setClub, errorHandler, deleteToggle, setDeleteToggle }) {
     async function deleteHandler() {

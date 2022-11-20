@@ -1,5 +1,4 @@
 import { Button } from 'grommet'
-import React, { useContext } from 'react'
 
 function UserEditButton({ user, member, club, setClub, errorHandler, editToggle, setEditToggle }) {
     async function editHandler() {
@@ -16,7 +15,7 @@ function UserEditButton({ user, member, club, setClub, errorHandler, editToggle,
             console.log('return edit data', data)
             setClub({
                 ...club, club_users: club.club_users.map(member => {
-                    if (member.user.id === data.id) {
+                    if (member.id === data.id) {
                         return {...data, user:user}
                     }
                     return member
