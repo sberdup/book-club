@@ -51,8 +51,8 @@ function App() {
               <Route path="/clubs/:clubId" element={<ClubPage />}>
                 <Route path="books" element={<BookGrid source={'club'} />} />
                 <Route path="users" element={<>
-                  <NewClubUser />
-                  <UserGrid source={'club'} />
+                  <NewClubUser/>
+                  <UserGrid/>
                 </>} />
               </Route>
 

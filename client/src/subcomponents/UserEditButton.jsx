@@ -1,24 +1,23 @@
 import { Button } from 'grommet'
 import React, { useContext } from 'react'
-import { ClubContext } from '../context/ClubContext'
 
-function UserEditButton({ user, errorHandler, editToggle, setEditToggle }) {
-    const { club, setClub } = useContext(ClubContext)
-
+function UserEditButton({ user, member, club, setClub, errorHandler, editToggle, setEditToggle }) {
     async function editHandler() {
         const resp = await fetch(`/clubs/${club.id}/club_users/${user.id}`,
             {
                 method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    is_admin: !user.is_admin
+                    is_admin: !member.is_admin
                 })
             })
         const data = await resp.json()
         if (resp.ok) {
+            console.log('return edit data', data)
             setClub({
-                ...club, users: club.users.map(member => {
-                    if (member.id === data.id) {
-                        return data
+                ...club, club_users: club.club_users.map(member => {
+                    if (member.user.id === data.id) {
+                        return {...data, user:user}
                     }
                     return member
                 })

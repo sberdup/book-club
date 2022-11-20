@@ -1,16 +1,13 @@
 import { Button } from 'grommet'
 import React, { useContext } from 'react'
-import { ClubContext } from '../context/ClubContext'
 
-function UserRemoveButton({ user, errorHandler, deleteToggle, setDeleteToggle }) {
-    const { club, setClub } = useContext(ClubContext)
-
+function UserRemoveButton({ user, club, setClub, errorHandler, deleteToggle, setDeleteToggle }) {
     async function deleteHandler() {
         const resp = await fetch(`/clubs/${club.id}/club_users/${user.id}`,
             { method: 'DELETE' })
         const data = await resp.json()
         if (resp.ok) {
-            setClub({ ...club, users: club.users.filter(member => member.id !== parseInt(user.id)) })
+            setClub({ ...club, club_users: club.club_users.filter(member => member.user.id !== parseInt(user.id)) })
         } else {
             errorHandler(data)
         }
