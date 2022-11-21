@@ -29,3 +29,5 @@
 /config/master.key
 # Imagekit keys
 .env
+node_modules
+#node modules added
