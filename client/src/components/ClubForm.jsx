@@ -27,7 +27,6 @@ function ClubForm({setErrors}) {
       })
     })
     const data = await resp.json()
-    console.log(data)
     if (resp.ok){
       setFormData(emptyForm)
 

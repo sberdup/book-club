@@ -17,7 +17,7 @@ function WikiTile({ element, category }) {
   })
 
   useEffect(() => {
-    errorBox.current = document.getElementById('errorBox')
+    errorBox.current = document.getElementById(`wikiErrorBox${element.id}`)
   }, [editToggle, deleteToggle])
 
   function inputHandler(e) {
@@ -150,7 +150,7 @@ function WikiTile({ element, category }) {
         {editToggle ? <Button onClick={submitHandler} primary size='xsmall' label='Submit' margin='xsmall' />
           : <WikiDeleteButton element={element} category={category} deleteToggle={deleteToggle} setDeleteToggle={setDeleteToggle} errorHandler={errorHandler} />}
       </CardFooter>
-      <Box className='errorBox fade' id='errorBox'>
+      <Box className='errorBox fade' id={`wikiErrorBox${element.id}`}>
         {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
       </Box>
     </Card>

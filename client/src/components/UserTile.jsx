@@ -15,7 +15,7 @@ function UserTile({ user, member }) {
   const [editToggle, setEditToggle] = useState(false)
 
   useEffect(() => {
-    errorBox.current = document.getElementById('errorBox')
+    errorBox.current = document.getElementById(`userErrorBox${user.id}`)
   }, [deleteToggle, editToggle])
 
   function errorHandler(errors) {
@@ -46,7 +46,7 @@ function UserTile({ user, member }) {
             setDeleteToggle={setDeleteToggle} errorHandler={errorHandler} /> : null}
         </Footer>
       </Box>
-      <Box className='errorBox fade' id='errorBox'>
+      <Box className='errorBox fade' id={`userErrorBox${user.id}`}>
         {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
       </Box>
     </Card>

@@ -16,7 +16,6 @@ function ClubPage() {
   const navLinkFunction = ({ isActive }) => isActive ? 'activeLink' : 'inactiveLink'
   // getting appropriate club based on params
   useEffect(() => {
-    // console.log(club)
     getClub()
   }, [])
 

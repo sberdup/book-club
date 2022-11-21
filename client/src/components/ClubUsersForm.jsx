@@ -25,7 +25,6 @@ function ClubUsersForm() {
         const data = await resp.json()
         if (resp.ok) {
             setClubUsers(data)
-            // console.log(data)
         }
     }
 

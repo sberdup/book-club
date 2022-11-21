@@ -12,7 +12,6 @@ function UserEditButton({ user, member, club, setClub, errorHandler, editToggle,
             })
         const data = await resp.json()
         if (resp.ok) {
-            console.log('return edit data', data)
             setClub({
                 ...club, club_users: club.club_users.map(member => {
                     if (member.id === data.id) {
