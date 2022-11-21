@@ -16,7 +16,7 @@ function UserTile({ user, member }) {
 
   useEffect(() => {
     errorBox.current = document.getElementById(`userErrorBox${user.id}`)
-  }, [deleteToggle, editToggle])
+  }, [deleteToggle, editToggle, user])
 
   function errorHandler(errors) {
     setErrors(errors)
