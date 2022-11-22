@@ -89,14 +89,20 @@ a:hover {
 }
 .errorBox {
   z-index: 1;
+  border-radius: 12px;
   position: absolute;
-  background-color: #3aff30de;
+  background-color: #a8a8a8de;
   left: 50%; 
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 5px;
   visibility: visible;
   opacity: 1;
+}
+.errorBox p{
+  color: orangered;
+   font-size: 25px; 
+   font-weight: bolder; 
 }
 .errorBox.fade{
   visibility: hidden;

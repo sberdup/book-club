@@ -62,7 +62,7 @@ function BookGrid({ source }) {
         </Box>
         : null}
 
-      {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize:'25px' , fontWeight:'bolder' }}>{`${e}`}</p>)}
+      {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
 
       {formToggle ? <Heading alignSelf='center' level={2}>Book Results</Heading> : ((source === 'user') ? <Heading alignSelf='center' level={2}>Your Books</Heading> : <Heading alignSelf='center' level={2}>Book Collection</Heading>)}
 

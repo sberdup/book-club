@@ -64,7 +64,7 @@ function NewClubUser() {
         <Box className='zFloor'>
             <Button secondary color='accent-4' label={createToggle ? "Cancel" : "Add User"} alignSelf='center' fill style={{ maxWidth: '25%' }} onClick={() => setCreateToggle(!createToggle)} />
             <Box className='errorBox fade' id='errorBox'>
-                {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
+                {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
             </Box>
             {createToggle ?
 

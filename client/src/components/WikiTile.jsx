@@ -151,7 +151,7 @@ function WikiTile({ element, category }) {
           : <WikiDeleteButton element={element} category={category} deleteToggle={deleteToggle} setDeleteToggle={setDeleteToggle} errorHandler={errorHandler} />}
       </CardFooter>
       <Box className='errorBox fade' id={`wikiErrorBox${element.id}`}>
-        {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
+        {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
       </Box>
     </Card>
   )

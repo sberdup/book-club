@@ -47,7 +47,7 @@ function UserTile({ user, member }) {
         </Footer>
       </Box>
       <Box className='errorBox fade' id={`userErrorBox${user.id}`}>
-        {errors.length === 0 ? null : errors.errors.map(e => <p key={e} style={{ color: 'orangered', fontSize: '25px', fontWeight: 'bolder' }}>{`${e}`}</p>)}
+        {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
       </Box>
     </Card>
 
