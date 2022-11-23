@@ -1,20 +1,17 @@
 import { Button, Card, CardHeader, CardBody, FormField, TextInput, Box, CardFooter, TextArea } from 'grommet'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { BookContext } from '../context/BookContext'
+import useErrors from '../functions/useErrors'
+import ErrorBox from '../subcomponents/ErrorBox'
 
 function NewWikiTile({ category }) {
     const [createToggle, setCreateToggle] = useState(false)
     const emptyForm = { name: '', description: '', aliases: '', time: '', location: '', chapter: '', page: '', body: '' }
     const [formData, setFormData] = useState(emptyForm)
-    const errorBox = useRef(null)
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useErrors()
     const { book, setBook } = useContext(BookContext)
 
     const label = (category !== 'book_elements' ? (category.charAt(0).toUpperCase() + category.slice(1, -1)) : 'Misc')
-
-    useEffect(() => {
-        errorBox.current = document.getElementById('errorBox')
-    }, [createToggle])
 
     function inputHandler(e) {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -42,8 +39,6 @@ function NewWikiTile({ category }) {
             setCreateToggle(false)
         } else {
             setErrors(data)
-            errorBox.current.className = 'errorBox'
-            setTimeout(() => errorBox.current.className = 'errorBox fade', 2000)
         }
     }
     return (
@@ -107,9 +102,7 @@ function NewWikiTile({ category }) {
                 </>
                 : <Button primary label={`New ${label}`} onClick={() => setCreateToggle(!createToggle)} fill/>
             }
-            <Box className='errorBox fade' id='errorBox'>
-                {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
-            </Box>
+            <ErrorBox errorObject={errors} />
         </Card>
 
 

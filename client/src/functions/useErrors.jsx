@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
-function useErrors() {
-    const [errors, setErrors] = useState([])
-    const errorBox = useRef(null)
-    useEffect(() => {
-        errorBox.current = document.getElementById(`wikiErrorBox${element.id}`)
-      }, [editToggle, deleteToggle])
+export default function useErrors() {
+    const [errorObject, setErrorObject] = useState({className:'errorBox fade', list:[]})
+    
+    function setErrors(errors) {
+      setErrorObject({className:'errorBox', list:errors})
+      // using the spread operator to clone the old errorObject {...errorObject} actually causes double rendering
+      // in the component using this state value. Explicit setting is required to avoid reassigning values.
+      setTimeout(() => setErrorObject({className:'errorBox fade', list:errors}), 2000)
+    }
 
-    return [setErrors, errorBox]
+    return [errorObject, setErrors]
 }
     
