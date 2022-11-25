@@ -2,6 +2,8 @@ import { Button, Grid, Box, Heading } from 'grommet'
 import React, { useContext, useState, useRef } from 'react'
 import { ClubContext } from '../context/ClubContext'
 import { UserContext } from '../context/UserContext'
+import useErrors from '../functions/useErrors'
+import ErrorBox from '../subcomponents/ErrorBox'
 import BookForm from './BookForm'
 import BookSearch from './BookSearch'
 import BookTile from './BookTile'
@@ -11,7 +13,7 @@ function BookGrid({ source }) {
   const { club, setClub } = useContext(ClubContext)
   // pulling in data from user which includes books in user's collection
   //also getting club
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useErrors()
   const [formToggle, setFormToggle] = useState(false)
   const [searchToggle, setSearchToggle] = useState(true)
   const [bookResults, setBookResults] = useState({ items: [] })
@@ -62,7 +64,7 @@ function BookGrid({ source }) {
         </Box>
         : null}
 
-      {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
+      <ErrorBox errorObject={errors}/>
 
       {formToggle ? <Heading alignSelf='center' level={2}>Book Results</Heading> : ((source === 'user') ? <Heading alignSelf='center' level={2}>Your Books</Heading> : <Heading alignSelf='center' level={2}>Book Collection</Heading>)}
 

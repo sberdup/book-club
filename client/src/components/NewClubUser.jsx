@@ -1,26 +1,17 @@
 import { Box, Button, Card, Form, FormField, TextInput, Image, Paragraph, CardFooter } from 'grommet'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { useContext } from 'react'
 import { ClubContext } from '../context/ClubContext'
+import useErrors from '../functions/useErrors'
+import ErrorBox from '../subcomponents/ErrorBox'
 
 function NewClubUser() {
     const [createToggle, setCreateToggle] = useState(false)
     const [user, setUser] = useState({})
     const [userConfirmToggle, setUserConfirmToggle] = useState(false)
     const [formData, setFormData] = useState({ username: '' })
-    const [errors, setErrors] = useState([])
-    const errorBox = useRef(null)
+    const [errors, setErrors] = useErrors()
     const { club, setClub } = useContext(ClubContext)
-
-    useEffect(() => {
-        errorBox.current = document.getElementById('errorBox')
-    }, [createToggle])
-
-    function errorHandler(errors) {
-        setErrors(errors)
-        errorBox.current.className = 'errorBox'
-        setTimeout(() => errorBox.current.className = 'errorBox fade', 2000)
-    }
 
     function inputHandler(e) {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -43,9 +34,9 @@ function NewClubUser() {
             setFormData({ username: '' })
             setUserConfirmToggle(false)
             setCreateToggle(false)
-            errorHandler({ errors: ['Success!'] })
+            setErrors({ errors: ['Success!'] })
         } else {
-            errorHandler(data)
+            setErrors(data)
         }
     }
 
@@ -56,16 +47,14 @@ function NewClubUser() {
             setUser(data)
             setUserConfirmToggle(true)
         } else {
-            errorHandler(data)
+            setErrors(data)
         }
     }
 
     return (
         <Box className='zFloor'>
             <Button secondary color='accent-4' label={createToggle ? "Cancel" : "Add User"} alignSelf='center' fill style={{ maxWidth: '25%' }} onClick={() => setCreateToggle(!createToggle)} />
-            <Box className='errorBox fade' id='errorBox'>
-                {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
-            </Box>
+            <ErrorBox errorObject={errors}/>
             {createToggle ?
 
                 (userConfirmToggle ?

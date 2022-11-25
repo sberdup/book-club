@@ -1,4 +1,4 @@
-import { Button, Form, FormField, TextInput, Box, Heading } from 'grommet'
+import { Button, Form, FormField, TextInput, Box } from 'grommet'
 import React, { useState } from 'react'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
@@ -25,7 +25,6 @@ function BookSearch({setBookResults, setErrors, searchToggle}) {
       if (resp.ok){
         setFormData(emptyForm)
         setBookResults(data)
-        setErrors({errors:[]})
       } else {
         setErrors({errors: [data.error.errors[0].message]})
       }

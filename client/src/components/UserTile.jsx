@@ -1,37 +1,19 @@
 import { Card, Image, Paragraph, Box, Footer } from 'grommet'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useContext } from 'react'
 import { ClubUserContext } from '../context/ClubUserContext'
 import UserEditButton from '../subcomponents/UserEditButton'
 import UserRemoveButton from '../subcomponents/UserRemoveButton'
 import { ClubContext } from '../context/ClubContext'
+import useErrors from '../functions/useErrors'
+import ErrorBox from '../subcomponents/ErrorBox'
 
 function UserTile({ user, member }) {
   const { clubUser } = useContext(ClubUserContext)
   const { club, setClub } = useContext(ClubContext)
-  const [errors, setErrors] = useState([])
-  const errorBox = useRef(null)
+  const [errors, setErrors] = useErrors()
   const [deleteToggle, setDeleteToggle] = useState(false)
   const [editToggle, setEditToggle] = useState(false)
-
-  useEffect(() => {
-    errorBox.current = document.getElementById(`userErrorBox${user.id}`)
-  }, [deleteToggle, editToggle, user])
-
-  function errorHandler(errors) {
-    setErrors(errors)
-    errorBox.current.className = 'errorBox'
-    setTimeout(() => errorBox.current.className = 'errorBox fade', 2000)
-  }
-
-  // let userStatus
-  // if (member.is_owner) {
-  //   userStatus = 'Owner'
-  // } else if (member.is_admin) {
-  //   userStatus = 'Admin'
-  // } else {
-  //   userStatus = 'Member'
-  // }
 
   return (
     <Card width='medium' alignSelf='center' align='center' background='accent-1' className='zFloor'>
@@ -41,14 +23,12 @@ function UserTile({ user, member }) {
         <Paragraph>{user.username}</Paragraph>
         <Footer direction='row'>
           {clubUser.is_owner ? <UserEditButton user={user} member={member} club={club} setClub={setClub} editToggle={editToggle}
-            setEditToggle={setEditToggle} errorHandler={errorHandler} /> : null}
+            setEditToggle={setEditToggle} errorHandler={setErrors} /> : null}
           {clubUser.is_admin ? <UserRemoveButton user={user} club={club} setClub={setClub} deleteToggle={deleteToggle}
-            setDeleteToggle={setDeleteToggle} errorHandler={errorHandler} /> : null}
+            setDeleteToggle={setDeleteToggle} errorHandler={setErrors} /> : null}
         </Footer>
       </Box>
-      <Box className='errorBox fade' id={`userErrorBox${user.id}`}>
-        {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
-      </Box>
+      <ErrorBox errorObject={errors}/>
     </Card>
 
   )

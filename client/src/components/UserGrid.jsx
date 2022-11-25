@@ -11,7 +11,7 @@ function UserGrid() {
                 {club.club_users?.length === 0 ? <h2>No clubs yet!</h2> 
                 : 
                 club.club_users.map(member => <UserTile key={member.id} member={member} user={member.user}/>)}
-            </Grid>
+    </Grid>
   )
 }
 

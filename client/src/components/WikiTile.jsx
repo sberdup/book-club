@@ -1,14 +1,15 @@
 import { Box, Card, CardBody, CardFooter, CardHeader, FormField, TextInput, Paragraph, Text, TextArea, Button } from 'grommet'
 import WikiDeleteButton from '../subcomponents/WikiDeleteButton'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import WikiEditButton from '../subcomponents/WikiEditButton'
 import { useContext } from 'react'
 import { BookContext } from '../context/BookContext'
+import useErrors from '../functions/useErrors'
+import ErrorBox from '../subcomponents/ErrorBox'
 
 function WikiTile({ element, category }) {
   const { book, setBook } = useContext(BookContext)
-  const [errors, setErrors] = useState([])
-  const errorBox = useRef(null)
+  const [errors, setErrors] = useErrors()
   const [editToggle, setEditToggle] = useState(false)
   const [deleteToggle, setDeleteToggle] = useState(false)
   const [formData, setFormData] = useState({
@@ -16,18 +17,8 @@ function WikiTile({ element, category }) {
     , time: element.time, location: element.location, chapter: element.chapter, page: element.page, body: element.body
   })
 
-  useEffect(() => {
-    errorBox.current = document.getElementById(`wikiErrorBox${element.id}`)
-  }, [editToggle, deleteToggle])
-
   function inputHandler(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value })
-  }
-
-  function errorHandler(errors) {
-    setErrors(errors)
-    errorBox.current.className = 'errorBox'
-    setTimeout(() => errorBox.current.className = 'errorBox fade', 2000)
   }
 
   async function submitHandler() {
@@ -56,10 +47,10 @@ function WikiTile({ element, category }) {
           return bookPart
         })
       })
-      errorHandler({ errors: ['Success!'] })
+      setErrors({ errors: ['Success!'] })
       setEditToggle(false)
     } else {
-      errorHandler(data)
+      setErrors(data)
     }
   }
 
@@ -148,11 +139,9 @@ function WikiTile({ element, category }) {
           : <Paragraph size='small'>Misc</Paragraph>}
 
         {editToggle ? <Button onClick={submitHandler} primary size='xsmall' label='Submit' margin='xsmall' />
-          : <WikiDeleteButton element={element} category={category} deleteToggle={deleteToggle} setDeleteToggle={setDeleteToggle} errorHandler={errorHandler} />}
+          : <WikiDeleteButton element={element} category={category} deleteToggle={deleteToggle} setDeleteToggle={setDeleteToggle} errorHandler={setErrors} />}
       </CardFooter>
-      <Box className='errorBox fade' id={`wikiErrorBox${element.id}`}>
-        {errors.length === 0 ? null : errors.errors.map(e => <p key={e}>{`${e}`}</p>)}
-      </Box>
+      <ErrorBox errorObject={errors}/>
     </Card>
   )
 }

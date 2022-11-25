@@ -52,6 +52,7 @@ function ClubForm({setErrors}) {
 
     if (resp.ok) {
       setUser({...user, clubs:[...user.clubs, {...club, image:data}]})
+      setErrors({errors:['Success!']})
     } else {
       setUser({...user, clubs:[...user.clubs, club]})
       setErrors({errors:['Club created, picture not set.']})
