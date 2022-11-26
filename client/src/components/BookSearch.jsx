@@ -1,5 +1,6 @@
 import { Button, Form, FormField, TextInput, Box } from 'grommet'
 import React, { useState } from 'react'
+import { fetchGetter } from '../functions/commonFunctions'
 const api_key = process.env.REACT_APP_GBOOKS_API_KEY
 
 function BookSearch({setBookResults, setErrors, searchToggle}) {
@@ -17,16 +18,12 @@ function BookSearch({setBookResults, setErrors, searchToggle}) {
   
     async function submitHandler(e) {
       e.preventDefault()
-      const resp = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${keywords}${author}${title}${fields}&key=${api_key}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const data = await resp.json()
-      if (resp.ok){
+      const fetch = await fetchGetter(`https://www.googleapis.com/books/v1/volumes?q=${keywords}${author}${title}${fields}&key=${api_key}`)
+      if (fetch.resp.ok){
         setFormData(emptyForm)
-        setBookResults(data)
+        setBookResults(fetch.data)
       } else {
-        setErrors({errors: [data.error.errors[0].message]})
+        setErrors({errors: [fetch.data.error.errors[0].message]})
       }
     }
     const hiddenStyle = (searchToggle ? {} : {display:'none'})

@@ -1,5 +1,5 @@
 import { Button, Card, CardHeader, CardBody, FormField, TextInput, Box, CardFooter, TextArea } from 'grommet'
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { BookContext } from '../context/BookContext'
 import useErrors from '../functions/useErrors'
 import ErrorBox from '../subcomponents/ErrorBox'

@@ -2,6 +2,7 @@ import { Box, Button, Card, Form, FormField, TextInput, Image, Paragraph, CardFo
 import React, { useState } from 'react'
 import { useContext } from 'react'
 import { ClubContext } from '../context/ClubContext'
+import { fetchGetter } from '../functions/commonFunctions'
 import useErrors from '../functions/useErrors'
 import ErrorBox from '../subcomponents/ErrorBox'
 
@@ -41,13 +42,12 @@ function NewClubUser() {
     }
 
     async function submitHandler() {
-        const resp = await fetch(`/users_search/${formData.username}`)
-        const data = await resp.json()
-        if (resp.ok) {
-            setUser(data)
+        const fetch = await fetchGetter(`/users_search/${formData.username}`)
+        if (fetch.resp.ok) {
+            setUser(fetch.data)
             setUserConfirmToggle(true)
         } else {
-            setErrors(data)
+            setErrors(fetch.data)
         }
     }
 

@@ -55,26 +55,27 @@ function BookGrid({ source }) {
 
   return (
     <>
-      <Button secondary color='accent-1' alignSelf='center' fill style={{maxWidth:'25%'}} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Cancel' : 'Add Book'}/>
+      <Button secondary color='accent-1' alignSelf='center' fill style={{ maxWidth: '25%' }} onClick={() => setFormToggle(!formToggle)} label={(formToggle) ? 'Cancel' : 'Add Book'} />
       {(formToggle) ?
         <Box>
-          <BookForm searchToggle={searchToggle} setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm}/>
+          <BookForm searchToggle={searchToggle} setErrors={setErrors} setCollection={setCollection} collection={collection} source={source} formData={formData} setFormData={setFormData} bookForm={bookForm} />
           <BookSearch searchToggle={searchToggle} setBookResults={setBookResults} setErrors={setErrors} />
           <Button primary fill color='accent-2' label={`${searchToggle ? 'Manual Entry' : 'Back to Search'}`} alignSelf='center' margin='small' style={{ maxWidth: '25%' }} onClick={() => setSearchToggle(!searchToggle)} />
         </Box>
         : null}
 
-      <ErrorBox errorObject={errors}/>
+      <ErrorBox errorObject={errors} />
 
       {formToggle ? <Heading alignSelf='center' level={2}>Book Results</Heading> : ((source === 'user') ? <Heading alignSelf='center' level={2}>Your Books</Heading> : <Heading alignSelf='center' level={2}>Book Collection</Heading>)}
 
-      <Grid columns={{count:'fit', size:'medium'}}  gap='medium' margin='small' justify='center'>
+      <Grid columns={{ count: 'fit', size: 'medium' }} gap='medium' margin='small' justify='center'>
         {
-          (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm}/>)
+          (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm} />)
             :
-            (((collection.books?.length === 0) || formToggle) ? <h2>No books yet!</h2>
+            (((collection?.books?.length > 0) || !formToggle) ?
+              collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />)
               :
-              collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />))
+              <h2>No books yet!</h2>)
         }
       </Grid>
     </>

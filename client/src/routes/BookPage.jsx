@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router'
 import WikiBar from '../components/WikiBar'
 import WikiGrid from '../components/WikiGrid'
 import { BookContext } from '../context/BookContext'
+import { fetchGetter } from '../functions/commonFunctions'
 
 function BookPage() {
     const { book, setBook } = useContext(BookContext)
@@ -18,12 +19,12 @@ function BookPage() {
         //console.logs can ruin useEffects with asynchronous parts
         getBook()
     }, [])
+    
     async function getBook() {
         setLoading(true)
-        const resp = await fetch(`/books/${bookId}`)
-        const data = await resp.json()
-        if (resp.ok) {
-            setBook(data)
+        const fetch = await fetchGetter(`/books/${bookId}`)
+        if (fetch.resp.ok) {
+            setBook(fetch.data)
             setLoading(false)
         }
     }

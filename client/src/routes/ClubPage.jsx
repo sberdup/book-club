@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import ClubTile from '../components/ClubTile'
 import { ClubContext } from '../context/ClubContext'
 import { ClubUserContext } from '../context/ClubUserContext'
+import { fetchGetter } from '../functions/commonFunctions'
 
 function ClubPage() {
   const { club, setClub } = useContext(ClubContext)
@@ -21,13 +22,11 @@ function ClubPage() {
 
   async function getClub() {
     setLoading(true)
-    const resp = await fetch(`/clubs/${clubId}`)
-    const resp2 = await fetch(`/perms/${clubId}`)
-    const data = await resp.json()
-    const data2 = await resp2.json()
-    if (resp.ok && resp2.ok) {
-      setClub(data)
-      setClubUser(data2[0])
+    const fetch1 = await fetchGetter(`/clubs/${clubId}`)
+    const fetch2 = await fetchGetter(`/perms/${clubId}`)
+    if (fetch1.resp.ok && fetch2.resp.ok) {
+      setClub(fetch1.data)
+      setClubUser(fetch2.data[0])
       setLoading(false)
     }
   }

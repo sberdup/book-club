@@ -7,6 +7,7 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
   const emptyForm = { title: '', author: '', pages: '', genre:'', coverPicture:'', description:''}
   const {user} = useContext(UserContext)
   const {club} = useContext(ClubContext)
+  const bookIDs = collection.books.map(book => book.id) 
 
   const fileRef = useRef(null)
   const[fileName, setFileName] = useState('')
@@ -34,6 +35,9 @@ function BookForm({setErrors, collection, setCollection, source, formData, setFo
     })
     const data = await resp.json()
     if (resp.ok){
+      if (bookIDs.find(id => data.id === id)) {
+        return setErrors({errors:['Book is already in collection.']})
+      }
       if (formData.coverPicture !== '' || fileName !== '') {
         sendPic(data)
       } else {
