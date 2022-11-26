@@ -2,6 +2,7 @@ import { Box, Button, Card, Form, FormField, TextInput, Image, Paragraph, CardFo
 import React, { useState } from 'react'
 import { useContext } from 'react'
 import { ClubContext } from '../context/ClubContext'
+import { ClubUserContext } from '../context/ClubUserContext'
 import { fetchGetter } from '../functions/commonFunctions'
 import useErrors from '../functions/useErrors'
 import ErrorBox from '../subcomponents/ErrorBox'
@@ -13,6 +14,7 @@ function NewClubUser() {
     const [formData, setFormData] = useState({ username: '' })
     const [errors, setErrors] = useErrors()
     const { club, setClub } = useContext(ClubContext)
+    const {clubUser} = useContext(ClubUserContext)
 
     function inputHandler(e) {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -53,7 +55,8 @@ function NewClubUser() {
 
     return (
         <Box className='zFloor'>
-            <Button secondary color='accent-4' label={createToggle ? "Cancel" : "Add User"} alignSelf='center' fill style={{ maxWidth: '25%' }} onClick={() => setCreateToggle(!createToggle)} />
+            {clubUser?.is_admin ? <Button secondary color='accent-4' label={createToggle ? "Cancel" : "Add User"} alignSelf='center' fill style={{ maxWidth: '25%' }} onClick={() => setCreateToggle(!createToggle)} />
+            : null}
             <ErrorBox errorObject={errors}/>
             {createToggle ?
 
