@@ -9,7 +9,7 @@ import BookPage from "./routes/BookPage";
 import NavBar from "./components/NavBar";
 import ClubGrid from "./components/ClubGrid";
 import BookGrid from "./components/BookGrid";
-import { Grommet } from 'grommet'
+import { Grommet } from 'grommet';
 import { theme } from "./theme/theme.js"
 import UserGrid from "./components/UserGrid";
 import NewClubUser from "./components/NewClubUser";
