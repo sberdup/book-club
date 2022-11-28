@@ -1,6 +1,7 @@
 import { Button, Card, CardFooter, Heading, Image, Paragraph, Box } from 'grommet'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import BookRemoveButton from '../subcomponents/BookRemoveButton'
 
 function BookTile({ source, book, setFormData, bookForm }) {
 
@@ -32,6 +33,7 @@ function BookTile({ source, book, setFormData, bookForm }) {
             <Paragraph>By: {book.author.split(',').join(', ')}</Paragraph>
           </Box>
           <CardFooter margin={{ top: 'large', bottom: 'small' }}>
+            {source === 'user' ? <BookRemoveButton/> : null}
             <Link to={`/books/${book.id}`}>Book Page</Link>
           </CardFooter>
         </Card>)

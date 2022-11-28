@@ -73,7 +73,7 @@ function BookGrid({ source }) {
           (formToggle && (bookResults.items !== undefined)) ? bookResults.items.map((item, idx) => <BookTile key={idx} book={searchDataPopulator(item)} source={'search'} setFormData={setFormData} bookForm={bookForm} />)
             :
             (((collection?.books?.length > 0) || !formToggle) ?
-              collection.books.map(book => <BookTile key={book.id} book={book} source={'collection'} />)
+              collection.books.map(book => <BookTile key={book.id} book={book} source={source} />)
               :
               <h2>No books yet!</h2>)
         }
