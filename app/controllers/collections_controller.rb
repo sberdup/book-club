@@ -14,7 +14,7 @@ class CollectionsController < ApplicationController
 
     def destroy 
         find_collection.destroy 
-        head :no_content
+        render json:{message:"Book removed."}, status: :ok
     end
 
     private 
@@ -24,6 +24,6 @@ class CollectionsController < ApplicationController
     end
 
     def find_collection 
-        Collection.find(params[:id])
+        Collection.where("book_id = ? AND user_id = ?", params[:id], params[:user_id])[0]
     end
 end

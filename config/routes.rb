@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     resources :club_users
   end
   resources :users, except: [:index, :show]
+  resources :users do
+    resources :collections
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

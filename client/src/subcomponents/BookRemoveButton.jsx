@@ -1,17 +1,22 @@
 import { Button } from 'grommet'
 import React from 'react'
+import { useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 
-function BookRemoveButton( user, club, setClub, errorHandler, deleteToggle, setDeleteToggle) {
+function BookRemoveButton({bookID, errorHandler, deleteToggle, setDeleteToggle}) {
+    const {user, setUser} = useContext(UserContext)
+    
     async function deleteHandler() {
-        const resp = await fetch(`/clubs/${club.id}/club_users/${user.id}`,
+        const resp = await fetch(`/users/${user.id}/collections/${bookID}`,
             { method: 'DELETE' })
         const data = await resp.json()
         if (resp.ok) {
-            setClub({ ...club, club_users: club.club_users.filter(member => member.user.id !== parseInt(user.id)) })
+            setUser({ ...user, books: user.books.filter(book => book.id !== parseInt(bookID)) })
         } else {
             errorHandler(data)
         }
     }
+   
     return (
         <>
             {deleteToggle ?
